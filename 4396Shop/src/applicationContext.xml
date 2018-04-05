@@ -5,7 +5,7 @@
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
-	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/aop
@@ -47,4 +47,10 @@
 	</bean>
 	<!-- 开启注解事务 -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<!-- Action的配置    -->
+	<!-- 首页访问的Action -->
+	<bean id="indexAction" class="bupt.sse.shop.index.action.IndexAction" scope="prototype">
+	
+	</bean>
 </beans>

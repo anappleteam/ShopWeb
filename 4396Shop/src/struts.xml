@@ -5,7 +5,12 @@
 
 <struts>
 
-    <constant name="struts.devMode" value="false" />
-
+    <constant name="struts.devMode" value="true" />
+    <package name="shop" extends="struts-default" namespace="/">
+    	<!-- 首页访问的Action -->
+    	<action name="index" class="indexAction">
+    		<result name="index">/WEB-INF/jsp/index.jsp</result>
+    	</action>
+    </package>
 
 </struts>
