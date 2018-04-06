@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
+<link href="${pageContext.request.contextPath}/css/common.css" rel="stylesheet" type="text/css"/>
 
 <div class="container header">
 	<div class="span5">
@@ -20,7 +20,7 @@
 					<a href="./会员登录.htm">登录</a>|
 				</li>
 				<li id="headerRegister" class="headerRegister" style="display: list-item;">
-					<a href="./会员注册.htm">注册</a>|
+					<a href="${ pageContext.request.contextPath }/user_registPage.action">注册</a>|
 				</li>
 				<li id="headerUsername" class="headerUsername"></li>
 				<li id="headerLogout" class="headerLogout">

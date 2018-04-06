@@ -38,6 +38,11 @@
 			</props>
 		</property>
 		<!-- 配置Hibernate映射文件 -->
+		<property name="mappingResources">
+			<list>
+				<value>bupt/sse/shop/user/vo/User.hbm.xml</value>
+			</list>
+		</property>
 	</bean>
 	
 	<!-- 事务管理 -->
@@ -48,9 +53,30 @@
 	<!-- 开启注解事务 -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
-	<!-- Action的配置    -->
+	<!-- Action的配置 ===========================-->
+	
 	<!-- 首页访问的Action -->
 	<bean id="indexAction" class="bupt.sse.shop.index.action.IndexAction" scope="prototype">
 	
+	</bean>
+	
+	
+	<!-- 用户模块的Action -->
+	<bean id="userAction" class="bupt.sse.shop.user.action.UserAction" scope="prototype">
+		<!-- 注入Service -->
+		<property name="userService" ref="userService"/>
+	</bean>
+	
+	
+	<!-- Service的配置  ===========================-->
+	<bean id="userService" class="bupt.sse.shop.user.service.UserService">
+		<property name="userDao" ref="userDao"/>
+	</bean>
+	
+	
+	
+	<!-- Dao的配置  ===========================-->
+	<bean id="userDao" class="bupt.sse.shop.user.dao.UserDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 </beans>
