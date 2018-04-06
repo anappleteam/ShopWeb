@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	var isNValidate=true;
 	var isIValidate=true;
 	var isPValidate=true;
-
+	var isCValidate=true;
 	function checkForm(){
 /*	//校验用户名:
 	//获得用户名文本框
@@ -68,8 +68,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		alert("身份证号不能为空！")
 		return false;
 	}*/
-	if(!(isUValidate==true&&isPAValidate==true&&isRValidate==true&&isEValidate==true&&isNValidate==true&&isIValidate==true&&isPValidate==true)){
-		alert("信息有误！请仔细检查！")
+	if(!(isUValidate==true&&isPAValidate==true&&isRValidate==true&&isEValidate==true&&isNValidate==true&&isIValidate==true&&isPValidate==true&&isCValidate==true)){
+		alert("信息不全或有误！请仔细检查！")
 		return false;
 	}
 	}
@@ -264,6 +264,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			isPValidate=true;
 		}
 	}
+	function checkcodeFunction(node){
+		var checkcode=node.value;
+		if(checkcode==null||checkcode==''){
+			document.getElementById("checkcodeActionerror").textContent="验证码不能为空"
+			isCValidate=false;
+		}else{
+			document.getElementById("checkcode_span").textContent=""
+			isCValidate=true;
+		}
+	}
+	function change(){
+		var img1=document.getElementById("checkImage");
+		img1.src="<%=path%>/checkImg.action?"+new Date().getTime();
+	}
 	window.onload=function(){
 	checkUsername(document.getElementById("username"));
 	checkEmail(document.getElementById("email"));
@@ -385,8 +399,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</th>
 									<td>
 										<span class="fieldSet">
-											<input type="text" id="captcha" name="captcha" class="text captcha" maxlength="4" autocomplete="off"></input><img id="captchaImage" class="captchaImage" src="<%=path%>/image/captcha.jhtml" title="点击更换验证码">
+											<input type="text" id="checkcode" name="checkcode" class="text captcha" maxlength="5" autocomplete="off" onblur="checkcodeFunction(this)"></input><img id="checkImage" class="captchaImage" src="<%=path%>/checkImg.action" onclick="change()" ontitle="点击更换验证码">
 										</span>
+										<span id="checkcode_span"><font color="red"><s:actionerror id="checkcodeActionerror"/></font></span>
 									</td>
 								</tr>
 							<tr>
@@ -494,3 +509,4 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="copyright">Copyright © 2005-2015 网上商城 版权所有</div>
 	</div>
 </div>
+</body>

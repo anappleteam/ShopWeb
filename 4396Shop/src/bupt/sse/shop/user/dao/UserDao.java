@@ -35,4 +35,13 @@ public class UserDao extends HibernateDaoSupport {
 	public void update(User existUser) {
 		this.getHibernateTemplate().update(existUser);		
 	}
+    //ÓÃ»§µÇÂ¼
+	public User login(User user) {
+		String hql="from User where username=? and password=? and state=1";
+		List<User> users=this.getHibernateTemplate().find(hql,user.getUsername(),user.getPassword());
+		if(users!=null&&users.size()>0){
+			return users.get(0);
+		}
+		return null;
+	}
 }

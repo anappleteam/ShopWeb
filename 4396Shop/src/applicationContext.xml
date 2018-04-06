@@ -60,6 +60,10 @@
 	
 	</bean>
 	
+	<!-- 配置验证码的Action -->
+	<bean id="checkImgAction" class="bupt.sse.shop.user.action.CheckImgAction" scope="prototype">
+	
+	</bean>
 	
 	<!-- 用户模块的Action -->
 	<bean id="userAction" class="bupt.sse.shop.user.action.UserAction" scope="prototype">

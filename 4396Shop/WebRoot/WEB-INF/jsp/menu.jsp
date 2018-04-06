@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <link href="${pageContext.request.contextPath}/css/common.css" rel="stylesheet" type="text/css"/>
-
+<%@ taglib uri="/struts-tags" prefix="s"%>
 <div class="container header">
 	<div class="span5">
 		<div class="logo">
@@ -9,23 +9,34 @@
 			</a>
 		</div>
 	</div>
-	<div class="span9">
+<div class="span9">
 <div class="headerAd">
 	<img src="${pageContext.request.contextPath}/image/header.jpg" width="320" height="50" alt="正品保障" title="正品保障"/>
-</div>	</div>
+</div>
+</div>
 <div class="span10 last">
 		<div class="topNav clearfix">
 			<ul>
+				<s:if test="#session.existUser == null">
 				<li id="headerLogin" class="headerLogin" style="display: list-item;">
-					<a href="./会员登录.htm">登录</a>|
+					<a href="${ pageContext.request.contextPath }/user_loginPage.action">登录</a>|
 				</li>
 				<li id="headerRegister" class="headerRegister" style="display: list-item;">
 					<a href="${ pageContext.request.contextPath }/user_registPage.action">注册</a>|
 				</li>
-				<li id="headerUsername" class="headerUsername"></li>
-				<li id="headerLogout" class="headerLogout">
-					<a>[退出]</a>|
+				</s:if>
+				<s:else>
+				<li id="headerUsername" class="headerUsername" style="display: list-item;">
+					<s:property value="#session.existUser.username"/>
 				</li>
+
+				<li id="headerLogout" class="headerLogout" style="display: list-item;">
+					<a href="${pageContext.request.contextPath}/user_quit.action">退出</a>|
+				</li>
+								<li id="headerLogin" class="headerLogin" style="display: list-item;">
+					<a href="#">我的订单</a>|
+				</li>
+				</s:else>
 						<li>
 							<a>会员中心</a>
 							|
@@ -81,4 +92,5 @@
 					</li>
 					
 		</ul>
+</div>
 </div>
