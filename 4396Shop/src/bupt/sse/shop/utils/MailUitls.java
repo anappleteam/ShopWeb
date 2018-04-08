@@ -104,7 +104,7 @@ public class MailUitls {
         String hostAddress = address.getHostAddress();   
         
         // 5. Content: 邮件正文（可以使用html标签）（内容有广告嫌疑，避免被邮件服务器误认为是滥发广告以至返回失败，请修改发送内容）
-        message.setContent("<h1>"+name+"您好！4396购物商城官方激活邮件！点下面链接完成激活操作！</h1><h3>激活码:"+code+"</h3><h3><a href=''>http://"+hostAddress+":8080/4396Shop/user_active.action?code="+code+"</a></h3>", "text/html;charset=UTF-8");
+        message.setContent("<h1>"+name+"您好！4396购物商城官方激活邮件！点下面链接完成激活操作！</h1><h3>激活码:"+code+"</h3><h3><a href='http://"+hostAddress+":8080/4396Shop/user_active.action?code="+code+"'>点此链接完成验证</a></h3>", "text/html;charset=UTF-8");
 
         // 6. 设置发件时间
         message.setSentDate(new Date());

@@ -14,22 +14,22 @@
 <div id="divcontent">
 <table width="850px" border="0" cellspacing="0">
   <tr>
-    <td style="padding:30px; text-align:center"><table width="100%" border="0" cellspacing="0" style="margin-top:70px">
+    
+    </tr>
+</table><td style="padding:30px; text-align:center"><table width="100%" border="0" cellspacing="0" style="margin-top:70px">
       <tr>
-      	<td style="width:98"><img src="${pageContext.request.contextPath}/images/IconTexto_WebDev_009.jpg" width="128" height="128" /></td>
+      	<td style="width:98"><img src="${pageContext.request.contextPath}/images/IconTexto_WebDev_009.jpg" width="128" height="128"></td>
         <td style="padding-top:30px"><font style="font-weight:bold;">
-	        <s:actionmessage/><br>
+	        <s:actionmessage /><br>
 	        <!--<s:debug></s:debug>
 	        <s:actionerror/>-->
         </font>
-        <br />
-            <br />
+        <br>
+            <br>
          </td>
       </tr>
     </table>
     <h1>&nbsp;</h1></td>
-    </tr>
-</table>
 </div>
 <div class="container footer">
 	<div class="span24">
