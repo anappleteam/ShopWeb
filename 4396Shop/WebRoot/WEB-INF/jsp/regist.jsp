@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	var idRegex=/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
 	
 	var phoneRegex =  /^(((1[3456789][0-9]{1})|(15[0-9]{1}))+\d{8})$/;
-	
+
 	var isUValidate=true;
 	var isPAValidate=true;
 	var isRValidate=true;
@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	var isPValidate=true;
 	var isCValidate=true;
 	function checkForm(){
-/*	//校验用户名:
+	//校验用户名:
 	//获得用户名文本框
 	var username=document.getElementById("username").value;
 	if(username==null||username==''){
@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	if(identification==null||identification==''){
 		alert("身份证号不能为空！")
 		return false;
-	}*/
+	}
 	if(!(isUValidate==true&&isPAValidate==true&&isRValidate==true&&isEValidate==true&&isNValidate==true&&isIValidate==true&&isPValidate==true&&isCValidate==true)){
 		alert("信息不全或有误！请仔细检查！")
 		return false;

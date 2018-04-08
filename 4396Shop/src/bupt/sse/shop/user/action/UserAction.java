@@ -11,21 +11,21 @@ import bupt.sse.shop.user.vo.User;
 
 public class UserAction extends ActionSupport implements ModelDriven<User>{
 	private User user=new User();
-	//×¢ÈëUserService
+	//æ³¨å…¥UserService
 	private UserService userService;
-	//½ÓÊÕÑéÖ¤Âë
+	//æ¥æ”¶éªŒè¯ç 
 	private String checkcode;
 	public void setCheckcode(String checkcode) {
 		this.checkcode = checkcode;
 	}
 	/**
-	 * AJAXĞ£ÑéÓÃ»§Ãû
+	 * AJAXæ ¡éªŒç”¨æˆ·å
 	 * @return
 	 * @throws IOException 
 	 */
 	public String findByName() throws IOException{
 		User existUser=userService.findByUsername(user.getUsername());
-		//»ñµÃresponse¶ÔÏó£¬ÏòÒ³ÃæÊä³ö
+		//è·å¾—responseå¯¹è±¡ï¼Œå‘é¡µé¢è¾“å‡º
 		HttpServletResponse response=ServletActionContext.getResponse();
 		response.setContentType("text/html;charset=UTF-8");
 		if(existUser!=null){
@@ -46,56 +46,56 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		this.userService = userService;
 	}
 	public String regist(){
-		//ÅĞ¶ÏÑéÖ¤Âë
-		//´ÓsessionÖĞ»ñµÃÑéÖ¤Âë
+		//åˆ¤æ–­éªŒè¯ç 
+		//ä»sessionä¸­è·å¾—éªŒè¯ç 
 		String checkcodeString=(String) ServletActionContext.getRequest().getSession().getAttribute("checkcode");
 		if(!checkcode.equalsIgnoreCase(checkcodeString)){
-			this.addActionError("ÑéÖ¤ÂëÊäÈë´íÎó");
+			this.addActionError("éªŒè¯ç è¾“å…¥é”™è¯¯");
 			return "registcheckcodeFail";
 		}
 		userService.save(user);
-		this.addActionMessage("×¢²á³É¹¦£¡ÇëÈ¥ÓÊÏä¼¤»î£¡");
+		this.addActionMessage("æ³¨å†ŒæˆåŠŸï¼è¯·å»é‚®ç®±æ¿€æ´»ï¼");
 		return "msg";
 	}
 	/**
-	 * ÓÃ»§¼¤»î
+	 * ç”¨æˆ·æ¿€æ´»
 	 */
 	public String active() {
-		//¸ù¾İ¼¤»îÂë²éÑ¯ÓÃ»§
+		//æ ¹æ®æ¿€æ´»ç æŸ¥è¯¢ç”¨æˆ·
 		User existUser=userService.findByCode(user.getCode());
 		if(existUser==null){
-			//¼¤»îÂë´íÎó
-			this.addActionMessage("¼¤»îÊ§°Ü£¬¼¤»îÂë´íÎó£¡");
+			//æ¿€æ´»ç é”™è¯¯
+			this.addActionMessage("æ¿€æ´»å¤±è´¥ï¼Œæ¿€æ´»ç é”™è¯¯ï¼");
 		}else {
-			//¼¤»î³É¹¦
-			//ĞŞ¸ÄÓÃ»§×´Ì¬
+			//æ¿€æ´»æˆåŠŸ
+			//ä¿®æ”¹ç”¨æˆ·çŠ¶æ€
 			existUser.setState(1);
 			existUser.setCode(null);
 			userService.update(existUser);
-			this.addActionMessage("¼¤»î³É¹¦,ÇëÈ¥µÇÂ¼£¡");
+			this.addActionMessage("æ¿€æ´»æˆåŠŸ,è¯·å»ç™»å½•ï¼");
 		}
 		return "msg";
 	}
 	/**
-	 * Ìø×ªµ½µÇÂ¼½çÃæ
+	 * è·³è½¬åˆ°ç™»å½•ç•Œé¢
 	 */
 	public String loginPage() {
 		return "loginPage";
 	}
 	/**
-	 * µÇÂ¼
+	 * ç™»å½•
 	 */
 	public String login() {
-		//ÅĞ¶ÏÑéÖ¤Âë
-		//´ÓsessionÖĞ»ñµÃÑéÖ¤Âë
+		//åˆ¤æ–­éªŒè¯ç 
+		//ä»sessionä¸­è·å¾—éªŒè¯ç 
 		String checkcodeString=(String) ServletActionContext.getRequest().getSession().getAttribute("checkcode");
 		if(!checkcode.equalsIgnoreCase(checkcodeString)){
-			this.addActionError("ÑéÖ¤ÂëÊäÈë´íÎó");
+			this.addActionError("éªŒè¯ç è¾“å…¥é”™è¯¯");
 			return "logincheckcodeFail";
 		}
 		User existUser=userService.login(user);
 		if(existUser==null){
-			this.addActionError("µÇÂ¼Ê§°Ü£ºÓÃ»§Ãû»òÃÜÂëÓĞÎó»òÓÃ»§Î´¼¤»î£¡");
+			this.addActionError("ç™»å½•å¤±è´¥ï¼šç”¨æˆ·åæˆ–å¯†ç æœ‰è¯¯æˆ–ç”¨æˆ·æœªæ¿€æ´»ï¼");
 			return LOGIN;
 		}
 		else {
@@ -104,7 +104,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		}
 	}
 	/**
-	 * ÓÃ»§ÍË³ö
+	 * ç”¨æˆ·é€€å‡º
 	 */
 	public String quit() {
 		ServletActionContext.getRequest().getSession().invalidate();

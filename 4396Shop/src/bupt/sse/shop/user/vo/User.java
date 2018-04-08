@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * 
- * @author ฒÜฮýล๔
+ * @author  ๆน้”ก้น
  *
  */
 public class User {

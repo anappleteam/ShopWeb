@@ -8,7 +8,7 @@ import bupt.sse.shop.utils.UUIDUtils;
 
 @Transactional
 public class UserService {
-	//×¢ÈëUserDao
+	//æ³¨å…¥UserDao
 	private UserDao userDao;
 	
 	public void setUserDao(UserDao userDao) {
@@ -17,14 +17,14 @@ public class UserService {
 	public User findByUsername(String username) {
 		return userDao.findByUsername(username);
 	}
-	//ÊµÏÖÓÃ»§×¢²á
+	//å®ç°ç”¨æˆ·æ³¨å†Œ
 	public void save(User user) {
-		//Êı¾İ´æÈëÊı¾İ¿â
-		user.setState(0); //0´ú±íÎ´¼¤»î£¬1´ú±íÒÑ¼¤»î
+		//æ•°æ®å­˜å…¥æ•°æ®åº“
+		user.setState(0); //0ä»£è¡¨æœªæ¿€æ´»ï¼Œ1ä»£è¡¨å·²æ¿€æ´»
 		String code =UUIDUtils.getUUID()+UUIDUtils.getUUID();
 		user.setCode(code);
 		userDao.save(user);
-		//·¢ÓÊ¼ş
+		//å‘é‚®ä»¶
 		try {
 			MailUitls.sendMail(user.getEmail(), user.getName(),code);
 		} catch (Exception e) {
@@ -34,7 +34,7 @@ public class UserService {
 	public User findByCode(String code) {
 		return userDao.findByCode(code);
 	}
-	//ĞŞ¸ÄÓÃ»§×´Ì¬
+	//ä¿®æ”¹ç”¨æˆ·çŠ¶æ€
 	public void update(User existUser) {
 		userDao.update(existUser);
 	}

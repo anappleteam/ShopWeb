@@ -15,7 +15,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * 
- * @author ²ÜÎıÅô
+ * @author æ›¹é”¡é¹
  *
  */
 public class CheckImgAction extends ActionSupport {
@@ -25,24 +25,24 @@ public class CheckImgAction extends ActionSupport {
 		int width = 120;
 		int height = 30;
 
-		// ²½ÖèÒ» »æÖÆÒ»ÕÅÄÚ´æÖĞÍ¼Æ¬
+		// æ­¥éª¤ä¸€ ç»˜åˆ¶ä¸€å¼ å†…å­˜ä¸­å›¾ç‰‡
 		BufferedImage bufferedImage = new BufferedImage(width, height,
 				BufferedImage.TYPE_INT_RGB);
 
-		//²½Öè¶ş Í¼Æ¬»æÖÆ±³¾°ÑÕÉ«
+		//æ­¥éª¤äºŒ å›¾ç‰‡ç»˜åˆ¶èƒŒæ™¯é¢œè‰²
 		Graphics graphics = bufferedImage.getGraphics();
 		
 		graphics.setColor(getRandColor(200, 250));
 		graphics.fillRect(0, 0, width, height);
 
-		// ²½ÖèÈı »æÖÆ±ß¿ò
+		// æ­¥éª¤ä¸‰ ç»˜åˆ¶è¾¹æ¡†
 		graphics.setColor(Color.WHITE);
 		graphics.drawRect(0, 0, width - 1, height - 1);
 
-		// ËÄ¸öËæ»úÊı×Ö
+		// å››ä¸ªéšæœºæ•°å­—
 		Graphics2D graphics2d = (Graphics2D) graphics;
-		// ÉèÖÃÊä³ö×ÖÌå
-		graphics2d.setFont(new Font("ËÎÌå", Font.BOLD, 18));
+		// è®¾ç½®è¾“å‡ºå­—ä½“
+		graphics2d.setFont(new Font("å®‹ä½“", Font.BOLD, 18));
 
 		String words = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
 		// String words =
@@ -53,31 +53,31 @@ public class CheckImgAction extends ActionSupport {
 		
 		int x = 10;
 		for (int i = 0; i < 5; i++) {
-			// Ëæ»úÑÕÉ«
+			// éšæœºé¢œè‰²
 			graphics2d.setColor(new Color(20 + random.nextInt(110), 20 + random
 					.nextInt(110), 20 + random.nextInt(110)));
-			// Ğı×ª -30-30¶È
+			// æ—‹è½¬ -30-30åº¦
 			int jiaodu = random.nextInt(60) - 30;
-			// »»Ëã»¡¶È
+			// æ¢ç®—å¼§åº¦
 			double theta = jiaodu * Math.PI / 180;
 
-			// Éú³ÉÒ»¸öËæ»úÊı×Ö
+			// ç”Ÿæˆä¸€ä¸ªéšæœºæ•°å­—
 			int index = random.nextInt(words.length());
-			// »ñµÃÒ»¸ö×ÖÄ¸
+			// è·å¾—ä¸€ä¸ªå­—æ¯
 			char c = words.charAt(index);
 			sb.append(c);
-			// Êä³öµ½Í¼Æ¬
+			// è¾“å‡ºåˆ°å›¾ç‰‡
 			graphics2d.rotate(theta, x, 20);
 			graphics2d.drawString(String.valueOf(c), x, 20);
 			graphics2d.rotate(-theta, x, 20);
 			x += random.nextInt(20)%(20-10+1)+10;
 		}
 
-		// ½«Éú³ÉµÄ×ÖÄ¸´æÈësession
+		// å°†ç”Ÿæˆçš„å­—æ¯å­˜å…¥session
 		ServletActionContext.getRequest().getSession()
 				.setAttribute("checkcode", sb.toString());
 
-		// ²½ÖèÎå »æÖÆ¸ÉÈÅÏß
+		// æ­¥éª¤äº” ç»˜åˆ¶å¹²æ‰°çº¿
 		graphics.setColor(getRandColor(160, 200));
 		int x1;
 		int x2;
@@ -91,24 +91,24 @@ public class CheckImgAction extends ActionSupport {
 			graphics.drawLine(x1, y1, x1 + x2, x2 + y2);
 		}
 
-		// ½«ÉÏÃæÍ¼Æ¬Êä³öµ½ä¯ÀÀÆ÷ ImageIO
-		graphics.dispose();// ÊÍ·Å×ÊÔ´
+		// å°†ä¸Šé¢å›¾ç‰‡è¾“å‡ºåˆ°æµè§ˆå™¨ ImageIO
+		graphics.dispose();// é‡Šæ”¾èµ„æº
 		ImageIO.write(bufferedImage, "jpg", ServletActionContext.getResponse()
 				.getOutputStream());
 		return NONE;
 	}
 
 	/**
-	 *È¡Ä³Ò»·¶Î§µÄcolor
+	 *å–æŸä¸€èŒƒå›´çš„color
 	 * 
 	 * @param fc
-	 *            int ·¶Î§²ÎÊı1
+	 *            int èŒƒå›´å‚æ•°1
 	 * @param bc
-	 *            int ²ÎÊı2
+	 *            int å‚æ•°2
 	 * @return Color
 	 */
 	private Color getRandColor(int fc, int bc) {
-		//È¡Ä³Ëæ»úÑÕÉ«
+		//å–æŸéšæœºé¢œè‰²
 		Random random = new Random();
 		if (fc > 255) {
 			fc = 255;
