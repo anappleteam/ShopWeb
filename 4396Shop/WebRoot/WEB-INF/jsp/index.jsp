@@ -3,7 +3,7 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<%@ taglib uri="/struts-tags" prefix="s"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -42,38 +42,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</ul>
 <!-- 					<div class="hotProductAd">
 			<img src="<%=path%>/image/a.jpg" width="260" height="343" alt="热门商品" title="热门商品">
-</div> -->
+</div> --><s:debug></s:debug>
 						<ul class="tabContent" style="display: block;">
+									<s:iterator var="p" value="hList">
+									
 									<li>
-										<a target="_blank"><img src="<%=path%>/image/b.jpg" data-original="http://storage.shopxx.net/demo-image/3.0/201301/0ff130db-0a1b-4b8d-a918-ed9016317009-thumbnail.jpg" style="display: block;"></a>
+										<a target="_blank"><img src="<%= path %>/<s:property value="#p.image"/>" data-original="http://storage.shopxx.net/demo-image/3.0/201301/0ff130db-0a1b-4b8d-a918-ed9016317009-thumbnail.jpg" style="display: block;"/></a>
 									</li>
-									<li>
-										<a  target="_blank"><img src="<%=path%>/image/c.jpg" data-original="http://storage.shopxx.net/demo-image/3.0/201301/51afeef5-f6cb-4936-abea-315cfca0edc0-thumbnail.jpg" style="display: block;"></a>
-									</li>
-									<li>
-										<a  target="_blank"><img src="<%=path%>/image/d.jpg" style="display: block;"></a>
-									</li>
-									<li>
-										<a  target="_blank"><img src="<%=path%>/image/e.jpg" style="display: block;"></a>
-									</li>
-									<li>
-										<a target="_blank"><img src="<%=path%>/image/f.jpg" style="display: block;"></a>
-									</li>
-									<li>
-										<a  target="_blank"><img src="<%=path%>/image/g.jpg" style="display: block;"></a>
-									</li>
-									<li>
-										<a  target="_blank"><img src="<%=path%>/image/h.jpg" style="display: block;"></a>
-									</li>
-									<li>
-										<a target="_blank"><img src="<%=path%>/image/i.jpg" style="display: block;"></a>
-									</li>
-									<li>
-										<a target="_blank"><img src="<%=path%>/image/i.jpg" style="display: block;"></a>
-									</li>
-									<li>
-										<a target="_blank"><img src="<%=path%>/image/i.jpg" style="display: block;"></a>
-									</li>
+									</s:iterator>
 						</ul>
 						<ul class="tabContent" style="display: none;">
 									<li>
@@ -321,6 +297,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<div class="span24">
 		<div class="copyright">Copyright © 2005-2015 网上商城 版权所有</div>
+		
 	</div>
 </div>
 </body></html>
