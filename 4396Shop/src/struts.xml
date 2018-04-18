@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE struts PUBLIC
 	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
@@ -9,6 +9,7 @@
     <package name="shop" extends="struts-default" namespace="/">
     	<global-results>
     		<result name="msg">/WEB-INF/jsp/msg.jsp</result>
+			<result name="login">/WEB-INF/jsp/login.jsp</result>
     	</global-results>
     	<!-- 首页访问的Action -->
     	<action name="index" class="indexAction">
@@ -20,7 +21,6 @@
 			<result name="registPage">/WEB-INF/jsp/regist.jsp</result>
 			<result name="input">/WEB-INF/jsp/regist.jsp</result>
 			<result name="loginPage">/WEB-INF/jsp/login.jsp</result>
-			<result name="login">/WEB-INF/jsp/login.jsp</result>
 			<result name="loginSuccess" type="redirectAction">index</result>
 			<result name="quit" type="redirectAction">index</result>
 			<result name="registcheckcodeFail">/WEB-INF/jsp/regist.jsp</result>
@@ -28,6 +28,10 @@
     	</action>
     	<!-- 验证码的Action -->
     	<action name="checkImg" class="checkImgAction"></action>
+    	
+    	<action name="order_*" class="orderAction" method="{1}">
+    		<result name="saveSuccess">/WEB-INF/jsp/order.jsp</result>
+    	</action>
     </package>
 
 </struts>
