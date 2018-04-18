@@ -27,7 +27,11 @@ public class IndexAction extends ActionSupport {
 		//将一级分类放入session
 		ActionContext.getContext().getSession().put("cList",cList);
 		List<Product> hList= productService.findHot();
+		//查询热门商品
 		ActionContext.getContext().getValueStack().set("hList", hList);
+		//查询最新商品
+		List<Product> nList=productService.fingNew();
+		ActionContext.getContext().getValueStack().set("nList", nList);
 		return "index";
 	}
 }

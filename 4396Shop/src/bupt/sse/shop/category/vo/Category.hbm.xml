@@ -8,5 +8,9 @@
     			<generator class="native"></generator>
     		</id>
     		<property name="cname"></property>
+    		<set order-by="csid" name="categorySeconds" lazy="false">
+    			<key column="cid"/>
+    			<one-to-many class="bupt.sse.shop.categorysecond.vo.CategorySecond"/>
+    		</set>
     	</class>
     </hibernate-mapping>
