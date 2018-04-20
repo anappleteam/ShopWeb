@@ -46,7 +46,7 @@
 			</ul>
 		</div>
 		<div class="cart">
-			<a href="./购物车.htm">购物车</a>
+			<a href="${ pageContext.request.contextPath }/order_save.action">购物车</a>
 		</div>
 		<div class="phone">
 			客服热线: <strong>96008/53277764</strong>
@@ -58,8 +58,7 @@
 			<li><a href="${pageContext.request.contextPath }/index.action">首页</a>
 				|</li>
 			<s:iterator var="c" value="#session.cList">
-
-				<li><a href="./products.jsp?#{c.name}"><s:property value="#c.cname" /></a> |
+				<li><a href="${pageContext.request.contextPath }/product_findByCid.action?cid=<s:property value="#c.cid" />&page=1"><s:property value="#c.cname" /></a> |
 				</li>
 			</s:iterator>
 
