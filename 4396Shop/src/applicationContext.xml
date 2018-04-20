@@ -44,6 +44,8 @@
 				<value>bupt/sse/shop/category/vo/Category.hbm.xml</value>
 				<value>bupt/sse/shop/product/vo/Product.hbm.xml</value>
 				<value>bupt/sse/shop/categorysecond/vo/CategorySecond.hbm.xml</value>
+				<value>bupt/sse/shop/order/vo/Order.hbm.xml</value>
+				<value>bupt/sse/shop/order/vo/OrderItem.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -80,6 +82,10 @@
 		<property name="productService" ref="productService"/>
 	</bean>
 	
+	<!--订单的Action -->
+	<bean id="orderAction" class="bupt.sse.shop.order.action.OrderAction" scope="prototype">
+		<property name="orderService" ref="orderService"/>
+	</bean>
 	
 	<!-- Service的配置  ===========================-->
 	<bean id="userService" class="bupt.sse.shop.user.service.UserService">

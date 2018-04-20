@@ -39,7 +39,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 		product.setIs_hot(1);
 		product.setMarket_price(1.00);
 		product.setPdesc("virtual data");
-		product.setPid(80);
+		product.setPid(70);
 		product.setPname("Virtual");
 		product.setShop_price(1.00);
 		
