@@ -5,7 +5,7 @@
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
-	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/aop
@@ -80,6 +80,7 @@
 		<property name="productService" ref="productService"/>
 	</bean>
 	
+	
 	<!-- Service的配置  ===========================-->
 	<bean id="userService" class="bupt.sse.shop.user.service.UserService">
 		<property name="userDao" ref="userDao"/>
@@ -89,6 +90,9 @@
 	</bean>
 	<bean id="productService" class="bupt.sse.shop.product.service.ProductService">
 		<property name="productDao" ref="productDao"></property>
+	</bean>
+	<bean id="orderService" class="bupt.sse.shop.order.service.OrderService">
+		<property name="orderDao" ref="orderDao"/>
 	</bean>
 	
 	
@@ -102,5 +106,8 @@
 	</bean>
 	<bean id="productDao" class="bupt.sse.shop.product.dao.ProductDao">
 		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="orderDao" class="bupt.sse.shop.order.dao.OrderDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 </beans>
