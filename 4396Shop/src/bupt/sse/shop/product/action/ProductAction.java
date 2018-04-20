@@ -20,6 +20,16 @@ public class ProductAction extends ActionSupport implements ModelDriven<Product>
 	private ProductService productService;
 	//接受分类cid
 	private Integer cid;
+	//接受二级分类的id
+	private Integer csid;
+	public Integer getCsid() {
+		return csid;
+	}
+
+	public void setCsid(Integer csid) {
+		this.csid = csid;
+	}
+
 	//注入一级分类的Service
 	private CategoryService categoryService;
 	//接受当前页数
@@ -62,5 +72,13 @@ public class ProductAction extends ActionSupport implements ModelDriven<Product>
 		//将pagebean 存入值站中。
 		ActionContext.getContext().getValueStack().set("pageBean", pageBean);
 		return "findByCid";
+	}
+	
+	//根据商品的二级分类id查询商品
+	public String findByCsid() {
+		//
+		PageBean<Product> pageBean=productService.findByPageCsid(csid, page);
+		ActionContext.getContext().getValueStack().set("pageBean",pageBean);
+		return "findByCsid";
 	}
 }
