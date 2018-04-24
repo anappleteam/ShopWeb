@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-<title>订单页面</title>
+<title>我的订单页面</title>
 <link href="${pageContext.request.contextPath}/css/common.css" rel="stylesheet" type="text/css"/>
 <link href="${pageContext.request.contextPath}/css/cart.css" rel="stylesheet" type="text/css"/>
 
@@ -18,7 +18,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 
 
-			
 </div>
 	<%@ include file="menu.jsp" %>
 </div>	
@@ -26,20 +25,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="container cart">
 
 		<div class="span24">
-			<div class="step step1">
-				<ul>
-					
-					<li  class="current"></li>
-					<li  >生成订单成功</li>
+		
+			<div class="step">
+				<ul> 
+					<li  >我的所有订单</li>
 				</ul>
 			</div>
 	
 		
 				<table>
 					<tbody>
+					<s:iterator value="pageBean.list" var="order">
 					<tr>
-						
-						<th colspan="5">订单编号:<s:property value="model.oid"/>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+						<th colspan="5">订单编号:<s:property value="#order.oid"/>&nbsp;&nbsp;&nbsp;&nbsp;
+							订单状态:
+							<s:if test="#order.state==1">
+								<a href="${pageContext.request.contextPath}/order_findByOid.action?oid=<s:property value="#order.oid"/>"><font color="red">付款</font></a>
+							</s:if>
+							<s:if test="#order.state==2">
+								已付款
+							</s:if>
+							<s:if test="#order.state==3">
+								已发货
+							</s:if>
+							<s:if test="#order.state==4">
+								交易完成
+							</s:if>
+						</th>
 					</tr>
 					<tr>
 						<th>图片</th>
@@ -49,8 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<th>小计</th>
 					</tr>
 					
-					<s:iterator var="orderItem" value="model.orderItems">
-					
+					<s:iterator value="#order.orderItems" var='orderItem'>
 						<tr>
 							<td width="60">
 								<input type="hidden" name="id" value="22"/>
@@ -69,39 +80,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<span class="subtotal"><s:property value="#orderItem.subtotal"/></span>
 							</td>
 						</tr>
+						</s:iterator>
 					</s:iterator>
+					<tr>
+						<td colspan="5">
+							<div class="pagination">
+								<span>第<s:property value="pageBean.page"/>/<s:property value="pageBean.totalPage"/>页</span>
+									<s:if test="pageBean.page != 1">
+										<a href="<%=path %>/order_findByUid.action?page=1" class="firstPage">&nbsp;</a>
+										<a href="<%=path %>/order_findByUid.action?page=<s:property value="pageBean.page-1"/>" class="previousPage">&nbsp;</a>
+									</s:if>
+									<s:iterator var="i" begin="1" end="pageBean.totalPage">
+									<s:if test="pageBean.page != #i">
+										<a href="<%=path %>/order_findByUid.action?page=<s:property value="#i"/>"><s:property value="#i"/></a>
+									</s:if>
+									<s:else>
+										<span class="currentPage"><s:property value="#i"/></span>
+									</s:else>
+									</s:iterator>
+									<s:if test="pageBean.page != pageBean.totalPage">
+										<a class="nextPage" href="<%=path %>/order_findByUid.action?page=<s:property value="pageBean.page+1"/>">&nbsp;</a>			
+										<a class="lastPage" href="<%=path %>/order_findByUid.action?page=<s:property value="pageBean.totalPage"/>">&nbsp;</a>
+									</s:if>
+							</div>
+						</td>
+					</tr>
 				</tbody>
 			</table>
-				<dl id="giftItems" class="hidden" style="display: none;">
-				</dl>
-				<div class="total">
-					<em id="promotion"></em>
-					商品金额: <strong id="effectivePrice">￥<s:property value="model.total"/>元</strong>
-				</div>
-			<form id="orderForm" action="${ pageContext.request.contextPath }/order_payOrder.action" method="post">
-				<input type="hidden" name="oid" value="<s:property value="model.oid"/>"/>
-				<div class="span24">
-					<p>
-							收货地址：<input name="addr" type="text" value="<s:property value="model.user.addr"/>" style="width:350px" />
-								<br />
-							收货人&nbsp;&nbsp;&nbsp;：<input name="name" type="text" value="<s:property value="model.user.name"/>" style="width:150px" />
-								<br /> 
-							联系方式：<input name="phone" type="text"value="<s:property value="model.user.phone"/>" style="width:150px" />
-
-						</p>
-						<hr /> 	
-						<p>
-							本网站使用支付宝支付
-						</p>
-						<hr />
-						<p style="text-align:right">
-							<a href="javascript:document.getElementById('orderForm').submit();">
-								<img src="${pageContext.request.contextPath}/images/finalbutton.gif" width="204" height="51" border="0" />
-							</a>
-						</p>
-				</div> 
-			</form>
-		</div>
+				
 		
 	</div>
 <div class="container footer">

@@ -12,6 +12,6 @@
 		<property name="subtotal"/>
 		
 		<many-to-one name="order" class="bupt.sse.shop.order.vo.Order" column="oid"></many-to-one>
-		<many-to-one name="product" class="bupt.sse.shop.product.vo.Product" column="pid"></many-to-one>
+		<many-to-one name="product" lazy="false" class="bupt.sse.shop.product.vo.Product" column="pid"></many-to-one>
 	</class>
 </hibernate-mapping>

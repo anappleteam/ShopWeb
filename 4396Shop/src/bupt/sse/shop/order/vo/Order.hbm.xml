@@ -17,7 +17,7 @@
 		
 		<many-to-one name="user" lazy="false" class="bupt.sse.shop.user.vo.User" column="uid"/>
 		
-		<set name="orderItems" cascade="save-update">
+		<set name="orderItems" lazy="false" cascade="save-update">
 			<key column="oid"/>
 			<one-to-many class="bupt.sse.shop.order.vo.OrderItem"/>
 		</set>
