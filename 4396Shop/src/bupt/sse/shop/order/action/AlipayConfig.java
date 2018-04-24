@@ -25,7 +25,7 @@ public class AlipayConfig {
 	// 支付宝公钥,查看地址：https://openhome.alipay.com/platform/keyManage.htm 对应APPID下的支付宝公钥。
     public static String alipay_public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzccG7B3sy7EIkU2uArNhJUZD/KQ//s6/04J2s7vAKf2BOauKoy+ZMvhneZVFmcnRxFv1Oys2FhGd7yH0DHCxdYf0mYSSCNVMfgy0ZBn2U9TjydDO8Nby2a+SrIEjgpRvHrYqo0VGDSXLXKtlp3Gtwpa9nyJtwsEsnVbxBXcHkFIVPYvDReKU1JqAXvG8AXezHuBHewcYDo8cOguCr9z3Vmy2zwNcP1HNyoLSlfd/6JgRTox+rQZPsr8JrnsBgTdWvt0B2wkedD6aA0T9rDum1myPea95YGJCqP+hKjXCgfLIS6OKBaIaJd+2dqH4fhhSpbdov/7PfTV+nSwl4I7fFQIDAQAB";
 	// 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-	public static String notify_url = "http://localhost:8080/alipay.trade.page.pay-JAVA-UTF-8/notify_url.jsp";
+	public static String notify_url = "http://localhost:8080/4396Shop/order_notifyorder.action";
 
 	// 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
 	public static String return_url = "http://localhost:8080/4396Shop/order_returnorder.action";
