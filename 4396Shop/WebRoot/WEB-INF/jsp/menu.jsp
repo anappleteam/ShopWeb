@@ -2,7 +2,7 @@
 <link href="${pageContext.request.contextPath}/css/common.css"
 	rel="stylesheet" type="text/css" />
 <%@ taglib uri="/struts-tags" prefix="s"%>
-<div class="container header">
+<div class="container header ">
 	<div class="span5">
 		<div class="logo">
 			<a href="./网上商城/index.htm"> 
@@ -65,3 +65,4 @@
 		</ul>
 	</div>
 </div>
+<s:debug></s:debug>

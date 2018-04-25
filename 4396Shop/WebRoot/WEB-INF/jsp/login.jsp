@@ -37,7 +37,7 @@ function change(){
 	}
 </script>
 </head>
-<body>
+<body style="margin-top: 80px">
 
 </div>	<div class="container login">
 		<div class="span12">

@@ -768,6 +768,16 @@ div.path li.last {
 
 /* ---------- Header ---------- */
 
+div.header{
+	background-color:white;
+}
+
+.fixed-top{
+	position:fixed;
+	top: 0px;
+	padding-bottom: 1px;
+}
+
 div.header .logo {
 	height: 50px;
 	padding-top: 10px;
@@ -1054,3 +1064,4 @@ div.pagination .pageBreak {
 	color: #3366cc;
 	cursor: default;
 }
+
