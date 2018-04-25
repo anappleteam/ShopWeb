@@ -83,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <s:if test="csid != null">
 	<s:if test="pageBean.page != 1">
 			<a href="<%=path %>/product_findByCsid.action?csid=<s:property value="csid"/>&page=1" class="firstPage">&nbsp;</a>
-			<a href="<%=path %>/product_findByCsid.action?scid=<s:property value="csid"/>&page=<s:property value="pageBean.page-1"/>" class="previousPage">&nbsp;</a>
+			<a href="<%=path %>/product_findByCsid.action?csid=<s:property value="csid"/>&page=<s:property value="pageBean.page-1"/>" class="previousPage">&nbsp;</a>
 	</s:if>
 			<s:iterator var="i" begin="1" end="pageBean.totalPage">
 			<s:if test="pageBean.page != #i">

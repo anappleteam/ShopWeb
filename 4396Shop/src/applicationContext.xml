@@ -82,6 +82,11 @@
 		<property name="productService" ref="productService"/>
 	</bean>
 	
+	<!-- 购物车的Action -->
+	<bean id="cartAction" class="bupt.sse.shop.cart.action.CartAction" scope="prototype">
+		<property name="productService" ref="productService" />
+	</bean>
+	
 	<!--订单的Action -->
 	<bean id="orderAction" class="bupt.sse.shop.order.action.OrderAction" scope="prototype">
 		<property name="orderService" ref="orderService"/>

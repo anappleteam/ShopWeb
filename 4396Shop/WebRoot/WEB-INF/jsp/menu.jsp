@@ -38,7 +38,7 @@
 						href="${pageContext.request.contextPath}/user_quit.action">退出</a>|
 					</li>
 					<li id="headerLogin" class="headerLogin"
-						style="display: list-item;"><a href="#">我的订单</a>|</li>
+						style="display: list-item;"><a href="${pageContext.request.contextPath}/order_findByUid.action?page=1">我的订单</a>|</li>
 				</s:else>
 				<li><a>会员中心</a> |</li>
 				<li><a>购物指南</a> |</li>
@@ -46,7 +46,7 @@
 			</ul>
 		</div>
 		<div class="cart">
-			<a href="${ pageContext.request.contextPath }/order_save.action">购物车</a>
+			<a href="${ pageContext.request.contextPath }/cart_myCart.action">购物车</a>
 		</div>
 		<div class="phone">
 			客服热线: <strong>96008/53277764</strong>

@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</ul>
 <!-- 					<div class="hotProductAd">
 			<img src="<%=path%>/image/a.jpg" width="260" height="343" alt="热门商品" title="热门商品">
-</div> --><s:debug></s:debug>
+</div> -->
 						<ul class="tabContent" style="display: block;">
 									<s:iterator var="p" value="hList">
 									

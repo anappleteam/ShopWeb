@@ -38,6 +38,17 @@
     	</action>
     	<action name="order_*" class="orderAction" method="{1}">
     		<result name="saveSuccess">/WEB-INF/jsp/order.jsp</result>
+    		<result name="findByUidSuccess">/WEB-INF/jsp/orderList.jsp</result>
+    		<result name="findByOidSuccess">/WEB-INF/jsp/order.jsp</result>
+    		<result name="paySuccess" type="redirectAction">order_findByUid.action?page=1</result>
+    	</action>
+    	
+    	<!-- 购物车的action -->
+    	<action name="cart_*" class="cartAction" method="{1}">
+    	<result name="addCart">/WEB-INF/jsp/cart.jsp</result>
+    	<result name="clearCart">/WEB-INF/jsp/cart.jsp</result>
+    	<result name="removeCart">/WEB-INF/jsp/cart.jsp</result>
+    	<result name="myCart">/WEB-INF/jsp/cart.jsp</result>
     	</action>
     </package>
 
