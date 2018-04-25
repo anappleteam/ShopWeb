@@ -7,6 +7,7 @@
 
     <constant name="struts.devMode" value="true" />
     <package name="shop" extends="struts-default" namespace="/">
+    	<default-action-ref name="index"></default-action-ref>
     	<global-results>
     		<result name="msg">/WEB-INF/jsp/msg.jsp</result>
 			<result name="login">/WEB-INF/jsp/login.jsp</result>
@@ -49,6 +50,19 @@
     	<result name="clearCart">/WEB-INF/jsp/cart.jsp</result>
     	<result name="removeCart">/WEB-INF/jsp/cart.jsp</result>
     	<result name="myCart">/WEB-INF/jsp/cart.jsp</result>
+    	</action>
+    	<!-- 后台用户的action -->
+    	<action name="adminUser_*" class="adminUserAction" method="{1}">
+    		<result name="loginFail">/admin/index.jsp</result>
+    		<result name="loginSuccess" type="redirect">/admin/home.jsp</result>
+    	</action>
+    	<!-- 配置后台一级分类管理的action -->
+    	<action name="adminCategory_*" class="adminCategoryAction" method="{1}">
+    		<result name="findAll">/admin/category/list.jsp</result>
+    		<result name="saveSuccess" type="redirectAction">adminCategory_findAll.action</result>
+    		<result name="deleteSuccess" type="redirectAction">adminCategory_findAll.action</result>
+    		<result name="editSuccess">/admin/category/edit.jsp</result>
+    		<result name="updateSuccess" type="redirectAction">adminCategory_findAll.action</result>
     	</action>
     </package>
 

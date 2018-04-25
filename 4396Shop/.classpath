@@ -62,8 +62,5 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Friday/rmsportal_6680_alipay.trade.page.pay-JAVA-UTF-8/WebContent/WEB-INF/lib/alipay-sdk-java20170324180803.jar"/>
-	<classpathentry kind="lib" path="D:/Friday/rmsportal_6680_alipay.trade.page.pay-JAVA-UTF-8/WebContent/WEB-INF/lib/alipay-sdk-java20170324180803-source.jar"/>
-	<classpathentry kind="lib" path="D:/Friday/rmsportal_6680_alipay.trade.page.pay-JAVA-UTF-8/WebContent/WEB-INF/lib/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

@@ -46,6 +46,7 @@
 				<value>bupt/sse/shop/categorysecond/vo/CategorySecond.hbm.xml</value>
 				<value>bupt/sse/shop/order/vo/Order.hbm.xml</value>
 				<value>bupt/sse/shop/order/vo/OrderItem.hbm.xml</value>
+				<value>bupt/sse/shop/adminuser/vo/AdminUser.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -91,7 +92,14 @@
 	<bean id="orderAction" class="bupt.sse.shop.order.action.OrderAction" scope="prototype">
 		<property name="orderService" ref="orderService"/>
 	</bean>
-	
+	<!-- 后台用户的action -->
+	<bean id="adminUserAction" class="bupt.sse.shop.adminuser.action.AdminUserAction" scope="prototype">
+		<property name="adminUserService" ref="adminUserService"/>
+	</bean>
+	<!-- 后台一级分类管理的action -->
+	<bean id="adminCategoryAction" class="bupt.sse.shop.category.adminaction.AdminCategoryAction" scope="prototype">
+		<property name="categoryService" ref="categoryService"/>
+	</bean>
 	<!-- Service的配置  ===========================-->
 	<bean id="userService" class="bupt.sse.shop.user.service.UserService">
 		<property name="userDao" ref="userDao"/>
@@ -104,6 +112,9 @@
 	</bean>
 	<bean id="orderService" class="bupt.sse.shop.order.service.OrderService">
 		<property name="orderDao" ref="orderDao"/>
+	</bean>
+	<bean id="adminUserService" class="bupt.sse.shop.adminuser.service.AdminUserService">
+		<property name="adminUserDao" ref="adminUserDao"/>
 	</bean>
 	
 	
@@ -119,6 +130,9 @@
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<bean id="orderDao" class="bupt.sse.shop.order.dao.OrderDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="adminUserDao" class="bupt.sse.shop.adminuser.dao.AdminUserDao">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 </beans>
