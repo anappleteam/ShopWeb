@@ -44,7 +44,12 @@ public class ProductService {
 		pageBean.setTotalCount(totalCount);
 		//设置总页数
 		int totalPage=0;
-		totalPage=(int) Math.ceil(totalCount/limit);
+		//totalPage=(int) Math.ceil(totalCount/limit);
+		if(totalCount % limit ==0){
+			totalPage = totalCount/limit;
+		}else {
+			totalPage= totalCount/limit +1;
+		}
 		pageBean.setTotalPage(totalPage);
 		//每页显示的数据集合
 		//从那开始
@@ -68,7 +73,12 @@ public class ProductService {
 		pageBean.setTotalCount(totalCount);
 		//设置总页数
 		int totalPage=0;
-		totalPage=(int) Math.ceil(totalCount/limit);
+		//totalPage=(int) Math.ceil(totalCount/limit);
+		if(totalCount % limit ==0){
+			totalPage = totalCount/limit;
+		}else {
+			totalPage= totalCount/limit +1;
+		}
 		pageBean.setTotalPage(totalPage);
 		//每页显示的数据集合
 		//从那开始
