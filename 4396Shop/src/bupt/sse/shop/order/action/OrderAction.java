@@ -36,6 +36,8 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
+import bupt.sse.shop.cart.vo.Cart;
+import bupt.sse.shop.cart.vo.CartItem;
 import bupt.sse.shop.order.service.OrderService;
 import bupt.sse.shop.order.vo.Order;
 import bupt.sse.shop.order.vo.OrderItem;
@@ -66,27 +68,16 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	//从购物车到订单
 	
 	public String save(){
-		order.setOrdertime(new Date());
+		Cart cart = (Cart) ServletActionContext.getRequest().getSession().getAttribute("cart");
+		if (cart == null) {
+			this.addActionMessage("亲!您还没有购物!");
+			return "msg";
+		}
+		order.setTotal(cart.getTotal());
 		order.setState(1);
-		order.setTotal(1.00);
+		order.setOrdertime(new Date());
 		
-		//vertual data
-		Product product = new Product();
-		product.setImage("'product/vd.jpg'");
-		product.setIs_hot(1);
-		product.setMarket_price(1.00);
-		product.setPdesc("virtual data");
-		product.setPid(70);
-		product.setPname("Virtual");
-		product.setShop_price(1.00);
 		
-		OrderItem orderItem = new OrderItem();
-		orderItem.setCount(1);
-		orderItem.setSubtotal(1.00);
-		orderItem.setProduct(product);
-		orderItem.setOrder(order);
-		
-		order.getOrderItems().add(orderItem);
 		User existUser = (User) ServletActionContext.getRequest().getSession()
 				.getAttribute("existUser");
 		if(existUser == null){
@@ -94,8 +85,21 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 			return "login";
 		}
 		order.setUser(existUser);
-		orderService.save(order);
 		
+		for (CartItem cartItem : cart.getCartItems()) {
+			// 订单项的信息从购物项获得的.
+			OrderItem orderItem = new OrderItem();
+			orderItem.setCount(cartItem.getCount());
+			orderItem.setSubtotal(cartItem.getSubtotal());
+			orderItem.setProduct(cartItem.getProduct());
+			orderItem.setOrder(order);
+
+			order.getOrderItems().add(orderItem);
+		}
+		
+		
+		orderService.save(order);
+		cart.clearCart();
 		
 		return "saveSuccess";
 	}
