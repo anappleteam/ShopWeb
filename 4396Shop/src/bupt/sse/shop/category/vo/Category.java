@@ -7,6 +7,7 @@ import java.util.Set;
 import bupt.sse.shop.categorysecond.vo.CategorySecond;
 
 public class Category implements Serializable{
+
 	private Integer cid;
 	private String cname;
 	//一级分类中存放二级分类的集合
