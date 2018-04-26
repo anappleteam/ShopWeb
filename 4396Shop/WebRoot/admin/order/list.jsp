@@ -73,7 +73,7 @@
 								<tr
 									style="FONT-WEIGHT: bold; FONT-SIZE: 12pt; HEIGHT: 25px; BACKGROUND-COLOR: #afd1f3">
 
-									<td align="center" width="10%">
+									<td align="center" width="7%">
 										序号
 									</td>
 									<td align="center" width="10%">
@@ -88,7 +88,7 @@
 									<td align="center" width="10%">
 										订单状态
 									</td>
-									<td align="center" width="50%">
+									<td align="center" width="*">
 										订单详情
 									</td>
 								</tr>

@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import bupt.sse.shop.order.dao.OrderDao;
 import bupt.sse.shop.order.vo.Order;
+import bupt.sse.shop.order.vo.OrderItem;
 import bupt.sse.shop.utils.PageBean;
 
 
@@ -71,6 +72,12 @@ public class OrderService {
 		List<Order> list=orderDao.findByPage(begin,limit);
 		pageBean.setList(list);
 		return pageBean;
+	}
+	
+	//根据订单id查询订单项
+	public List<OrderItem> findOrderItem(Integer oid) {
+		
+		return orderDao.findOrderItem(oid);
 	}
 	
 }
