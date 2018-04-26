@@ -23,11 +23,7 @@
 </head>
 <body>
 
-	<div class="container header">
-
 		<jsp:include page="menu.jsp" />
-
-	</div>
 	<div class="container productContent">
 		<div class="span6">
 			<div class="hotProductCategory">
@@ -51,7 +47,7 @@
 
 
 		</div>
-		<div class="span18 last">
+		<div class="span16 last">
 
 			<div class="productImage">
 				<a title="" style="outline-style: none; text-decoration: none;"
