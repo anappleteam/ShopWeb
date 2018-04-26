@@ -81,6 +81,9 @@
     		<result name="deleteSuccess" type="redirectAction">adminCategorySecond_findAll.action?page=1</result>
     		<result name="editSuccess" >/admin/categorysecond/edit.jsp</result>
     		<result name="updateSuccess" type="redirectAction">adminCategorySecond_findAll.action?page=1</result>
+    		
+    		<interceptor-ref name="PrivilegeInterceptor"/>
+    		<interceptor-ref name="defaultStack"/>
     	</action>
     	
     	<!-- 商品管理的Action -->
@@ -91,6 +94,9 @@
     		<result name="deleteSuccess" type="redirectAction">adminProduct_findAll.action?page=1</result>
     		<result name="editSuccess">/admin/product/edit.jsp</result>
     		<result name="updateSuccess" type="redirectAction">adminProduct_findAll.action?page=1</result>
+    		
+    		<interceptor-ref name="PrivilegeInterceptor"/>
+    		<interceptor-ref name="defaultStack"/>
     	</action>
     	
     	<!-- 配置后台订单管理的Action -->
