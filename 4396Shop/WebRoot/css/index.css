@@ -310,7 +310,7 @@ div.index .middleAd {
 	margin-bottom: 10px;
 }
 
-div.index .hotProduct {
+div.index .hotProduct {】
 	margin-bottom: 10px;
 }
 
@@ -320,7 +320,7 @@ div.index .hotProduct .title {
 	float: left;
 	margin-bottom: 10px;
 	/* background: url(../images/index.gif) 0px -150px no-repeat; */
-	background-color: #825996;
+	background-color: #000000;
 }
 
 div.index .hotProduct .title strong {
@@ -341,14 +341,14 @@ div.index .hotProduct .title a {
 }
 
 div.index .hotProduct .tab {
-	width: 690px;
+	width: 1090px;
 	height: 40px;
 	line-height: 40px;
 	float: left;
 	margin-bottom: 10px;
 	overflow: hidden;
 	/* background: url(../images/index.gif) 0px -210px repeat-x; */
-	background-color: #825996;
+	background-color: #000000;
 }
 
 div.index .hotProduct .tab li {
@@ -366,7 +366,7 @@ div.index .hotProduct .tab li {
 
 div.index .hotProduct .tab li.current {
 	font-weight: bold;
-	background-color: #825996;
+	background-color: #000000;
 }
 
 div.index .hotProduct .hotProductAd {
@@ -376,7 +376,7 @@ div.index .hotProduct .hotProductAd {
 }
 
 div.index .hotProduct .tabContent {
-	width: 950px;
+	width: 1350px;
 	float: left;
 	padding-left: 5px;
 	_padding-left: 2px;
@@ -398,8 +398,8 @@ div.index .hotProduct .tabContent li:hover {
 }
 
 div.index .hotProduct .tabContent img {
-	width: 170px;
-	height: 170px;
+	width: 250px;
+	height: 250px;
 	display: block;
 }
 
@@ -413,7 +413,7 @@ div.index .newProduct .title {
 	float: left;
 	margin-bottom: 10px;
 	/* background: url(../images/index.gif) 0px -270px no-repeat; */
-	background-color: #AB7156;
+	background-color: #000000;
 
 }
 
@@ -435,14 +435,14 @@ div.index .newProduct .title a {
 }
 
 div.index .newProduct .tab {
-	width: 690px;
+	width: 1090px;
 	height: 40px;
 	line-height: 40px;
 	float: left;
 	margin-bottom: 10px;
 	overflow: hidden;
 	/* background: url(../images/index.gif) 0px -330px repeat-x; */
-	background-color: #AB7156;
+	background-color: #000000;
 }
 
 div.index .newProduct .tab li {
@@ -459,7 +459,7 @@ div.index .newProduct .tab li {
 
 div.index .newProduct .tab li.current {
 	font-weight: bold;
-	background-color: #AB7156;
+	background-color: #000000;
 }
 
 div.index .newProduct .newProductAd {
@@ -469,7 +469,7 @@ div.index .newProduct .newProductAd {
 }
 
 div.index .newProduct .tabContent {
-	width: 950px;
+	width: 1350px;
 	float: left;
 	padding-left: 5px;
 	_padding-left: 2px;
@@ -490,8 +490,8 @@ div.index .newProduct .tabContent li:hover {
 }
 
 div.index .newProduct .tabContent img {
-	width: 170px;
-	height: 170px;
+	width: 250px;
+	height: 250px;
 	display: block;
 }
 

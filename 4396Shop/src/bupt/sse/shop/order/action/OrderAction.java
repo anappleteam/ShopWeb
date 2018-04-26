@@ -3,6 +3,8 @@ package bupt.sse.shop.order.action;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -67,7 +69,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	
 	//从购物车到订单
 	
-	public String save(){
+	public String save() throws ParseException{
 		Cart cart = (Cart) ServletActionContext.getRequest().getSession().getAttribute("cart");
 		if (cart == null) {
 			this.addActionMessage("亲!您还没有购物!");
@@ -75,7 +77,11 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 		}
 		order.setTotal(cart.getTotal());
 		order.setState(1);
-		order.setOrdertime(new Date());
+		Date date=new Date();                             
+        SimpleDateFormat temp=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");  
+        String date2=temp.format(date);  
+        Date date3=temp.parse(date2);  
+		order.setOrdertime(date3);
 		
 		
 		User existUser = (User) ServletActionContext.getRequest().getSession()

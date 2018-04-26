@@ -51,7 +51,7 @@
 
 
 		</div>
-		<div class="span18 last">
+		<div class="span16 last">
 
 			<div class="productImage">
 				<a title="" style="outline-style: none; text-decoration: none;"
