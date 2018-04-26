@@ -773,9 +773,14 @@ div.header{
 }
 
 .fixed-top{
+	z-index: 1024;
 	position:fixed;
 	top: 0px;
 	padding-bottom: 1px;
+}
+
+.flow-down{
+	margin-top:108px!important;
 }
 
 div.header .logo {
@@ -1065,4 +1070,10 @@ div.pagination .pageBreak {
 	cursor: default;
 }
 
-div.
+div.center-block{
+	float: none;  
+    display: block;  
+    left:0;
+    right:0;
+}
+
