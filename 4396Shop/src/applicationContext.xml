@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
@@ -14,19 +12,20 @@
 	http://www.springframework.org/schema/tx/spring-tx.xsd">
 	<!-- 配置连接池: -->
 	<!-- 引入外部属性文件 -->
-	<context:property-placeholder location="classpath:jdbc.properties"/>
+	<context:property-placeholder location="classpath:jdbc.properties" />
 	<!-- 配置C3P0连接池: -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" value="${jdbc.driver}"/>
-		<property name="jdbcUrl" value="${jdbc.url}"/>
-		<property name="user" value="${jdbc.user}"/>
-		<property name="password" value="${jdbc.password}"/>
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.user}" />
+		<property name="password" value="${jdbc.password}" />
 	</bean>
-	
+
 	<!-- Hibernate相关信息 -->
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<!-- 注入连接池 -->
-		<property name="dataSource" ref="dataSource"/>
+		<property name="dataSource" ref="dataSource" />
 		<!-- 配置Hibernata的其他属性 -->
 		<property name="hibernateProperties">
 			<props>
@@ -43,62 +42,72 @@
 				<value>bupt/sse/shop/user/vo/User.hbm.xml</value>
 				<value>bupt/sse/shop/category/vo/Category.hbm.xml</value>
 				<value>bupt/sse/shop/product/vo/Product.hbm.xml</value>
-				<value>bupt/sse/shop/categorysecond/vo/CategorySecond.hbm.xml</value>
+				<value>bupt/sse/shop/categorysecond/vo/CategorySecond.hbm.xml
+				</value>
 				<value>bupt/sse/shop/order/vo/Order.hbm.xml</value>
 				<value>bupt/sse/shop/order/vo/OrderItem.hbm.xml</value>
 				<value>bupt/sse/shop/adminuser/vo/AdminUser.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
-	
+
 	<!-- 事务管理 -->
 	<!-- 事务管理器 -->
-	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<!-- 开启注解事务 -->
-	<tx:annotation-driven transaction-manager="transactionManager"/>
-	
-	<!-- Action的配置 ===========================-->
-	
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- Action的配置 =========================== -->
+
 	<!-- 首页访问的Action -->
-	<bean id="indexAction" class="bupt.sse.shop.index.action.IndexAction" scope="prototype">
+	<bean id="indexAction" class="bupt.sse.shop.index.action.IndexAction"
+		scope="prototype">
 		<property name="categoryService" ref="categoryService"></property>
 		<property name="productService" ref="productService"></property>
 	</bean>
-	
+
 	<!-- 配置验证码的Action -->
-	<bean id="checkImgAction" class="bupt.sse.shop.user.action.CheckImgAction" scope="prototype">
-	
+	<bean id="checkImgAction" class="bupt.sse.shop.user.action.CheckImgAction"
+		scope="prototype">
+
 	</bean>
-	
+
 	<!-- 用户模块的Action -->
-	<bean id="userAction" class="bupt.sse.shop.user.action.UserAction" scope="prototype">
+	<bean id="userAction" class="bupt.sse.shop.user.action.UserAction"
+		scope="prototype">
 		<!-- 注入Service -->
-		<property name="userService" ref="userService"/>
+		<property name="userService" ref="userService" />
 	</bean>
-	
+
 	<!-- 商品模块的Action -->
-	<bean id="productAction" class="bupt.sse.shop.product.action.ProductAction" scope="prototype">
-		<property name="productService" ref="productService"/>
-	</bean>
-	
-	<!-- 购物车的Action -->
-	<bean id="cartAction" class="bupt.sse.shop.cart.action.CartAction" scope="prototype">
+	<bean id="productAction" class="bupt.sse.shop.product.action.ProductAction"
+		scope="prototype">
 		<property name="productService" ref="productService" />
 	</bean>
-	
+
+	<!-- 购物车的Action -->
+	<bean id="cartAction" class="bupt.sse.shop.cart.action.CartAction"
+		scope="prototype">
+		<property name="productService" ref="productService" />
+	</bean>
+
 	<!--订单的Action -->
-	<bean id="orderAction" class="bupt.sse.shop.order.action.OrderAction" scope="prototype">
-		<property name="orderService" ref="orderService"/>
+	<bean id="orderAction" class="bupt.sse.shop.order.action.OrderAction"
+		scope="prototype">
+		<property name="orderService" ref="orderService" />
 	</bean>
 	<!-- 后台用户的action -->
-	<bean id="adminUserAction" class="bupt.sse.shop.adminuser.action.AdminUserAction" scope="prototype">
-		<property name="adminUserService" ref="adminUserService"/>
+	<bean id="adminUserAction" class="bupt.sse.shop.adminuser.action.AdminUserAction"
+		scope="prototype">
+		<property name="adminUserService" ref="adminUserService" />
 	</bean>
 	<!-- 后台一级分类管理的action -->
-	<bean id="adminCategoryAction" class="bupt.sse.shop.category.adminaction.AdminCategoryAction" scope="prototype">
-		<property name="categoryService" ref="categoryService"/>
+	<bean id="adminCategoryAction" class="bupt.sse.shop.category.adminaction.AdminCategoryAction"
+		scope="prototype">
+		<property name="categoryService" ref="categoryService" />
 	</bean>
 	
 	<!-- 后台订单管理的action -->
@@ -106,8 +115,24 @@
 		<property name="orderService" ref="orderService"/>
 	</bean>
 	<!-- Service的配置  ===========================-->
+	<!-- 后台二级分类管理的action -->
+	<bean id="adminCategorySecondAction"
+		class="bupt.sse.shop.categorysecond.adminaction.AdminCategorySecondAction"
+		scope="prototype">
+		<property name="categorySecondService" ref="categorySecondService" />
+		<property name="categoryService" ref="categoryService" />
+	</bean>
+	<!-- 后台商品管理的action -->
+	<bean id="adminProductAction" class="bupt.sse.shop.product.adminaction.AdminProductAction"
+		scope="prototype">
+		<property name="productService" ref="productService"></property>
+		<property name="categorySecondService" ref="categorySecondService"></property>
+	</bean>
+
+
+	<!-- Service的配置 =========================== -->
 	<bean id="userService" class="bupt.sse.shop.user.service.UserService">
-		<property name="userDao" ref="userDao"/>
+		<property name="userDao" ref="userDao" />
 	</bean>
 	<bean id="categoryService" class="bupt.sse.shop.category.service.CategoryService">
 		<property name="categoryDao" ref="categoryDao"></property>
@@ -116,17 +141,22 @@
 		<property name="productDao" ref="productDao"></property>
 	</bean>
 	<bean id="orderService" class="bupt.sse.shop.order.service.OrderService">
-		<property name="orderDao" ref="orderDao"/>
+		<property name="orderDao" ref="orderDao" />
 	</bean>
 	<bean id="adminUserService" class="bupt.sse.shop.adminuser.service.AdminUserService">
-		<property name="adminUserDao" ref="adminUserDao"/>
+		<property name="adminUserDao" ref="adminUserDao" />
 	</bean>
-	
-	
-	
-	<!-- Dao的配置  ===========================-->
+	<!-- 二级分类的service -->
+	<bean id="categorySecondService"
+		class="bupt.sse.shop.categorysecond.service.CategorySecondService">
+		<property name="categorySecondDao" ref="categorySecondDao"></property>
+	</bean>
+
+
+
+	<!-- Dao的配置 =========================== -->
 	<bean id="userDao" class="bupt.sse.shop.user.dao.UserDao">
-		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<bean id="categoryDao" class="bupt.sse.shop.category.dao.CategoryDao">
 		<property name="sessionFactory" ref="sessionFactory"></property>
@@ -135,9 +165,14 @@
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<bean id="orderDao" class="bupt.sse.shop.order.dao.OrderDao">
-		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	<!-- 后台登录的Dao -->
 	<bean id="adminUserDao" class="bupt.sse.shop.adminuser.dao.AdminUserDao">
-		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- 二级分类的Dao -->
+	<bean id="categorySecondDao" class="bupt.sse.shop.categorysecond.dao.CategorySecondDao">
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 </beans>

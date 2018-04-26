@@ -4,7 +4,6 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-	<!-- 1 -->
     <constant name="struts.devMode" value="true" />
     <package name="shop" extends="struts-default" namespace="/">
     	<interceptors>
@@ -74,6 +73,22 @@
     		<interceptor-ref name="defaultStack"/>
     	</action>
     	
+    	<!-- 配置后台二级分类管理的action -->
+    	<action name="adminCategorySecond_*" class="adminCategorySecondAction" method="{1}">
+    		<result name="findAll">/admin/categorysecond/list.jsp</result>
+    		<result name="addPage">/admin/categorysecond/add.jsp</result>
+    		<result name="save" type="redirectAction">adminCategorySecond_findAll.action?page=1</result>
+    		<result name="deleteSuccess" type="redirectAction">adminCategorySecond_findAll.action?page=1</result>
+    		<result name="editSuccess" >/admin/categorysecond/edit.jsp</result>
+    		<result name="updateSuccess" type="redirectAction">adminCategorySecond_findAll.action?page=1</result>
+    	</action>
+    	
+    	<!-- 商品管理的Action -->
+    	<action name="adminProduct_*" class="adminProductAction" method="{1}">
+    		<result name="findAll">/admin/product/list.jsp</result>
+    		<result name="addPage">/admin/product/add.jsp</result>
+    	</action>
+    	
     	<!-- 配置后台订单管理的Action -->
     	<action name="adminOrder_*" class="adminOrderAction" method="{1}">
     		<result name="findAll">/admin/order/list.jsp</result>
@@ -83,6 +98,5 @@
     		<interceptor-ref name="PrivilegeInterceptor"/>
     		<interceptor-ref name="defaultStack"/>
     	</action>
-    </package>
-
+</package>
 </struts>

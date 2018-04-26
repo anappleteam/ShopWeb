@@ -69,7 +69,7 @@
 											</td>
 											<td style="CURSOR: hand; HEIGHT: 22px" align="center"
 												width="17%">
-												<img width="40" height="45" src="${ pageContext.request.contextPath }/<s:property value="#p.image"/>">
+												<img alt="商品图标"width="40" height="45" src="${ pageContext.request.contextPath }/<s:property value="#p.image"/>">
 											</td>
 											<td style="CURSOR: hand; HEIGHT: 22px" align="center"
 												width="17%">

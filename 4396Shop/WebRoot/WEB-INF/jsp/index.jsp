@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 </div>	
 
-<div class="container index flow-down">
+<div class="container index">
 		
 
 		<div class="span24">
