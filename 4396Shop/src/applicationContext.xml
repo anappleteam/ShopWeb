@@ -100,6 +100,11 @@
 	<bean id="adminCategoryAction" class="bupt.sse.shop.category.adminaction.AdminCategoryAction" scope="prototype">
 		<property name="categoryService" ref="categoryService"/>
 	</bean>
+	
+	<!-- 后台订单管理的action -->
+	<bean id="adminOrderAction" class="bupt.sse.shop.order.adminaction.AdminOrderAction" scope="prototype">
+		<property name="orderService" ref="orderService"/>
+	</bean>
 	<!-- Service的配置  ===========================-->
 	<bean id="userService" class="bupt.sse.shop.user.service.UserService">
 		<property name="userDao" ref="userDao"/>
