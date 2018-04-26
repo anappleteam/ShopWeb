@@ -87,5 +87,30 @@ public class ProductService {
 		pageBean.setList(list);
 		return pageBean;
 	}
+	//业务层查询商品带分页
+	public PageBean<Product> findByPage(Integer page){
+		PageBean<Product> pageBean=new PageBean<Product>();
+		//设置当前页数
+		pageBean.setPage(page);
+		//设置每页显示的记录数
+		int limit=6;
+		pageBean.setLimit(limit);
+		//设置总记录数
+		int totalCount=productDao.findCount();
+		pageBean.setTotalCount(totalCount);
+		//设置总页数
+		int totalPage=0;
+		if (totalCount%limit==0) {
+			totalPage=totalCount/limit;
+		}else {
+			totalPage=totalCount/limit+1;
+		}
+		pageBean.setTotalPage(totalPage);
+		int begin=(page-1)*limit;
+		List<Product> pList=productDao.findByPage(begin,limit);
+		pageBean.setList(pList);
+		return pageBean;
+		
+	}
 	
 }
