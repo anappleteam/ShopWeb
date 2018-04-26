@@ -7,6 +7,7 @@
 
     <constant name="struts.devMode" value="true" />
     <package name="shop" extends="struts-default" namespace="/">
+    	<default-action-ref name="index"/>
     	<global-results>
     		<result name="msg">/WEB-INF/jsp/msg.jsp</result>
 			<result name="login">/WEB-INF/jsp/login.jsp</result>
