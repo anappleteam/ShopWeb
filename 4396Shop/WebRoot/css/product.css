@@ -582,7 +582,7 @@ div.productList .table {
 }
 
 div.productList .table li {
-	width: 176px;
+	width: 220px;
 	height: 246px;
 	line-height: 20px;
 	float: left;
@@ -1189,7 +1189,7 @@ div.productContent .bar {
 }
 
 div.productContent .bar ul {
-	width: 708px;
+	width: 1008px;
 	height: 32px;
 	padding: 1px 0px;
 	border: 1px solid #dddddd;
@@ -1257,7 +1257,7 @@ div.productContent .introduction .title strong, div.productContent .parameter .t
 }
 
 div.productContent .introduction {
-	width: 710px;
+	width: 1008px;
 	margin-bottom: 10px;
 	overflow: hidden;
 }

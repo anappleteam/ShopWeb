@@ -36,6 +36,9 @@
 					<td class="ta_01" bgColor="#ffffff">
 						
 						<select name="is_hot">
+							
+							<option value="1" <s:if test="model.is_hot==1">selected</s:if> >是</option>
+							<option value="0" <s:if test="model.is_hot==1">selected</s:if> >是</option>
 						</select>
 					</td>
 				</tr>
@@ -68,7 +71,8 @@
 					<td class="ta_01" bgColor="#ffffff" colspan="3">
 						<select name="categorySecond.csid">
 							<s:iterator var="cs" value="csList">
-								
+								 
+								<option value="<s:property value="#cs.csid"/>" <s:if test="#cs.csid==model.categorySecond.csid">selected</s:if> ><s:property value="#cs.csname"/></option>
 							</s:iterator>
 						</select>
 					</td>

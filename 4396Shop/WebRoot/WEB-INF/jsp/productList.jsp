@@ -16,7 +16,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 </head>
 <body>
-<div class="container header">
 	<jsp:include page="menu.jsp"/>
 <div class="container productList">
 		<div class="span6">
@@ -38,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="span18 last">
 			
 			<form id="productForm" action="<%=path%>/image/蔬菜 - Powered By Mango Team.htm" method="get">
-					
+					 
 				<div id="result" class="result table clearfix">
 						<ul>
 						<s:iterator var="p" value="pageBean.list">

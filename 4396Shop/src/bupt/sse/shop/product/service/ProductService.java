@@ -113,4 +113,21 @@ public class ProductService {
 		
 	}
 	
+	//保存商品
+	public void save(Product product) {
+		productDao.save(product);
+		
+	}
+	
+	//删除商品
+	public void delete(Product product) {
+		productDao.delete(product);
+	}
+	
+	//修改商品
+	public void update(Product product) {
+		productDao.update(product);
+		
+	}
+	
 }

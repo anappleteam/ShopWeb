@@ -46,7 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								已付款
 							</s:if>
 							<s:if test="#order.state==3">
-								已发货
+								<a href="${pageContext.request.contextPath}/order_updateState.action?oid=<s:property value="#order.oid"/>"><font color="red">确认收货</font></a>
 							</s:if>
 							<s:if test="#order.state==4">
 								交易完成
