@@ -110,4 +110,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		ServletActionContext.getRequest().getSession().invalidate();
 		return "quit";
 	}
+	public String merchantsettle(){
+		return "settle";
+	}
 }

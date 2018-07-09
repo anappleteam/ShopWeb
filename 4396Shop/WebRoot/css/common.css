@@ -798,7 +798,12 @@ div.header .topNav li {
 }
 
 div.header .topNav li a {
+	color:#FFFFFF;
 	margin: 0px 6px;
+}
+
+div.header .topNav li a:hover {
+	color:#FF9933;
 }
 
 div.header .headerLogin, div.header .headerRegister, div.header .headerUsername, div.header .headerLogout {
@@ -833,16 +838,16 @@ div.header .phone strong {
 }
 
 div.header .mainNav {
+	padding-top:16px;
 	height: 36px;
 	overflow: hidden;
-	background-color: #1d1d1d;
 }
 
 div.header .mainNav li {
 	height: 36px;
 	line-height: 36px;
 	float: left;
-	color: #747474;
+	color: #FFFFFF;
 }
 
 div.header .mainNav li:hover {
@@ -944,6 +949,10 @@ div.header .search button {
 }
 
 /* ---------- Footer ---------- */
+
+div.footer {
+	text-align:center;
+}
 
 div.footer .bottomNav {
 	margin-bottom: 10px;

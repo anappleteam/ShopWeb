@@ -29,7 +29,8 @@
 			<result name="loginSuccess" type="redirectAction">index</result>
 			<result name="quit" type="redirectAction">index</result>
 			<result name="registcheckcodeFail">/WEB-INF/jsp/regist.jsp</result>
-			<result name="logincheckcodeFail">/WEB-INF/jsp/login.jsp</result>
+			<result name="logincheckcodeFail">/WEB-INF/jsp/login.jsp</result>		
+			<result name="settle">/WEB-INF/jsp/settle.jsp</result>
     	</action>
     	<!-- 验证码的Action -->
     	<action name="checkImg" class="checkImgAction"></action>

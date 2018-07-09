@@ -2,7 +2,7 @@
 <link href="${pageContext.request.contextPath}/css/common.css"
 	rel="stylesheet" type="text/css" />
 <%@ taglib uri="/struts-tags" prefix="s"%>
-<div class="header" style="background-color: #000000;position:fixed;z-index:9999;width:100%;margin-top:-165px">
+<div class="header" style="background-color: #000000;position:fixed;z-index:9999;width:100%;height:160px;margin-top:-160px">
 		
 	<div class="span24 last">
 		<div class="logo">
@@ -31,10 +31,10 @@
 					</li>
 					<li id="headerLogin" class="headerLogin"
 						style="display: list-item;"><a href="${pageContext.request.contextPath}/order_findByUid.action?page=1">我的订单</a>|</li>
+					<li id="headerLogin" class="headerLogin"
+						style="display: list-item;"><a href="${pageContext.request.contextPath}/user_merchantsettle.action">商家入驻</a>|</li>
 				</s:else>
 				<li><a href="${ pageContext.request.contextPath }/cart_myCart.action">购物车</a> |</li>
-				<li><a>会员中心</a> |</li>
-				<li><a>购物指南</a> |</li>
 				<li><a>关于我们</a></li>
 			</ul>
 		</div>

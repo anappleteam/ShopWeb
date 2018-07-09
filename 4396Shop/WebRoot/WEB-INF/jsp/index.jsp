@@ -20,9 +20,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 </div>	
 
-<div class="container index">
+<div class="container index" >
 		
-
+		<img src="<%=path%>/image/20180708212234_278212.jpg" width="100%" height="100%" href="${ pageContext.request.contextPath }/user_loginPage.action" />
 		<div class="span24">
 			<div id="hotProduct" class="hotProduct clearfix">
 					<div class="title">
@@ -277,7 +277,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</ul>
 	</div>
 	<div class="span24">
-		<div class="copyright">Copyright © 2005-2015 网上商城 版权所有</div>
+		<div class="copyright">Copyright © An Apple Team 网上商城 版权所有</div>
 		
 	</div>
 </div>
