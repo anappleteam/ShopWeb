@@ -22,7 +22,7 @@ public class CheckImgAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		int width = 120;
+		int width = 100;
 		int height = 30;
 
 		// 步骤一 绘制一张内存中图片
@@ -42,7 +42,7 @@ public class CheckImgAction extends ActionSupport {
 		// 四个随机数字
 		Graphics2D graphics2d = (Graphics2D) graphics;
 		// 设置输出字体
-		graphics2d.setFont(new Font("宋体", Font.BOLD, 18));
+		graphics2d.setFont(new Font("宋体", Font.BOLD, 20));
 
 		String words = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
 		// String words =
@@ -52,7 +52,7 @@ public class CheckImgAction extends ActionSupport {
 		StringBuffer sb = new StringBuffer();
 		
 		int x = 10;
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 4; i++) {
 			// 随机颜色
 			graphics2d.setColor(new Color(20 + random.nextInt(110), 20 + random
 					.nextInt(110), 20 + random.nextInt(110)));
@@ -70,7 +70,7 @@ public class CheckImgAction extends ActionSupport {
 			graphics2d.rotate(theta, x, 20);
 			graphics2d.drawString(String.valueOf(c), x, 20);
 			graphics2d.rotate(-theta, x, 20);
-			x += random.nextInt(20)%(20-10+1)+10;
+			x += random.nextInt(20)%(20-10+1)+15;
 		}
 
 		// 将生成的字母存入session
