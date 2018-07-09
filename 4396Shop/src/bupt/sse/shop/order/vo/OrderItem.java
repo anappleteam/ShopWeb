@@ -1,6 +1,8 @@
 package bupt.sse.shop.order.vo;
 
 import bupt.sse.shop.product.vo.Product;
+import bupt.sse.shop.store.vo.Store;
+import bupt.sse.shop.user.vo.User;
 
 public class OrderItem {
 	private Integer itemid;
@@ -8,6 +10,21 @@ public class OrderItem {
 	private Double subtotal;
 	private Product product;
 	private Order order;
+	private Store store;
+	private Integer state;
+	
+	public Store getStore() {
+		return store;
+	}
+	public void setStore(Store store) {
+		this.store = store;
+	}
+	public Integer getState() {
+		return state;
+	}
+	public void setState(Integer state) {
+		this.state = state;
+	}
 	public Integer getItemid() {
 		return itemid;
 	}

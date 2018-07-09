@@ -1,6 +1,9 @@
 package bupt.sse.shop.user.vo;
 
 import java.util.Date;
+import java.util.Set;
+
+import bupt.sse.shop.cart.vo.CartItem;
 
 /**
  * 
@@ -20,6 +23,13 @@ public class User {
 	private String addr;
 	private int state;
 	private String code;
+	private Set<CartItem> cart;
+	public Set<CartItem> getCart() {
+		return cart;
+	}
+	public void setCart(Set<CartItem> cart) {
+		this.cart = cart;
+	}
 	public int getUid() {
 		return uid;
 	}

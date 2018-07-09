@@ -3,6 +3,7 @@ package bupt.sse.shop.product.vo;
 import java.sql.Date;
 
 import bupt.sse.shop.categorysecond.vo.CategorySecond;
+import bupt.sse.shop.store.vo.Store;
 
 public class Product {
 	private Integer pid;
@@ -11,10 +12,26 @@ public class Product {
 	private Double shop_price;
 	private String image;
 	private String pdesc;
+	private Integer pavailable;
 	private Integer is_hot;
 	private Date pdate;
+	private Store store;
 	//二级分类的外键；使用二级分类对象；
 	private CategorySecond categorySecond;
+	
+	public Store getStore() {
+		return store;
+	}
+	public void setStore(Store store) {
+		this.store = store;
+	}
+	public Integer getPavailable() {
+		return pavailable;
+	}
+	public void setPavailable(Integer pavailable) {
+		this.pavailable = pavailable;
+	}
+	
 	public Integer getPid() {
 		return pid;
 	}

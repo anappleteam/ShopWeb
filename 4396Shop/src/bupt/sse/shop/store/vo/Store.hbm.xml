@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="bupt.sse.shop.store.vo.Store" table="store">
+		<id name="sid">
+			<generator class="native"/>
+		</id>
+		
+		<property name="sname"/>
+		<property name="sdesc"/>
+		
+		<many-to-one name="owner" lazy="false" class="bupt.sse.shop.user.vo.User" column="uid"/>
+		
+		<set name="products" order-by="pid" lazy="false">
+			<key column="pid"/>
+			<one-to-many class="bupt.sse.shop.product.vo.Product"/>
+		</set>
+	</class>
+</hibernate-mapping>
