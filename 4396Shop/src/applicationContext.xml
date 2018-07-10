@@ -34,6 +34,7 @@
 				<prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.connection.autocommit">false</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.autoReconnect">true</prop>
 			</props>
 		</property>
 		<!-- 配置Hibernate映射文件 -->
@@ -81,6 +82,7 @@
 		scope="prototype">
 		<!-- 注入Service -->
 		<property name="userService" ref="userService" />
+		<property name="storeService" ref="storeService"></property>
 	</bean>
 
 	<!-- 商品模块的Action -->
@@ -115,7 +117,7 @@
 	<bean id="adminOrderAction" class="bupt.sse.shop.order.adminaction.AdminOrderAction" scope="prototype">
 		<property name="orderService" ref="orderService"/>
 	</bean>
-	<!-- Service的配置  ===========================-->
+
 	<!-- 后台二级分类管理的action -->
 	<bean id="adminCategorySecondAction"
 		class="bupt.sse.shop.categorysecond.adminaction.AdminCategorySecondAction"
@@ -130,7 +132,12 @@
 		<property name="categorySecondService" ref="categorySecondService"></property>
 	</bean>
 
-
+	
+	<!-- 后台店铺管理的action -->
+	<bean id="adminStoreAction" class="bupt.sse.shop.store.adminaction.AdminStoreAction" scope="prototype">
+		<property name="storeService" ref="storeService"/>
+	</bean>
+	
 	<!-- Service的配置 =========================== -->
 	<bean id="userService" class="bupt.sse.shop.user.service.UserService">
 		<property name="userDao" ref="userDao" />
@@ -152,8 +159,10 @@
 		class="bupt.sse.shop.categorysecond.service.CategorySecondService">
 		<property name="categorySecondDao" ref="categorySecondDao"></property>
 	</bean>
-
-
+	<!-- 店铺的service -->
+	<bean id="storeService" class="bupt.sse.shop.store.service.StoreService">
+		<property name="storeDao" ref="storeDao" />
+	</bean>
 
 	<!-- Dao的配置 =========================== -->
 	<bean id="userDao" class="bupt.sse.shop.user.dao.UserDao">
@@ -174,6 +183,11 @@
 	</bean>
 	<!-- 二级分类的Dao -->
 	<bean id="categorySecondDao" class="bupt.sse.shop.categorysecond.dao.CategorySecondDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<!-- 店铺的Dao -->
+	<bean id="storeDao" class="bupt.sse.shop.store.dao.StoreDao">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 </beans>

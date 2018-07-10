@@ -116,6 +116,18 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								</ul>
 								<!-- /nav-second-level -->
 							</li>
+							<li>
+								<a href="#"><i class="fa fa-th-large nav_icon"></i>店铺管理<span class="fa arrow"></span></a>
+								<ul class="nav nav-second-level collapse">
+									<li>
+										<a href="${pageContext.request.contextPath}/adminStore_findAllAudit.action?page=1" target="mainFrame">开店审核</a>
+									</li>	
+									<li>
+										<a href="${pageContext.request.contextPath}/adminStore_findAll.action?page=1" target="mainFrame">店铺管理</a>
+									</li>	
+								</ul>
+								<!-- /nav-second-level -->
+							</li>
 						</ul>
 					</div>
 					<!-- //sidebar-collapse -->

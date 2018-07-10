@@ -31,8 +31,14 @@
 					</li>
 					<li id="headerLogin" class="headerLogin"
 						style="display: list-item;"><a href="${pageContext.request.contextPath}/order_findByUid.action?page=1">我的订单</a>|</li>
-					<li id="headerLogin" class="headerLogin"
+					<s:if test="#session.existUser.state==1 ||#session.existUser.state==2 ">
+						<li id="headerLogin" class="headerLogin"
 						style="display: list-item;"><a href="${pageContext.request.contextPath}/user_merchantsettle.action">商家入驻</a>|</li>
+					</s:if>
+					<s:elseif test="#session.existUser.state==3">
+						<li id="headerLogin" class="headerLogin"
+						style="display: list-item;"><a href="${pageContext.request.contextPath}/user_mystore.action">我的店铺</a>|</li>
+					</s:elseif>
 				</s:else>
 				<li><a href="${ pageContext.request.contextPath }/cart_myCart.action">购物车</a> |</li>
 				<li><a>关于我们</a></li>
