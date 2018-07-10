@@ -94,6 +94,12 @@
 		scope="prototype">
 		<property name="productService" ref="productService" />
 	</bean>
+	
+	<!-- 店铺的Action -->
+	<bean id="storeAction" class="bupt.sse.shop.store.action.StoreAction"
+		scope="prototype">
+		<property name="storeService" ref="storeService"/>
+	</bean>
 
 	<!--订单的Action -->
 	<bean id="orderAction" class="bupt.sse.shop.order.action.OrderAction"
@@ -144,6 +150,10 @@
 	<bean id="orderService" class="bupt.sse.shop.order.service.OrderService">
 		<property name="orderDao" ref="orderDao" />
 	</bean>
+	<!-- 店铺的service -->
+	<bean id="storeService" class="bupt.sse.shop.store.service.StoreService">
+		<property name="storeDao" ref="storeDao"/>
+	</bean>
 	<bean id="adminUserService" class="bupt.sse.shop.adminuser.service.AdminUserService">
 		<property name="adminUserDao" ref="adminUserDao" />
 	</bean>
@@ -168,6 +178,11 @@
 	<bean id="orderDao" class="bupt.sse.shop.order.dao.OrderDao">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	<!-- 店铺的Dao -->
+	<bean id="storeDao" class="bupt.sse.shop.store.dao.StoreDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
 	<!-- 后台登录的Dao -->
 	<bean id="adminUserDao" class="bupt.sse.shop.adminuser.dao.AdminUserDao">
 		<property name="sessionFactory" ref="sessionFactory" />
