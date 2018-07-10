@@ -114,7 +114,8 @@
     	<action name="adminStore_*" class="adminStoreAction" method="{1}">
     		<result name="findAllAudit">/admin/store/auditList.jsp</result>
     		<result name="findAll">/admin/store/storeList.jsp</result>
-    		<result name="acceptSuccess" type="redirectAction">adminStore_findAll.action?page=1</result>
+    		<result name="acceptSuccess" type="redirectAction">adminStore_findAllAudit.action?page=1</result>
+    		<result name="rejectSuccess" type="redirectAction">adminStore_findAllAudit.action?page=1</result>
     		<result name="infoPage">/admin/store/info.jsp</result> 
     		
     		<interceptor-ref name="PrivilegeInterceptor"/>

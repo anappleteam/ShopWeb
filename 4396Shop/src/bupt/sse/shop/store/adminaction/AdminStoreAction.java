@@ -5,6 +5,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import bupt.sse.shop.store.service.StoreService;
 import bupt.sse.shop.store.vo.Store;
+import bupt.sse.shop.user.service.UserService;
 import bupt.sse.shop.utils.PageBean;
 
 public class AdminStoreAction extends ActionSupport{
@@ -14,7 +15,12 @@ public class AdminStoreAction extends ActionSupport{
 	public void setStoreService(StoreService storeService) {
 		this.storeService = storeService;
 	}
+	//注入userService
+	private UserService userService;
 	
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 	//接收page参数
 	private Integer page;
 
@@ -52,7 +58,16 @@ public class AdminStoreAction extends ActionSupport{
 		Store store=storeService.findBySid(sid);
 		store.setState(1);
 		storeService.updateStore(store);
+		store.getOwner().setState(3);
+		userService.update(store.getOwner());
 		return "acceptSuccess";
+	}
+	
+	public String reject(){
+		//先查询店铺
+		Store store=storeService.findBySid(sid);
+		storeService.deleteStore(store);
+		return "rejectSuccess";
 	}
 	
 	public String information(){

@@ -136,6 +136,7 @@
 	<!-- 后台店铺管理的action -->
 	<bean id="adminStoreAction" class="bupt.sse.shop.store.adminaction.AdminStoreAction" scope="prototype">
 		<property name="storeService" ref="storeService"/>
+		<property name="userService" ref="userService"/>
 	</bean>
 	
 	<!-- Service的配置 =========================== -->

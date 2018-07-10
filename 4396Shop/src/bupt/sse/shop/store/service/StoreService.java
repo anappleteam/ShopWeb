@@ -73,9 +73,13 @@ public class StoreService {
 	public Store findBySid(Integer sid) {
 		return storeDao.findById(sid);
 	}
-
+	//更新店铺信息
 	public void updateStore(Store store) {
 		storeDao.update(store);
+	}
+	//删除店铺
+	public void deleteStore(Store store) {
+		storeDao.delete(store);
 	}
 
 

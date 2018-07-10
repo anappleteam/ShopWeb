@@ -14,6 +14,13 @@
     			window.location.href = "${pageContext.request.contextPath}/adminStore_accept.action?sid="+sid;
     			}
 			}
+			function disp_confirm_delete(sid){
+				var r=confirm("将删除该申请");
+ 				if (r==true)
+   				{
+    			window.location.href = "${pageContext.request.contextPath}/adminStore_reject.action?sid="+sid;
+    			}
+			}
 		</script>
 	</HEAD>
 	<body>
@@ -79,8 +86,9 @@
 											</td>
 											<td align="center" style="HEIGHT: 22px">
 												<input type="button" value="通过" id="but<s:property value="#store.sid"/>" onclick="disp_confirm(<s:property value="#store.sid"/>)"/>
+												<input type="button" value="不通过" id="but<s:property value="#store.sid"/>" onclick="disp_confirm_delete(<s:property value="#store.sid"/>)"/>
 											</td>
-							
+											
 										</tr>
 									</s:iterator>	
 							</table>

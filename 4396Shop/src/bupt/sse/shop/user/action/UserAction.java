@@ -136,6 +136,8 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 				this.addActionMessage("您已提交入驻申请，请等待审核！");
 				return "msg";
 			}
+			existUser.setState(2);
+			userService.update(existUser);
 		}
 		return "settle";
 	}

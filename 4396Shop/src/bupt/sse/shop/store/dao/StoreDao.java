@@ -2,8 +2,10 @@ package bupt.sse.shop.store.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import bupt.sse.shop.product.vo.Product;
 import bupt.sse.shop.store.vo.Store;
 import bupt.sse.shop.utils.PageHibernateCallback;
 
@@ -62,6 +64,13 @@ public class StoreDao extends HibernateDaoSupport {
 			return list;
 		}
 		return null;
+	}
+
+	public void delete(Store store) {
+		String hqlString="delete from Store where sid=?";
+		Query query=this.getSession().createQuery(hqlString);
+		query.setParameter(0, store.getSid());
+		query.executeUpdate();
 	}
 
 }
