@@ -50,6 +50,11 @@
     		<result name="updateStateSuccess" type="redirectAction">order_findByUid.action?page=1</result>
     	</action>
     	
+    	<!-- 商店的Action -->
+    	<action name="store_*" class="storeAction" method="{1}">
+    		<result name="findBySid">/WEB-INF/jsp/store.jsp</result>
+    	</action>
+    	
     	<!-- 购物车的action -->
     	<action name="cart_*" class="cartAction" method="{1}">
     	<result name="addCart">/WEB-INF/jsp/cart.jsp</result>
