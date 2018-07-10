@@ -2,6 +2,11 @@
 <link href="${pageContext.request.contextPath}/css/common.css"
 	rel="stylesheet" type="text/css" />
 <%@ taglib uri="/struts-tags" prefix="s"%>
+<script>
+	window.onload=function(){
+		window.location.href="${pageContext.request.contextPath}/user_fresh.action";
+	}
+</script>
 <div class="header" style="background-color: #000000;position:fixed;z-index:9999;width:100%;height:160px;margin-top:-160px">
 		
 	<div class="span24 last">

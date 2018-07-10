@@ -67,6 +67,8 @@ public class AdminStoreAction extends ActionSupport{
 		//先查询店铺
 		Store store=storeService.findBySid(sid);
 		storeService.deleteStore(store);
+		store.getOwner().setState(1);
+		userService.update(store.getOwner());
 		return "rejectSuccess";
 	}
 	

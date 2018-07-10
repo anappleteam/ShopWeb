@@ -132,12 +132,14 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			return "requestFail";
 		}
 		else {
-			if(existUser.getState()==2){
+			User user=userService.findById(existUser.getUid());
+			if(user.getState()==2){
 				this.addActionMessage("您已提交入驻申请，请等待审核！");
 				return "msg";
 			}
-			existUser.setState(2);
-			userService.update(existUser);
+			else if (user.getState()==3) {
+				return "mystore";
+			}
 		}
 		return "settle";
 	}
@@ -168,6 +170,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			newStore.setOwner(existUser);
 			storeService.addStore(newStore);
 			existUser.setState(2);//状态2为商家审核
+			userService.update(existUser);
 			this.addActionMessage("您已提交入驻申请，请等待审核！");
 		}
 		return "msg";

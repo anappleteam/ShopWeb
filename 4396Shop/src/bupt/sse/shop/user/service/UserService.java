@@ -41,4 +41,7 @@ public class UserService {
 	public User login(User user) {
 		return userDao.login(user);
 	}
+	public User findById(int uid) {
+		return userDao.findById(uid);
+	}
 }
