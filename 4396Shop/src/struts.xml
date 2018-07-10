@@ -62,6 +62,14 @@
     		<result name="loginFail">/admin/index.jsp</result>
     		<result name="loginSuccess" type="redirect">/admin/home.jsp</result>
     	</action>
+    	<!-- 配置后台用户管理action -->
+    	<action name="userAdmin_*" class="userAdminAction" method="{1}">
+    		<result name="findAll">/admin/user/list.jsp</result>
+    		<result name="deleteSuccess" type="redirectAction">userAdmin_findAll.action?page=1</result>
+    		
+    		<interceptor-ref name="PrivilegeInterceptor"/>
+    		<interceptor-ref name="defaultStack"/>
+    	</action>
     	<!-- 配置后台一级分类管理的action -->
     	<action name="adminCategory_*" class="adminCategoryAction" method="{1}">
     		<result name="findAll">/admin/category/list.jsp</result>

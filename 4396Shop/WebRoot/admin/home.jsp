@@ -29,7 +29,8 @@
 <meta name="keywords"
 	content="Baxster Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
 SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-<script type="application/x-javascript">addEventListener("load", function() {
+<script type="application/x-javascript">
+	addEventListener("load", function() {
 		setTimeout(hideURLbar, 0);
 	}, false);
 	function hideURLbar() {
@@ -80,6 +81,15 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 					id="cbp-spmenu-s1">
 					<div class="scrollbar scrollbar1">
 						<ul class="nav" id="side-menu">
+							<li>
+								<a href="#"><i class="fa fa-th-large nav_icon"></i>用户管理 <span class="fa arrow"></span></a>
+								<ul class="nav nav-second-level collapse">
+									<li>
+										<a href="${pageContext.request.contextPath}/userAdmin_findAll.action?page=1" target="mainFrame">用户管理</a>
+									</li>								
+								</ul>
+								<!-- /nav-second-level -->
+							</li>
 							<li>
 								<a href="#"><i class="fa fa-th-large nav_icon"></i>一级分类管理 <span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level collapse">

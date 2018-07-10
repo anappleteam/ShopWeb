@@ -105,6 +105,10 @@
 		scope="prototype">
 		<property name="adminUserService" ref="adminUserService" />
 	</bean>
+	<!-- 后台用户管理action -->
+	<bean id="userAdminAction" class="bupt.sse.shop.user.adminaction.UserAdminAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
 	<!-- 后台一级分类管理的action -->
 	<bean id="adminCategoryAction" class="bupt.sse.shop.category.adminaction.AdminCategoryAction"
 		scope="prototype">

@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-
 import bupt.sse.shop.user.vo.User;
+import bupt.sse.shop.utils.PageHibernateCallback;
 
 public class UserDao extends HibernateDaoSupport {
 	public User findByUsername(String username) {
@@ -43,5 +43,32 @@ public class UserDao extends HibernateDaoSupport {
 			return users.get(0);
 		}
 		return null;
+	}
+	//获取用户总数
+	public int findCount() {
+		String hql="select count(*) from User";
+		List<Long> list=this.getHibernateTemplate().find(hql);
+		if (list!=null && list.size()>0) {
+			return list.get(0).intValue();
+		}
+		return 0;
+	}
+
+	public List<User> findByPage(int begin, int limit) {
+		String hql="from User order by uid";
+		List<User> list =this.getHibernateTemplate().execute(
+				new PageHibernateCallback<User>(hql,null, begin, limit));
+		if (list !=null && list.size()>0) {
+			return list;
+		}
+		return null;
+	}
+
+	public User findByUid(int uid) {
+		return getHibernateTemplate().get(User.class, uid);
+	}
+
+	public void delete(User user) {
+		getHibernateTemplate().delete(user);
 	}
 }
