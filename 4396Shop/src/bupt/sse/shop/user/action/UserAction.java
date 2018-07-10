@@ -176,4 +176,17 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		return "msg";
 		
 	}
+	/**
+	 * AJAX刷新页面 existUser信息
+	 * @return
+	 * @throws IOException 
+	 */
+	public String fresh(){
+		User existUser=(User) ServletActionContext.getRequest().getSession().getAttribute("existUser");
+		if(existUser!=null){
+			User newExistUser=userService.findById(existUser.getUid());
+			ServletActionContext.getRequest().getSession().setAttribute("existUser", newExistUser);
+		}
+		return NONE;
+	}
 }

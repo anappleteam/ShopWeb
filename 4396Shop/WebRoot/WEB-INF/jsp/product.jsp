@@ -47,6 +47,10 @@
 
 
 		</div>
+		<div class="span6">
+		<s:property value="model.store.sname"/>
+		<a href="<%=path%>/store_findBySid.action?sid=<s:property value="model.store.sid"/>&page=1">进店逛逛</a>
+		</div>
 		<div class="span16 last">
 
 			<div class="productImage">
@@ -155,6 +159,7 @@
 
 		</div>
 	</div>
+
 	<div class="container footer">
 		<div class="span24">
 			<div class="footerAd">
