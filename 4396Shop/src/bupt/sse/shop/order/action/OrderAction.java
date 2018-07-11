@@ -1,5 +1,7 @@
 package bupt.sse.shop.order.action;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -52,6 +54,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	private Order order = new Order();
 	private OrderService orderService;
 	private Integer page;
+	private Integer itemid;
 	
 	
 	
@@ -59,6 +62,11 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 		this.page = page;
 	}
 
+	
+	public void setItemid(Integer itemid) {
+		this.itemid = itemid;
+	}
+	
 	public void setOrderService(OrderService orderService) {
 		this.orderService = orderService;
 	}
@@ -271,12 +279,31 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
     }
 	
 	//确认收货Action
-	public String updateState() {
+	public String updateState() throws Exception{
 		//根据订单id查询订单
-		Order curOrder=orderService.findByOid(order.getOid());
-		curOrder.setState(4);
-		orderService.update(curOrder);
+		
+		int receiveall=0;
+		OrderItem curItem = orderService.findByTid(itemid);
+		curItem.setState(1);
+		orderService.updateItem(curItem);
+		Order curOrder=orderService.findByOid(curItem.getOrder().getOid());
+		for(OrderItem orderItem : curOrder.getOrderItems()){
+			if(orderItem.getState()==null)
+				receiveall=1;
+		}
+		if(receiveall==0){
+			curOrder.setState(4);
+			orderService.update(curOrder);
+		}
 		return "updateStateSuccess";
 	}
 	
+	public void submitscore(){
+		HttpServletRequest request = ServletActionContext.getRequest();  
+		int item = Integer.parseInt(request.getParameter("itemid"));
+		int eva = Integer.parseInt(request.getParameter("evaluate"));
+		OrderItem curItem = orderService.findByTid(item);
+		curItem.setEvaluate(eva);
+		orderService.updateItem(curItem);
+	}
 }
