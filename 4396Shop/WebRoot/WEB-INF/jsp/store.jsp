@@ -18,10 +18,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 	<jsp:include page="menu.jsp"/>
 <div class="container productList">
-<s:debug></s:debug>
 		<div class="span6">
-			<s:property value="store.sname"/>
-			<s:property value="store.sdesc"/>
+		<div class="storeTitle">
+			<img class="size" src="<%=path %>/image/shop-icon.png"/>
+			<p class="title"><s:property value="store.sname"/></p>
+			<p class="desc"><s:property value="store.sdesc"/></p>
+		</div>
 		</div>
 		<div class="span18 last">
 			
