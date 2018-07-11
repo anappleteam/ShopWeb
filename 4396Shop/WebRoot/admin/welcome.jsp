@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="/struts-tags" prefix="s"%>
 <html>
 	<head>
 		<meta http-equiv="Content-Language" content="zh-cn">
@@ -34,7 +35,12 @@ BODY {SCROLLBAR-FACE-COLOR: #cccccc; SCROLLBAR-HIGHLIGHT-COLOR: #ffffFF; SCROLLB
 
 		<tr>
 			<td width="65%" height="84" align="center" valign="top" >
-				<span class="Style1">登录成功！</span>
+				<s:if test="#session.existAdminUser == null">
+					<span class="Style1">尚未登录</span>
+				</s:if>
+				<s:else>
+					<span class="Style1">登录成功</span>
+				</s:else>			
 			</td>
 		</tr>
 		<tr><td height=2></td></tr>

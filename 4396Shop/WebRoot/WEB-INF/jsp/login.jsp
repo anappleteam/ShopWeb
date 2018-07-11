@@ -75,7 +75,7 @@ function change(){
 									</th>
 									<td>
 										<span class="fieldSet">
-											<input type="text" id="checkcode" name="checkcode" class="text captcha" maxlength="5" autocomplete="off"></input><img id="checkImage" class="captchaImage" src="<%=path%>/checkImg.action" onclick="change()" ontitle="点击更换验证码">
+											<input type="text" id="checkcode" name="checkcode" class="text" maxlength="5" autocomplete="off"></input><img id="checkImage" class="captchaImage" src="<%=path%>/checkImg.action" onclick="change()" ontitle="点击更换验证码">
 										</span>
 									</td>
 								</tr>
@@ -118,7 +118,7 @@ function change(){
 										<dt>还没有注册账号？</dt>
 										<dd>
 											立即注册即可体验在线购物！
-											<a href="./会员注册.htm">立即注册</a>
+											<a href="<%=path %>/user_regist.action">立即注册</a>
 										</dd>
 									</dl>
 								</td>

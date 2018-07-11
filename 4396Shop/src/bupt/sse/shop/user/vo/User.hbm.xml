@@ -17,9 +17,13 @@
   <property generated="never" lazy="false" name="addr"/>
   <property generated="never" lazy="false" name="state"/>
   <property generated="never" lazy="false" name="code"/>
-  <set name="cart" sort="unsorted">
+  <set name="cart" sort="unsorted" lazy="false">
    <key column="uid"/>
    <one-to-many class="bupt.sse.shop.cart.vo.CartItem"/>
+  </set>
+  <set name="stores" sort="unsorted" lazy="false">
+  	<key column="uid"/>
+  	<one-to-many class="bupt.sse.shop.store.vo.Store"/>
   </set>
  </class>
 </hibernate-mapping>

@@ -10,10 +10,10 @@
 		
 		<property name="sname"/>
 		<property name="sdesc"/>
-		
+		<property name="state"/>
 		<many-to-one name="owner" lazy="false" class="bupt.sse.shop.user.vo.User" column="uid"/>
 		
-		<set name="products" order-by="pid" lazy="false">
+		<set name="products" order-by="pid" lazy="false" cascade="save-update">
 			<key column="pid"/>
 			<one-to-many class="bupt.sse.shop.product.vo.Product"/>
 		</set>
