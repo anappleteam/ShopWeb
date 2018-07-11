@@ -71,7 +71,7 @@ window.onload=function(){
 					</s:if>
 					<s:elseif test="#session.existUser.state==3">
 						<li id="headerLogin" class="headerLogin"
-						style="display: list-item;"><a href="${pageContext.request.contextPath}/store_myStores.action">我的店铺</a>|</li>
+						style="display: list-item;"><a href="${pageContext.request.contextPath}/store_storeMng.action">我的店铺</a>|</li>
 					</s:elseif>
 				</s:else>
 				<li><a href="${ pageContext.request.contextPath }/cart_myCart.action">购物车</a> |</li>

@@ -6,6 +6,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import bupt.sse.shop.product.vo.Product;
 import bupt.sse.shop.store.service.StoreService;
 import bupt.sse.shop.store.vo.Store;
+import bupt.sse.shop.user.vo.User;
 import bupt.sse.shop.utils.PageBean;
 
 public class StoreAction extends ActionSupport{
@@ -30,6 +31,16 @@ public class StoreAction extends ActionSupport{
 	//我的商店
 	public String myStores() {
 		return "myStores";
+	}
+	
+	public String productMng(){
+		return null;
+		
+	}
+	
+	public String storeMng() {
+		
+		return "storeMng";
 	}
 	//跟据商店ID查询商店的所有商品并分页展示
 	public String findBySid()
