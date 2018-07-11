@@ -54,6 +54,11 @@
     	<!-- 店铺action -->
     	<action name="store_*" class="storeAction" method="{1}">
     		<result name="findBySid">/WEB-INF/jsp/store.jsp</result>
+    		<result name="storeMng">/WEB-INF/jsp/storeMng/storeMng.jsp</result>
+    	</action>
+    	<!-- 商品管理action -->
+    	<action name="productMng_*" class="productMngAction" method="{1}">
+    		<result name="list">/WEB-INF/jsp/storeMng/productMng/list.jsp</result>
     	</action>
     	
     	<!-- 购物车的action -->
