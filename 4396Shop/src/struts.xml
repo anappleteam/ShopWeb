@@ -50,11 +50,6 @@
     		<result name="updateStateSuccess" type="redirectAction">order_findByUid.action?page=1</result>
     	</action>
     	
-    	<!-- 商店的Action -->
-    	<action name="store_*" class="storeAction" method="{1}">
-    		<result name="findBySid">/WEB-INF/jsp/store.jsp</result>
-    	</action>
-    	
     	<!-- 购物车的action -->
     	<action name="cart_*" class="cartAction" method="{1}">
     	<result name="addCart">/WEB-INF/jsp/cart.jsp</result>
@@ -118,6 +113,18 @@
     		<result name="findAll">/admin/order/list.jsp</result>
     		<result name="findOrderItem">/admin/order/orderItem.jsp</result>
     		<result name="updateStateSuccess" type="redirectAction">adminOrder_findAll.action?page=1</result>
+    		
+    		<interceptor-ref name="PrivilegeInterceptor"/>
+    		<interceptor-ref name="defaultStack"/>
+    	</action>
+    	
+    	<!-- 配置后台店铺管理的Action -->
+    	<action name="adminStore_*" class="adminStoreAction" method="{1}">
+    		<result name="findAllAudit">/admin/store/auditList.jsp</result>
+    		<result name="findAll">/admin/store/storeList.jsp</result>
+    		<result name="acceptSuccess" type="redirectAction">adminStore_findAllAudit.action?page=1</result>
+    		<result name="rejectSuccess" type="redirectAction">adminStore_findAllAudit.action?page=1</result>
+    		<result name="infoPage">/admin/store/info.jsp</result> 
     		
     		<interceptor-ref name="PrivilegeInterceptor"/>
     		<interceptor-ref name="defaultStack"/>

@@ -2,10 +2,13 @@ package bupt.sse.shop.categorysecond.service;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import bupt.sse.shop.categorysecond.dao.CategorySecondDao;
 import bupt.sse.shop.categorysecond.vo.CategorySecond;
 import bupt.sse.shop.utils.PageBean;
 
+@Transactional
 public class CategorySecondService {
 	private CategorySecond categorySecond = new CategorySecond();
 	// 注入二级分类的dao

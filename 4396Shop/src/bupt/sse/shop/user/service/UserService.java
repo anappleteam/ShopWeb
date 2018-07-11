@@ -44,7 +44,6 @@ public class UserService {
 	public User login(User user) {
 		return userDao.login(user);
 	}
-	
 	//业务层按页查询
 	public PageBean<User> findByPage(Integer page) {
 		PageBean<User> pageBean=new PageBean<User>();
