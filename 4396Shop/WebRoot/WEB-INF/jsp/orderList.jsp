@@ -158,11 +158,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</s:else>
 							</td>
 							</s:if>
+							<s:else>
 							<s:if test="#order.state==4	">
 							<td>
 								<a>已收货&nbsp;&nbsp;&nbsp;&nbsp;</a>
 							</td>
+							</s:if>
+							<s:else>
+							<td></td>
+							</s:else>
+							</s:else>
 							<td>
+								<s:if test="#orderItem.state==1">
 								<s:if test="#orderItem.evaluate==null">
 									<ul class="comment">
     									<li id="star1">★</li>
@@ -185,8 +192,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</ul>
 									<span class="scorednum"><s:property value="#orderItem.evaluate"/></span>
 								</s:else>
+								</s:if>
 							</td>
-							</s:if>
 						</tr>
 						</s:iterator>
 					</s:iterator>
