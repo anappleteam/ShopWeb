@@ -115,7 +115,7 @@ function change(){
 										<input type="checkbox" name="remember" id="remember" value="remember" <%=check %>>记住用户名
 									</label>
 									<label>
-										&nbsp;&nbsp;<a >找回密码</a>
+										&nbsp;&nbsp;<a href="<%=path %>/user_changePwdPage.action" >忘记密码?</a>
 									</label>
 								</td>
 							</tr>
@@ -136,7 +136,7 @@ function change(){
 										<dt>还没有注册账号？</dt>
 										<dd>
 											立即注册即可体验在线购物！
-											<a href="<%=path %>/user_regist.action">立即注册</a>
+											<a href="<%=path %>/user_registPage.action">立即注册</a>
 										</dd>
 									</dl>
 								</td>
