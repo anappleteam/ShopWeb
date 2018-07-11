@@ -2,6 +2,7 @@ package bupt.sse.shop.user.action;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -111,6 +112,9 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			return LOGIN;
 		}
 		else {
+			HttpServletRequest request =ServletActionContext.getRequest();
+			HttpServletResponse response =ServletActionContext.getResponse();
+			LoginUtils.createCookie(request, response);
 			ServletActionContext.getRequest().getSession().setAttribute("existUser", existUser);
 			return "loginSuccess";
 		}
