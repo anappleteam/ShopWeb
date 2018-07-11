@@ -13,7 +13,74 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>我的订单页面</title>
 <link href="${pageContext.request.contextPath}/css/common.css" rel="stylesheet" type="text/css"/>
 <link href="${pageContext.request.contextPath}/css/cart.css" rel="stylesheet" type="text/css"/>
+<link href="${pageContext.request.contextPath}/css/evaluate.css" rel="stylesheet" type="text/css"/>
 
+
+<script src="${pageContext.request.contextPath}/js/jquery-1.8.3.js"></script>
+    <script>
+        $(document).ready(function(){
+            var shixin = "★";
+            var kongxin = "☆";
+            var flag = false;//没有点击*/
+            for(var j=0;j<$(".scorednum").length;j++){
+            $(".scorednum").eq(j).prev().children().text(kongxin);
+            var scored = $(".scorednum").eq(j).text();
+            for(var i=0;i<scored/2;i++){      
+            	$(".scorednum").eq(j).prev().children().eq(i).text(shixin);
+            }
+            }
+            $(".comment li").mouseenter(function(){
+            	if(!flag){
+                $(this).text(shixin).prevAll().text(shixin);
+                $(this).nextAll().text(kongxin);
+                $(this).text(shixin).prevAll().text(shixin).end().nextAll().text(kongxin);
+                }
+            });
+            $(".comment").mouseleave(function(){
+                if(!flag){
+                    $("comment li").text(kongxin);
+                }
+                $("comment li").text(kongxin);
+                $(".clicked").text(shixin).prevAll().text(shixin);
+            });
+            $(".comment li").on("click",function(){
+                $(this).text(shixin).prevAll().text(shixin);
+                $(this).nextAll().text(kongxin);
+                flag = true;
+                var score = $(this).attr("id");
+                switch($(this).attr("id"))
+				{
+					case "star1":
+						score=2;
+						break;
+					case "star2":
+						score=4;
+						break;
+					case "star3":
+						score=6;
+						break;
+					case "star4":
+						score=8;
+						break;
+					case "star5":
+						score=10;
+						break;
+				}
+				$(this).parent().next().text(score);
+            });
+           	$(".btn_comment").click(function(){
+           		
+           		$.post("${pageContext.request.contextPath}/order_submitscore.action",
+           		{
+           			evaluate:($(this).prev().text()),
+           			itemid:($(this).next().text())
+           		},
+           		function(){
+           			window.location.reload();
+           		});
+           	});
+        });
+    </script>
 </head>
 <body>
 
@@ -37,7 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<tbody>
 					<s:iterator value="pageBean.list" var="order">
 					<tr>
-						<th colspan="5">订单编号:<s:property value="#order.oid"/>&nbsp;&nbsp;&nbsp;&nbsp;
+						<th colspan="7">订单编号:<s:property value="#order.oid"/>&nbsp;&nbsp;&nbsp;&nbsp;
 							订单状态:
 							<s:if test="#order.state==1">
 								<a href="${pageContext.request.contextPath}/order_findByOid.action?oid=<s:property value="#order.oid"/>"><font color="red">付款</font></a>
@@ -46,7 +113,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								已付款
 							</s:if>
 							<s:if test="#order.state==3">
-								<a href="${pageContext.request.contextPath}/order_updateState.action?oid=<s:property value="#order.oid"/>"><font color="red">确认收货</font></a>
+								待收货
 							</s:if>
 							<s:if test="#order.state==4">
 								交易完成
@@ -59,6 +126,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<th>价格</th>
 						<th>数量</th>
 						<th>小计</th>
+						<th>物流</th>
+						<th>评价</th>
 					</tr>
 					
 					<s:iterator value="#order.orderItems" var='orderItem'>
@@ -67,18 +136,57 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<input type="hidden" name="id" value="22"/>
 								<img src="${pageContext.request.contextPath}/<s:property value="#orderItem.product.image"/>"/>
 							</td>
-							<td>
+							<td width="360">
 								<a target="_blank"><s:property value="#orderItem.product.pname"/></a>
 							</td>
-							<td>
+							<td width="180">
 								<s:property value="#orderItem.product.shop_price"/>
 							</td>
-							<td class="quantity" width="60">
+							<td class="quantity" width="120">
 								<s:property value="#orderItem.count"/>
 							</td>
-							<td width="140">
+							<td width="180">
 								<span class="subtotal"><s:property value="#orderItem.subtotal"/></span>
 							</td>
+							<s:if test="#order.state==3	">
+							<td width="120">
+								<s:if test="#orderItem.state==null">
+								<a href="${pageContext.request.contextPath}/order_updateState.action?itemid=<s:property value="#orderItem.itemid"/>"><font color="red">确认收货</font></a>
+								</s:if>
+								<s:else>
+								<a>已收货</a>
+								</s:else>
+							</td>
+							</s:if>
+							<s:if test="#order.state==4	">
+							<td>
+								<a>已收货&nbsp;&nbsp;&nbsp;&nbsp;</a>
+							</td>
+							<td>
+								<s:if test="#orderItem.evaluate==null">
+									<ul class="comment">
+    									<li id="star1">★</li>
+    									<li id="star2">★</li>
+    									<li id="star3">★</li>
+    									<li id="star4">★</li>
+    									<li id="star5">★</li>
+									</ul>
+									<span class="scorenum">10</span>
+									<button class="btn_comment">提交评价</button>
+									<span style="display:none"><s:property value="#orderItem.itemid"/></span>
+								</s:if>
+								<s:else>
+									<ul class="commented">
+    									<li id="star1"></li>
+    									<li id="star1"></li>
+    									<li id="star1"></li>
+    									<li id="star1"></li>
+    									<li id="star1"></li>
+									</ul>
+									<span class="scorednum"><s:property value="#orderItem.evaluate"/></span>
+								</s:else>
+							</td>
+							</s:if>
 						</tr>
 						</s:iterator>
 					</s:iterator>
@@ -160,5 +268,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="copyright">Copyright © 2005-2015 网上商城 版权所有</div>
 	</div>
 </div>
+<script>
+function myFunction()
+{
+    alert("你好，我是一个警告框！");
+}
+</script>
 </body>
 </html>
