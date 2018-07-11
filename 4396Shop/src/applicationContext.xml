@@ -96,6 +96,11 @@
 		scope="prototype">
 		<property name="productService" ref="productService" />
 	</bean>
+	
+	<!-- 店铺action -->
+	<bean id="storeAction" class="bupt.sse.shop.store.action.StoreAction" scope="prototype">
+		<property name="storeService" ref="storeService"/>
+	</bean>
 
 	<!--订单的Action -->
 	<bean id="orderAction" class="bupt.sse.shop.order.action.OrderAction"
@@ -106,6 +111,10 @@
 	<bean id="adminUserAction" class="bupt.sse.shop.adminuser.action.AdminUserAction"
 		scope="prototype">
 		<property name="adminUserService" ref="adminUserService" />
+	</bean>
+	<!-- 后台用户管理action -->
+	<bean id="userAdminAction" class="bupt.sse.shop.user.adminaction.UserAdminAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
 	</bean>
 	<!-- 后台一级分类管理的action -->
 	<bean id="adminCategoryAction" class="bupt.sse.shop.category.adminaction.AdminCategoryAction"

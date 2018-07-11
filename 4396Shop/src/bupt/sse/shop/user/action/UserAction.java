@@ -144,7 +144,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			return "requestFail";
 		}
 		else {
-			User user=userService.findById(existUser.getUid());
+			User user=userService.findByUid(existUser.getUid());
 			if(user.getState()==2){
 				this.addActionMessage("您已提交入驻申请，请等待审核！");
 				return "msg";
@@ -196,7 +196,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 	public String fresh(){
 		User existUser=(User) ServletActionContext.getRequest().getSession().getAttribute("existUser");
 		if(existUser!=null){
-			User newExistUser=userService.findById(existUser.getUid());
+			User newExistUser=userService.findByUid(existUser.getUid());
 			ServletActionContext.getRequest().getSession().setAttribute("existUser", newExistUser);
 		}
 		return NONE;

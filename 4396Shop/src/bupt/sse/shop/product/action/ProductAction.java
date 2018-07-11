@@ -22,6 +22,13 @@ public class ProductAction extends ActionSupport implements ModelDriven<Product>
 	private Integer cid;
 	//接受二级分类的id
 	private Integer csid;
+	//商店id
+	private Integer sid;
+	
+	public void setSid(Integer sid) {
+		this.sid = sid;
+	}
+
 	public Integer getCsid() {
 		return csid;
 	}
@@ -80,5 +87,13 @@ public class ProductAction extends ActionSupport implements ModelDriven<Product>
 		PageBean<Product> pageBean=productService.findByPageCsid(csid, page);
 		ActionContext.getContext().getValueStack().set("pageBean",pageBean);
 		return "findByCsid";
+	}
+	
+	//跟据商店ID查询商店的所有商品并分页展示
+	public String findBySid()
+	{
+		PageBean<Product> pageBean=productService.findBySid(sid,page);
+		ActionContext.getContext().getValueStack().set("pageBean", pageBean);
+		return "findBySid";
 	}
 }

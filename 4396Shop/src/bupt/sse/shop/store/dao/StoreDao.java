@@ -96,5 +96,4 @@ public class StoreDao extends HibernateDaoSupport {
 		Store store=this.getHibernateTemplate().get(Store.class,sid);
 		return store;
 	}
-
 }

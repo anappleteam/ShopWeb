@@ -112,6 +112,33 @@ public class ProductService {
 		return pageBean;
 		
 	}
+	public PageBean<Product> findBySid(Integer sid, Integer page) {
+		PageBean<Product> pageBean = new PageBean<Product>();
+		//设置当前页数
+		pageBean.setPage(page);
+		//设置每页显示记录
+		int limit= 8;
+		pageBean.setLimit(limit);
+		//设置总记录数
+		int totalCount =0;
+		totalCount=productDao.findCountSid(sid);
+		pageBean.setTotalCount(totalCount);
+		//设置总页数
+		int totalPage=0;
+		//totalPage=(int) Math.ceil(totalCount/limit);
+		if(totalCount % limit ==0){
+			totalPage = totalCount/limit;
+		}else {
+			totalPage= totalCount/limit +1;
+		}
+		pageBean.setTotalPage(totalPage);
+		//每页显示的数据集合
+		//从那开始
+		int begin = (page-1)*limit;
+		List<Product> list = productDao.findByPageSid(sid,begin,limit);
+		pageBean.setList(list);
+		return pageBean;
+	}
 	
 	//保存商品
 	public void save(Product product) {
@@ -129,5 +156,6 @@ public class ProductService {
 		productDao.update(product);
 		
 	}
+
 	
 }

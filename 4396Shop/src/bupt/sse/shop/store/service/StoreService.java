@@ -115,5 +115,4 @@ public class StoreService {
 	public Store findStoreBySid(Integer sid) {
 		return storeDao.findStoreBySid(sid);
 	}
-
 }
