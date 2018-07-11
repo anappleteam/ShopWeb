@@ -43,10 +43,19 @@ public class OrderService {
 	public Order findByOid(Integer oid) {
 		return orderDao.findByOid(oid);
 	}
+	
+	public OrderItem findByTid(Integer itemid) {
+		return orderDao.findByTid(itemid);
+	}
 
 	public void update(Order curOrder) {
 		orderDao.update(curOrder);
 	}
+	
+	public void updateItem(OrderItem curItem) {
+		orderDao.updateItem(curItem);
+	}
+	
 	
 	//后台分页查询订单
 	public PageBean<Order> findByPageUid(Integer page) {

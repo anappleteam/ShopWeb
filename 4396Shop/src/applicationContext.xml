@@ -34,6 +34,7 @@
 				<prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.connection.autocommit">false</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.autoReconnect">true</prop>
 			</props>
 		</property>
 		<!-- 配置Hibernate映射文件 -->
@@ -81,6 +82,7 @@
 		scope="prototype">
 		<!-- 注入Service -->
 		<property name="userService" ref="userService" />
+		<property name="storeService" ref="storeService"></property>
 	</bean>
 
 	<!-- 商品模块的Action -->
@@ -95,9 +97,8 @@
 		<property name="productService" ref="productService" />
 	</bean>
 	
-	<!-- 店铺的Action -->
-	<bean id="storeAction" class="bupt.sse.shop.store.action.StoreAction"
-		scope="prototype">
+	<!-- 店铺action -->
+	<bean id="storeAction" class="bupt.sse.shop.store.action.StoreAction" scope="prototype">
 		<property name="storeService" ref="storeService"/>
 	</bean>
 
@@ -111,6 +112,10 @@
 		scope="prototype">
 		<property name="adminUserService" ref="adminUserService" />
 	</bean>
+	<!-- 后台用户管理action -->
+	<bean id="userAdminAction" class="bupt.sse.shop.user.adminaction.UserAdminAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
 	<!-- 后台一级分类管理的action -->
 	<bean id="adminCategoryAction" class="bupt.sse.shop.category.adminaction.AdminCategoryAction"
 		scope="prototype">
@@ -121,7 +126,7 @@
 	<bean id="adminOrderAction" class="bupt.sse.shop.order.adminaction.AdminOrderAction" scope="prototype">
 		<property name="orderService" ref="orderService"/>
 	</bean>
-	<!-- Service的配置  ===========================-->
+
 	<!-- 后台二级分类管理的action -->
 	<bean id="adminCategorySecondAction"
 		class="bupt.sse.shop.categorysecond.adminaction.AdminCategorySecondAction"
@@ -136,7 +141,13 @@
 		<property name="categorySecondService" ref="categorySecondService"></property>
 	</bean>
 
-
+	
+	<!-- 后台店铺管理的action -->
+	<bean id="adminStoreAction" class="bupt.sse.shop.store.adminaction.AdminStoreAction" scope="prototype">
+		<property name="storeService" ref="storeService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+	
 	<!-- Service的配置 =========================== -->
 	<bean id="userService" class="bupt.sse.shop.user.service.UserService">
 		<property name="userDao" ref="userDao" />
@@ -150,10 +161,6 @@
 	<bean id="orderService" class="bupt.sse.shop.order.service.OrderService">
 		<property name="orderDao" ref="orderDao" />
 	</bean>
-	<!-- 店铺的service -->
-	<bean id="storeService" class="bupt.sse.shop.store.service.StoreService">
-		<property name="storeDao" ref="storeDao"/>
-	</bean>
 	<bean id="adminUserService" class="bupt.sse.shop.adminuser.service.AdminUserService">
 		<property name="adminUserDao" ref="adminUserDao" />
 	</bean>
@@ -162,8 +169,10 @@
 		class="bupt.sse.shop.categorysecond.service.CategorySecondService">
 		<property name="categorySecondDao" ref="categorySecondDao"></property>
 	</bean>
-
-
+	<!-- 店铺的service -->
+	<bean id="storeService" class="bupt.sse.shop.store.service.StoreService">
+		<property name="storeDao" ref="storeDao" />
+	</bean>
 
 	<!-- Dao的配置 =========================== -->
 	<bean id="userDao" class="bupt.sse.shop.user.dao.UserDao">
@@ -178,17 +187,17 @@
 	<bean id="orderDao" class="bupt.sse.shop.order.dao.OrderDao">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<!-- 店铺的Dao -->
-	<bean id="storeDao" class="bupt.sse.shop.store.dao.StoreDao">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>
-	
 	<!-- 后台登录的Dao -->
 	<bean id="adminUserDao" class="bupt.sse.shop.adminuser.dao.AdminUserDao">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<!-- 二级分类的Dao -->
 	<bean id="categorySecondDao" class="bupt.sse.shop.categorysecond.dao.CategorySecondDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<!-- 店铺的Dao -->
+	<bean id="storeDao" class="bupt.sse.shop.store.dao.StoreDao">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 </beans>

@@ -7,24 +7,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>消息</title>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+<link href="${pageContext.request.contextPath}/css/common.css" rel="stylesheet" type="text/css"/>
 
 <jsp:include page="menu.jsp"/>
 </head>
 <body>
-<div id="divcontent">
-<table width="850px" border="0" cellspacing="0">
-  <tr>
-    
-    </tr>
-</table><td style="padding:30px; text-align:center"><table width="100%" border="0" cellspacing="0" style="margin-top:70px">
+
+<div>
+<table width="100%" border="0" cellspacing="0" style="margin-top:200px">
       <tr>
-      	<td style="width:98"><img src="${pageContext.request.contextPath}/images/IconTexto_WebDev_009.jpg" width="128" height="128"></td>
+      	<td style="width:98"><img src="${pageContext.request.contextPath}/images/IconTexto_WebDev_009.jpg" width="128" height="128"style=" margin-left:80%" ></td>
         <td style="padding-top:30px"><font style="font-weight:bold;">
 	        <s:actionmessage /><br>
-	        <!--<s:debug></s:debug>
-	        <s:actionerror/>-->
         </font>
-        <br>
+        <br><a href="${pageContext.request.contextPath}/index.action">返回首页</a>
             <br>
          </td>
       </tr>

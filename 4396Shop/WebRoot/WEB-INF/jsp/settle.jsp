@@ -23,19 +23,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="title">
 			<strong>入驻信息填写</strong>
 		</div>
-		<form id="settleform">
+		<form id="settleform" action="<%=path %>/user_merchantRequest.action" method="post" >
 			<table>
 			<tr>
-				<th>店铺名称</th>
+				<th>店铺名称<span class="requiredField">*</span></th>
 				<td><input type="text" id="storename" name="storename" class="text" maxlength="20"></td>
 			</tr>
 			<tr>
-				<th>店铺介绍</th>
-				<td><textarea type="text" id="storename" name="storename" rows="5" class="txt"></textarea></td>
+				<th>店铺介绍<span class="requiredField">*</span></th>
+				<td><textarea type="text" id="storeinfo" name="storeinfo" rows="5" class="txt"></textarea></td>
 			</tr>
 			</table>
+			<button type="submit" class="btn_settle" >我要入驻</button>
 		</form>
-		<button class="btn_settle" >我要入驻</button>
 		</div>
 	</div>
 </div>

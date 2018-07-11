@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+
+import bupt.sse.shop.store.service.StoreService;
+import bupt.sse.shop.store.vo.Store;
 import bupt.sse.shop.user.service.UserService;
 import bupt.sse.shop.user.vo.User;
 
@@ -13,6 +16,17 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 	private User user=new User();
 	//注入UserService
 	private UserService userService;
+	
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+	//注入StoreService
+	private StoreService storeService;
+	
+	public void setStoreService(StoreService storeService) {
+		this.storeService = storeService;
+	}
+
 	//接收验证码
 	private String checkcode;
 	public void setCheckcode(String checkcode) {
@@ -42,9 +56,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 	public String registPage() {
 		return "registPage";
 	}
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
+
 	public String regist(){
 		//判断验证码
 		//从session中获得验证码
@@ -110,7 +122,71 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		ServletActionContext.getRequest().getSession().invalidate();
 		return "quit";
 	}
+	/**
+	 * 入驻商户跳转
+	 */
 	public String merchantsettle(){
+		User existUser=(User) ServletActionContext.getRequest().getSession().getAttribute("existUser");
+		if(existUser==null){
+			//Ajax 向前台返回信息
+			return "requestFail";
+		}
+		else {
+			User user=userService.findByUid(existUser.getUid());
+			if(user.getState()==2){
+				this.addActionMessage("您已提交入驻申请，请等待审核！");
+				return "msg";
+			}
+			else if (user.getState()==3) {
+				return "mystore";
+			}
+		}
 		return "settle";
+	}
+	
+	/**
+	 * 提交入驻申请action
+	 */
+	private String storename=null;
+	private String storeinfo=null;
+	
+	public void setStorename(String storename) {
+		this.storename = storename;
+	}
+	public void setStoreinfo(String storeinfo) {
+		this.storeinfo = storeinfo;
+	}
+	public String merchantRequest() {
+		User existUser=(User) ServletActionContext.getRequest().getSession().getAttribute("existUser");
+		if(existUser==null){
+			//Ajax 向前台返回信息
+			return "requestFail";
+		}
+		else {
+			Store newStore=new Store();
+			newStore.setSname(storename);
+			newStore.setSdesc(storeinfo);
+			newStore.setState(0);//未审核状态
+			newStore.setOwner(existUser);
+			storeService.addStore(newStore);
+			existUser.setState(2);//状态2为商家审核
+			userService.update(existUser);
+			this.addActionMessage("您已提交入驻申请，请等待审核！");
+		}
+		return "msg";
+		
+	}
+	/**
+	 * AJAX刷新页面 existUser信息
+	 * @return
+	 * @throws IOException 
+	 */
+	public String fresh(){
+		User existUser=(User) ServletActionContext.getRequest().getSession().getAttribute("existUser");
+		if(existUser!=null){
+			User newExistUser=userService.findByUid(existUser.getUid());
+			ServletActionContext.getRequest().getSession().setAttribute("existUser", newExistUser);
+		}
+		return NONE;
 	}
 }

@@ -26,6 +26,11 @@ public class StoreAction extends ActionSupport{
 	public void setStoreService(StoreService storeService) {
 		this.storeService = storeService;
 	} 
+	
+	//我的商店
+	public String myStores() {
+		return "myStores";
+	}
 	//跟据商店ID查询商店的所有商品并分页展示
 	public String findBySid()
 	{
