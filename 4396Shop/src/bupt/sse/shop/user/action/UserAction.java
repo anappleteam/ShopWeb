@@ -1,9 +1,15 @@
 package bupt.sse.shop.user.action;
 
-import java.io.IOException;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
+
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -56,8 +62,12 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 	public String registPage() {
 		return "registPage";
 	}
-
-	public String regist(){
+	/**
+	 * 用户注册action
+	 * @return
+	 * @throws UnknownHostException 
+	 */
+	public String regist() throws UnknownHostException{
 		//判断验证码
 		//从session中获得验证码
 		String checkcodeString=(String) ServletActionContext.getRequest().getSession().getAttribute("checkcode");
@@ -111,7 +121,12 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			return LOGIN;
 		}
 		else {
+			HttpServletRequest request =ServletActionContext.getRequest();
+			HttpServletResponse response =ServletActionContext.getResponse();
+			LoginUtils.createCookie(request, response);
 			ServletActionContext.getRequest().getSession().setAttribute("existUser", existUser);
+			List<Store> stores=storeService.findByUid(existUser.getUid());
+			if(!stores.isEmpty())ServletActionContext.getRequest().getSession().setAttribute("managedStore", stores.get(0));
 			return "loginSuccess";
 		}
 	}
@@ -188,5 +203,74 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			ServletActionContext.getRequest().getSession().setAttribute("existUser", newExistUser);
 		}
 		return NONE;
+	}
+	
+	/**
+	 * 找回密码跳转action
+	 */
+	public String changePwdPage(){
+		return "changePwdPage";
+	}
+	/**
+	 * AJAX异步根据用户名查询邮箱并返回邮箱
+	 * @throws IOException 
+	 */
+	public String findEmailByUname() throws IOException{
+		User needChangeUser=userService.findByUsername(user.getUsername());
+		if(needChangeUser!=null&&needChangeUser.getState()>=1){
+			String registEmail=needChangeUser.getEmail();
+			//获得response对象，向页面输出
+			HttpServletResponse response=ServletActionContext.getResponse();
+			response.setContentType("text/html;charset=UTF-8");
+			response.getWriter().print(registEmail);
+		}
+		else{
+			this.addActionError("用户名不存在或尚未激活!");
+		}
+		return null;
+	}
+	/**
+	 * 修改密码，向邮箱发送认证消息
+	 * @throws UnknownHostException 
+	 */
+	public String changePwd() throws UnknownHostException{
+		//生成验证码
+		String str="";
+		for (int i = 0;i<5;i++){
+            str = str+ (char)(Math.random()*26+'A');
+        }
+		user.setCode(str);
+		userService.saveIdentifyingCode(user);
+		this.addActionMessage("我们已向您的邮箱"+user.getEmail()+"发送了一封激活邮件请查收!");
+		return "msg";
+	}
+	/**
+	 * 用户点击邮件链接的action
+	 */
+	public String userChangePasswordPage(){
+		ActionContext.getContext().getValueStack().set("username", user.getUsername());
+		return "userChangePasswordPage";
+	}
+	/**
+	 * 验证用户修改密码信息
+	 */
+	public String userChangePwd(){
+		//根据验证码查询用户
+		User existUser=userService.findByUC(user.getUsername(),user.getCode());
+		if(existUser==null){
+			//验证码错误
+			this.clearActionErrors();
+			this.addActionError("验证失败，验证码错误！");
+			return "changeFail";
+		}else {
+			//成功
+			//修改用户状态
+			existUser.setPassword(user.getPassword());;
+			existUser.setCode(null);
+			userService.update(existUser);
+			this.clearMessages();
+			this.addActionMessage("激活成功,请去登录！");
+		}
+		return "msg";
 	}
 }

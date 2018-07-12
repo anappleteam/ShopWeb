@@ -127,6 +127,10 @@ public class ProductDao extends HibernateDaoSupport {
 		this.getHibernateTemplate().update(product);
 		
 	}
+	public List<Product> findBySid(Integer sid) {
+		String hql="from Product where sid=?";
+		return getHibernateTemplate().find(hql,sid);
+	}
 
 
 }

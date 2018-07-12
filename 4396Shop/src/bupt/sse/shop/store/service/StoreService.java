@@ -115,4 +115,9 @@ public class StoreService {
 	public Store findStoreBySid(Integer sid) {
 		return storeDao.findStoreBySid(sid);
 	}
+
+	public List<Store> findByUid(int uid) {
+		// TODO Auto-generated method stub
+		return storeDao.findByUid(uid);
+	}
 }
