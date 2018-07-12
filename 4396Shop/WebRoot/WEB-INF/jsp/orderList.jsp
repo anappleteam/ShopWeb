@@ -148,13 +148,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td width="180">
 								<span class="subtotal"><s:property value="#orderItem.subtotal"/></span>
 							</td>
-							<s:if test="#order.state==3	">
+							<s:if test="#order.state==3	|| #order.state==2">
 							<td width="120">
-								<s:if test="#orderItem.state==null">
+								<s:if test="#orderItem.state==2">
 								<a href="${pageContext.request.contextPath}/order_updateState.action?itemid=<s:property value="#orderItem.itemid"/>"><font color="red">确认收货</font></a>
 								</s:if>
 								<s:else>
-								<a>已收货</a>
+									<s:if test="#orderItem.state==0">
+										<a>待发货</a>
+									</s:if>
+									<s:else>
+										<a>已收货</a>
+									</s:else>
 								</s:else>
 							</td>
 							</s:if>

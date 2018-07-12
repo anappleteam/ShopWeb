@@ -11,6 +11,17 @@
 
 /* ---------- Index ---------- */
 
+.pointer{height:4px;position:absolute;bottom:0px;}
+.pointer li{width:42px;height:1px;background:#5a5a5a;float:left;margin:0 5px;cursor: pointer;}
+.pointer li.now{height:4px;background:#c8c8c8;} 
+.J_banner{max-width:100%;position:relative;overflow:hidden;}
+.J_banner .img{overflow:hidden;position:absolute;}
+.J_banner .img li{float:left;position:relative;}
+.J_banner .img li img{width:1366px;}
+.J_banner1 .pointer{width:100px;height:15px;position:absolute;bottom:16px;left:50%;}
+.J_banner1 .pointer li{width:15px;height:15px;background:#d0d0d0;border-radius:50%;float:left;}
+.J_banner1 .pointer li.now{background:#fff;}
+
 div.index .slider {
 	height: 290px;
 	margin-bottom: 10px;

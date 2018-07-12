@@ -4,6 +4,23 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%@ taglib uri="/struts-tags" prefix="s"%>
+<%@page language="java"  import="javax.servlet.http.Cookie,java.net.*"%>
+<%	String username="";//设置从cookie接受登录名的变量
+	String password="";//设置从cookie接受密码的变量
+	String check ="";//设置是否有勾选记住密码的标识
+	Cookie[] cookies = request.getCookies();//从request中获取cookie 这里拿到的是一个cookie对象数组
+	for(int i=0;cookies!=null&&i<cookies.length;i++){
+	Cookie cookie = cookies[i];
+	if(URLDecoder.decode(cookie.getName(), "UTF-8").equals("username")){
+		username=URLDecoder.decode(cookie.getValue(), "UTF-8");
+		check="checked";
+	}
+	
+	if(cookie.getName().equals("password")){
+		password=cookie.getValue();
+	}
+	}
+%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -35,6 +52,7 @@ function change(){
 		var img1=document.getElementById("checkImage");
 		img1.src="<%=path%>/checkImg.action?"+new Date().getTime();
 	}
+
 </script>
 </head>
 <body style="margin-top: 80px">
@@ -57,7 +75,7 @@ function change(){
 										用户名/E-mail:
 								</th>
 								<td>
-									<input type="text" id="username" name="username" class="text" maxlength="20">
+									<input type="text" id="username" name="username" class="text"  value="<%=username %>"maxlength="20">
 									
 								</td>
 							</tr>
@@ -66,7 +84,7 @@ function change(){
 									密&nbsp;&nbsp;码:
 								</th>
 								<td>
-									<input type="password" id="password" name="password" class="text" maxlength="20" autocomplete="off">
+									<input type="password" id="password" name="password" class="text" maxlength="20" autocomplete="off" value="<%=password%>">
 								</td>
 							</tr>
 								<tr>
@@ -94,10 +112,10 @@ function change(){
 								</th>
 								<td>
 									<label>
-										<input type="checkbox" id="isRememberUsername" name="isRememberUsername" value="true">记住用户名
+										<input type="checkbox" name="remember" id="remember" value="remember" <%=check %>>记住用户名
 									</label>
 									<label>
-										&nbsp;&nbsp;<a >找回密码</a>
+										&nbsp;&nbsp;<a href="<%=path %>/user_changePwdPage.action" >忘记密码?</a>
 									</label>
 								</td>
 							</tr>
@@ -118,7 +136,7 @@ function change(){
 										<dt>还没有注册账号？</dt>
 										<dd>
 											立即注册即可体验在线购物！
-											<a href="<%=path %>/user_regist.action">立即注册</a>
+											<a href="<%=path %>/user_registPage.action">立即注册</a>
 										</dd>
 									</dl>
 								</td>

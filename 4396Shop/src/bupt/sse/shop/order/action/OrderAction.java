@@ -223,6 +223,10 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 			Order currOrder = orderService.findByOid(Integer.parseInt(out_trade_no.replace("43967777", "")));
 			currOrder.setState(2);
 			orderService.update(currOrder);
+			for (OrderItem orderitem : currOrder.getOrderItems()) {
+				orderitem.setState(0);
+				orderService.updateItem(orderitem);
+			}
 			
 			System.out.println("success");
 			
@@ -270,6 +274,11 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 			Order currOrder = orderService.findByOid(Integer.parseInt(out_trade_no.replace("43967777", "")));
 			currOrder.setState(2);
 			orderService.update(currOrder);
+
+			for (OrderItem orderitem : currOrder.getOrderItems()) {
+				orderitem.setState(0);
+				orderService.updateItem(orderitem);
+			}
 			
 			System.out.println("trade_no:"+trade_no+"<br/>out_trade_no:"+out_trade_no+"<br/>total_amount:"+total_amount);
 		}else {
@@ -288,7 +297,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 		orderService.updateItem(curItem);
 		Order curOrder=orderService.findByOid(curItem.getOrder().getOid());
 		for(OrderItem orderItem : curOrder.getOrderItems()){
-			if(orderItem.getState()==null)
+			if(orderItem.getState()!=1)
 				receiveall=1;
 		}
 		if(receiveall==0){

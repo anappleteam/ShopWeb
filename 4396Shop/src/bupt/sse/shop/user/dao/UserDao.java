@@ -4,6 +4,7 @@ package bupt.sse.shop.user.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import bupt.sse.shop.user.vo.User;
@@ -65,6 +66,22 @@ public class UserDao extends HibernateDaoSupport {
 		return null;
 	}
 
+	public void saveIdentifyingCode(User user) {
+		String hql="update User set code=? where username=?";
+		Query query=this.getSession().createQuery(hql);
+		query.setParameter(0, user.getCode());
+		query.setParameter(1, user.getUsername());
+		query.executeUpdate();
+	}
+
+	public User findByUC(String username, String code) {
+		String hql="from User where username=? and code=?";
+		List<User> users=this.getHibernateTemplate().find(hql,username,code);
+		if(users!=null&&users.size()>0){
+			return users.get(0);
+		}
+		return null;
+	}
 	public User findByUid(int uid) {
 		return getHibernateTemplate().get(User.class, uid);
 	}
