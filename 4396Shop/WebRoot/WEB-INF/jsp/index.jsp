@@ -14,6 +14,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css"/>
 <link href="<%=path%>/css/index.css" rel="stylesheet" type="text/css"/>
 
+
+<script src="${pageContext.request.contextPath}/js/jquery-1.8.3.js"></script>
+<script src="${pageContext.request.contextPath}/js/Myapi.js"></script>
+
 <jsp:include page="menu.jsp"/>
 	
 </head>
@@ -21,9 +25,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>	
 
 <div class="container index" >
-		
-		<img src="<%=path%>/image/20180708212234_278212.jpg" width="100%" height="100%" href="${ pageContext.request.contextPath }/user_loginPage.action" />
-		<div class="span24">
+		<div class="J_banner J_banner1" >
+        <ul class="img">
+            <li>
+                <img src="<%=path%>/image/20180708212234_278212.jpg" >
+            </li>
+            <li>
+                <img  src="<%=path%>/image/20180708212234_271188.jpg" >
+            </li>
+            <li>
+                <img src="<%=path%>/image/20180710093533_307265.jpg" >
+            </li>
+        </ul>
+        <ul class="pointer"></ul><!-- 点 -->
+   		</div>	
+   		
+    <script>
+    $(function(){
+        var myApi1 = new Myapi();
+        myApi1.JSON.lagout($('.J_banner1'),3000,0);
+    })
+</script>
+	<div class="span24">
 			<div id="hotProduct" class="hotProduct clearfix">
 					<div class="title">
 						<strong>热门商品</strong>
