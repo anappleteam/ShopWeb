@@ -100,6 +100,7 @@
 	<!-- 店铺action -->
 	<bean id="storeAction" class="bupt.sse.shop.store.action.StoreAction" scope="prototype">
 		<property name="storeService" ref="storeService"/>
+		<property name="orderService" ref="orderService"/>
 	</bean>
 
 	<!--订单的Action -->
