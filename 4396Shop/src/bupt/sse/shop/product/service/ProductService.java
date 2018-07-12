@@ -139,6 +139,9 @@ public class ProductService {
 		pageBean.setList(list);
 		return pageBean;
 	}
+	public List<Product> findBySid(Integer sid) {
+		return productDao.findBySid(sid);
+	}
 	
 	//保存商品
 	public void save(Product product) {
@@ -157,5 +160,4 @@ public class ProductService {
 		
 	}
 
-	
 }

@@ -1,5 +1,13 @@
 package bupt.sse.shop.store.action;
 
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+
+import javax.enterprise.inject.New;
+
+import org.apache.struts2.ServletActionContext;
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -39,8 +47,27 @@ public class StoreAction extends ActionSupport{
 	}
 	
 	public String storeMng() {
-		
-		return "storeMng";
+		User user=(User)ServletActionContext.getRequest().getSession().getAttribute("existUser");
+		if(user==null)return "storeError";
+		List<Store> stores=storeService.findByUid(user.getUid());
+		if(sid==null){	
+			/*if(!stores.isEmpty()){
+				ServletActionContext.getRequest().getSession().setAttribute("managedStore", new ArrayList<Store>(stores).get(0));
+				ArrayList<Product> list=new ArrayList<Product>(new ArrayList<Store>(stores).get(0).getProducts());
+				return "storeMng";
+			}*/
+			ServletActionContext.getRequest().getSession().setAttribute("managedStore", stores.get(0));
+			return "storeMng";
+		}else {
+			for(Store store:stores){
+				if(store.getSid().intValue()==sid.intValue()){
+					ServletActionContext.getRequest().getSession().setAttribute("managedStore", store);
+					return "storeMng";
+				}
+			}
+		}
+
+		return "storeError";
 	}
 	//跟据商店ID查询商店的所有商品并分页展示
 	public String findBySid()

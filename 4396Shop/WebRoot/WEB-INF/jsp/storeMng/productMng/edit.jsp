@@ -9,7 +9,7 @@
 	
 	<body>
 		<!--  -->
-		<form id="userAction_save_do" name="Form1" action="${pageContext.request.contextPath}/adminProduct_update.action" method="post" enctype="multipart/form-data">
+		<form id="userAction_save_do" name="Form1" action="${pageContext.request.contextPath}/productMng_update.action" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="pid" value="<s:property value="model.pid"/>">
 			<input type="hidden" name="image" value="<s:property value="model.image"/>">
 			
@@ -38,7 +38,7 @@
 						<select name="is_hot">
 							
 							<option value="1" <s:if test="model.is_hot==1">selected</s:if> >是</option>
-							<option value="0" <s:if test="model.is_hot==1">selected</s:if> >否</option>
+							<option value="0" <s:if test="model.is_hot==0">selected</s:if> >否</option>
 						</select>
 					</td>
 				</tr>

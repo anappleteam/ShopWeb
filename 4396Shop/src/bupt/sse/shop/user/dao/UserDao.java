@@ -40,6 +40,7 @@ public class UserDao extends HibernateDaoSupport {
 		String hql="from User where username=? and password=? and (state=1 or state=2 or state=3)";
 		List<User> users=this.getHibernateTemplate().find(hql,user.getUsername(),user.getPassword());
 		if(users!=null&&users.size()>0){
+			//return getHibernateTemplate().get(User.class, users.get(0).getUid());
 			return users.get(0);
 		}
 		return null;
