@@ -82,7 +82,7 @@
     	</action>
     	<!-- 后台用户登录的action -->
     	<action name="adminUser_*" class="adminUserAction" method="{1}">
-    		<result name="loginFail">/admin/index.jsp</result>
+    		<result name="loginFail" type="redirect">/admin/index.jsp</result>
     		<result name="loginSuccess" type="redirect">/admin/home.jsp</result>
     	</action>
     	<!-- 配置后台用户管理action -->
