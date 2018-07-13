@@ -88,5 +88,30 @@ public class OrderService {
 		
 		return orderDao.findOrderItem(oid);
 	}
-	
+
+	public PageBean<OrderItem> findBySidPage(Integer sid, Integer page) {
+		PageBean<OrderItem> pageBean=new PageBean<OrderItem>();
+		//设置当前页数
+		pageBean.setPage(page);
+		//设置煤业显示的记录数
+		int limit=10;
+		pageBean.setLimit(limit);
+		//设置记录数
+		int totalCount=orderDao.findByCountSid(sid);
+		pageBean.setTotalCount(totalCount);
+		//设置总页数
+		int totalPage=0;
+		if(totalCount%limit==0){
+			totalPage=totalCount/limit;
+		}else {
+			totalPage=totalCount/limit+1;
+		}
+		pageBean.setTotalPage(totalPage);
+		//设置每页显示的数据集合
+		int begin=(page-1)*limit;
+		List<OrderItem> list=orderDao.findByPageSid(sid,begin,limit);
+		pageBean.setList(list);
+		return pageBean;
+	}
+		
 }

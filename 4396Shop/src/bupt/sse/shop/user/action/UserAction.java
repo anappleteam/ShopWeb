@@ -3,6 +3,7 @@ package bupt.sse.shop.user.action;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -124,6 +125,8 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			HttpServletResponse response =ServletActionContext.getResponse();
 			LoginUtils.createCookie(request, response);
 			ServletActionContext.getRequest().getSession().setAttribute("existUser", existUser);
+			List<Store> stores=storeService.findByUid(existUser.getUid());
+			if(!stores.isEmpty())ServletActionContext.getRequest().getSession().setAttribute("managedStore", stores.get(0));
 			return "loginSuccess";
 		}
 	}

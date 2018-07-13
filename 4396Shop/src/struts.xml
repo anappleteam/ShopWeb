@@ -12,6 +12,7 @@
     	
     	<default-action-ref name="index"></default-action-ref>
     	<global-results>
+    		<result name="error" type="redirectAction">index</result>
     		<result name="msg">/WEB-INF/jsp/msg.jsp</result>
 			<result name="login">/WEB-INF/jsp/login.jsp</result>
 			<result name="loginFail">/admin/index.jsp</result>
@@ -56,12 +57,22 @@
     	
     	<!-- 店铺action -->
     	<action name="store_*" class="storeAction" method="{1}">
+    		<result name="storeError" type="redirectAction">index</result>
     		<result name="findBySid">/WEB-INF/jsp/store.jsp</result>
     		<result name="storeMng">/WEB-INF/jsp/storeMng/storeMng.jsp</result>
+    		<result name="orderMng">/WEB-INF/jsp/storeMng/orderlist.jsp</result>
+    		<result name="findOrderItem">/WEB-INF/jsp/storeMng/orderItem.jsp</result>
+    		<result name="updateStateSuccess" type="redirectAction">store_orderMng.action?page=1</result>
     	</action>
-    	<!-- 商品管理action -->
+    	<!-- 店铺商品管理action -->
     	<action name="productMng_*" class="productMngAction" method="{1}">
-    		<result name="list">/WEB-INF/jsp/storeMng/productMng/list.jsp</result>
+    		<result name="productMngError" type="redirectAction">productMng_findByCurStore?page=1</result>
+    		<result name="findByCurStore">/WEB-INF/jsp/storeMng/productMng/list.jsp</result>
+    		<result name="addPage">/WEB-INF/jsp/storeMng/productMng/add.jsp</result>
+    		<result name="saveSuccess" type="redirectAction">productMng_findByCurStore?page=1</result>
+    		<result name="editPage">/WEB-INF/jsp/storeMng/productMng/edit.jsp</result>
+    		<result name="updateSuccess" type="redirectAction">productMng_findByCurStore?page=1</result>
+    		<result name="deleteSuccess" type="redirectAction">productMng_findByCurStore?page=1</result>
     	</action>
     	
     	<!-- 购物车的action -->
@@ -73,7 +84,7 @@
     	</action>
     	<!-- 后台用户登录的action -->
     	<action name="adminUser_*" class="adminUserAction" method="{1}">
-    		<result name="loginFail">/admin/index.jsp</result>
+    		<result name="loginFail" type="redirect">/admin/index.jsp</result>
     		<result name="loginSuccess" type="redirect">/admin/home.jsp</result>
     	</action>
     	<!-- 配置后台用户管理action -->

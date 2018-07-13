@@ -96,4 +96,9 @@ public class StoreDao extends HibernateDaoSupport {
 		Store store=this.getHibernateTemplate().get(Store.class,sid);
 		return store;
 	}
+
+	public List<Store> findByUid(int uid) {
+		String hql="from Store where uid=?";
+		return getHibernateTemplate().find(hql,uid);
+	}
 }

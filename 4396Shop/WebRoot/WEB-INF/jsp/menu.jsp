@@ -13,6 +13,8 @@ window.onload=function(){
 			// 4.发送
 			
 			xhr.send(null);
+			
+			
 			}
 		function createXmlHttp(){
 			var xmlHttp;
@@ -71,7 +73,15 @@ window.onload=function(){
 					</s:if>
 					<s:elseif test="#session.existUser.state==3">
 						<li id="headerLogin" class="headerLogin"
-						style="display: list-item;"><a href="${pageContext.request.contextPath}/store_storeMng.action">我的店铺</a>|</li>
+						style="display: list-item;">
+						<div class="dropdown">
+							<span>我的店铺</span>
+							<div class="dropdown-content">
+							<a href="${pageContext.request.contextPath}/productMng_findByCurStore.action?page=1">商品管理</a><br>
+    						<a href="${pageContext.request.contextPath}/store_orderMng?page=1">订单管理</a>
+							</div>
+						</div>
+						|</li>
 					</s:elseif>
 				</s:else>
 				<li><a href="${ pageContext.request.contextPath }/cart_myCart.action">购物车</a> |</li>

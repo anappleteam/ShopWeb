@@ -22,7 +22,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 </head>
 <body>
-</div>	
 
 <div class="container index" >
 		<div class="J_banner J_banner1" >
