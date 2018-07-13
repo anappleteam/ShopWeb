@@ -26,6 +26,10 @@
 		<jsp:include page="menu.jsp" />
 	<div class="container productContent">
 		<div class="span6">
+		<div class="storeTitle">
+		<p class="title"><s:property value="model.store.sname"/></p>
+		<a class="link" href="<%=path%>/store_findBySid.action?sid=<s:property value="model.store.sid"/>&page=1">进店逛逛</a>
+		</div>
 			<div class="hotProductCategory">
 				<s:iterator var="c" value="#session.cList">
 					<dl>
@@ -47,10 +51,7 @@
 
 
 		</div>
-		<div class="span6">
-		<s:property value="model.store.sname"/>
-		<a href="<%=path%>/store_findBySid.action?sid=<s:property value="model.store.sid"/>&page=1">进店逛逛</a>
-		</div>
+		
 		<div class="span16 last">
 
 			<div class="productImage">

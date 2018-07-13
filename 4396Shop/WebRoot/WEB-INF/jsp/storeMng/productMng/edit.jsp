@@ -9,6 +9,7 @@
 	
 	<body>
 		<!--  -->
+		<jsp:include page="/WEB-INF/jsp/menu.jsp"/>
 		<form id="userAction_save_do" name="Form1" action="${pageContext.request.contextPath}/productMng_update.action" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="pid" value="<s:property value="model.pid"/>">
 			<input type="hidden" name="image" value="<s:property value="model.image"/>">

@@ -14,13 +14,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css"/>
 <link href="<%=path%>/css/index.css" rel="stylesheet" type="text/css"/>
 
+
 <jsp:include page="/WEB-INF/jsp/menu.jsp"/>
-	
-</head>
-<body>
-	<div class="container" >
-		<a href="<%=path %>/productMng_findByCurStore.action?page=1">商品管理</a>
-		
-	</div>
-</body>
+</head>  
+  <body>
+  <div class="container">
+ 	<a href="<%=path %>/productMng_findByCurStore.action?page=1">商品管理</a>
+    <a href="<%=path%>/store_orderMng?sid=1&page=1">订单管理</a>
+    </div>
+  </body>
 </html>
+

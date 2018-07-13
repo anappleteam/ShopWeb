@@ -60,7 +60,9 @@
     		<result name="storeError" type="redirectAction">index</result>
     		<result name="findBySid">/WEB-INF/jsp/store.jsp</result>
     		<result name="storeMng">/WEB-INF/jsp/storeMng/storeMng.jsp</result>
-    		<!-- <result name="storeMng">/WEB-INF/jsp/MyJsp.jsp</result> -->
+    		<result name="orderMng">/WEB-INF/jsp/storeMng/orderlist.jsp</result>
+    		<result name="findOrderItem">/WEB-INF/jsp/storeMng/orderItem.jsp</result>
+    		<result name="updateStateSuccess" type="redirectAction">store_orderMng.action?page=1</result>
     	</action>
     	<!-- 店铺商品管理action -->
     	<action name="productMng_*" class="productMngAction" method="{1}">
