@@ -279,11 +279,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		img1.src="<%=path%>/checkImg.action?"+new Date().getTime();
 	}
 	window.onload=function(){
+	var t=window.sessionStorage.getItem('t');
+	if(t==null){
+		t=2;
+		window.sessionStorage.setItem('t',t);
+	}else{
 	checkUsername(document.getElementById("username"));
 	checkEmail(document.getElementById("email"));
 	checkName(document.getElementById("name"));
 	checkIdentification(document.getElementById("identification"));
-	checkPhone(document.getElementById("phone"));
+	checkPhone(document.getElementById("phone"));}
 	}
 </script>
 </head>

@@ -52,7 +52,7 @@
 			</list>
 		</property>
 	</bean>
-
+	
 	<!-- 事务管理 -->
 	<!-- 事务管理器 -->
 	<bean id="transactionManager"
@@ -61,7 +61,12 @@
 	</bean>
 	<!-- 开启注解事务 -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
-
+	
+	<!-- 切面类 -->
+	<bean id="userAspect" class="bupt.sse.shop.aspect.UserAspect" />
+	
+	<!-- 根据注解进行自动切面代理，不需要aop:config -->
+	<aop:aspectj-autoproxy />
 	<!-- Action的配置 =========================== -->
 
 	<!-- 首页访问的Action -->
