@@ -799,6 +799,10 @@ div.header{
 	padding-bottom: 1px;
 }
 
+div.fall-below-header{
+	padding-top: 120px;
+}
+
 div.header .logo {
 	height: 50px;
 }

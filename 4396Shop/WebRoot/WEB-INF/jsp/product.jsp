@@ -15,34 +15,39 @@
 <link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css">
 <link href="<%=path%>/css/product.css" rel="stylesheet" type="text/css">
 <script>
-	function saveCart(){
-	document.getElementById("cartForm").submit();
+	function saveCart() {
+		document.getElementById("cartForm").submit();
 	}
 </script>
 
 </head>
 <body>
 
-		<jsp:include page="menu.jsp" />
+	<jsp:include page="menu.jsp" />
 	<div class="container productContent">
 		<div class="span6">
-		<div class="storeTitle">
-		<p class="title"><s:property value="model.store.sname"/></p>
-		<a class="link" href="<%=path%>/store_findBySid.action?sid=<s:property value="model.store.sid"/>&page=1">进店逛逛</a>
-		</div>
+			<div class="storeTitle">
+				<p class="title">
+					<s:property value="model.store.sname" />
+				</p>
+				<a class="link"
+					href="<%=path%>/store_findBySid.action?sid=<s:property value="model.store.sid"/>&page=1">进店逛逛</a>
+			</div>
 			<div class="hotProductCategory">
 				<s:iterator var="c" value="#session.cList">
 					<dl>
 						<dt>
 							<a
-								href="<%=path%>/product_findByCid.action?cid=<s:property value="#c.cid"/>&page=1"><s:property
-									value="#c.cname" /></a>
+								href="<%=path%>/product_findByCid.action?cid=<s:property value="#c.cid"/>&page=1">
+								<s:property value="#c.cname" />
+							</a>
 						</dt>
 						<s:iterator var="cs" value="#c.categorySeconds">
 							<dd>
 								<a
-									href="<%=path%>/product_findByCsid.action?csid=<s:property value="#cs.csid"/>&page=1"><s:property
-										value="#cs.csname" /></a>
+									href="<%=path%>/product_findByCsid.action?csid=<s:property value="#cs.csid"/>&page=1">
+									<s:property value="#cs.csname" />
+								</a>
 							</dd>
 						</s:iterator>
 					</dl>
@@ -51,7 +56,7 @@
 
 
 		</div>
-		
+
 		<div class="span16 last">
 
 			<div class="productImage">
@@ -61,7 +66,7 @@
 					rel="gallery">
 					<div class="zoomPad">
 						<img style="opacity: 1;" title="" class="medium"
-							src="<%=path%>/<s:property value="model.image"/>">
+							src="<%=path%>/<s:property value="model.image"/>" />
 						<div
 							style="display: block; top: 0px; left: 162px; width: 0px; height: 0px; position: absolute; border-width: 1px;"
 							class="zoomPup"></div>
@@ -74,7 +79,7 @@
 								<div style="width: 0%; height: 0px;" class="zoomWrapperImage">
 									<img
 										src="%E5%B0%9A%E9%83%BD%E6%AF%94%E6%8B%89%E5%A5%B3%E8%A3%852013%E5%A4%8F%E8%A3%85%E6%96%B0%E6%AC%BE%E8%95%BE%E4%B8%9D%E8%BF%9E%E8%A1%A3%E8%A3%99%20%E9%9F%A9%E7%89%88%E4%BF%AE%E8%BA%AB%E9%9B%AA%E7%BA%BA%E6%89%93%E5%BA%95%E8%A3%99%E5%AD%90%20%E6%98%A5%E6%AC%BE%20-%20Powered%20By%20Mango%20Team_files/6d53c211-2325-41ed-8696-d8fbceb1c199-large.jpg"
-										style="position: absolute; border: 0px none; display: block; left: -432px; top: 0px;">
+										style="position: absolute; border: 0px none; display: block; left: -432px; top: 0px;" />
 								</div>
 							</div>
 						</div>
@@ -118,27 +123,31 @@
 					</dd>
 				</dl>
 			</div>
-			<form id="cartForm" action="${pageContext.request.contextPath }/cart_addCart.action" method="post">
-			<input type="hidden" name="pid" value="<s:property value="model.pid" />" />
- 			<div class="action">
+			<form id="cartForm"
+				action="${pageContext.request.contextPath }/cart_addCart.action"
+				method="post">
+				<input type="hidden" name="pid"
+					value="<s:property value="model.pid" />" />
+				<div class="action">
 
-				<dl class="quantity">
-					<dt>购买数量:</dt>
-					<dd>
-						<input id="count" name="count" value="1" maxlength="4"
-							onpaste="return false;" type="text">
-						<div>
-							<span id="increase" class="increase">&nbsp;</span> <span
-								id="decrease" class="decrease">&nbsp;</span>
-						</div>
-					</dd>
-					<dd>件</dd>
-				</dl>
-				<div class="buy">
-					<input id="addCart" class="addCart" value="加入购物车" type="button" onclick="saveCart()"/> 
-					<!-- submit可以直接提交，普通button需要JS才可以 -->
+					<dl class="quantity">
+						<dt>购买数量:</dt>
+						<dd>
+							<input id="count" name="count" value="1" maxlength="4"
+								onpaste="return false;" type="text">
+							<div>
+								<span id="increase" class="increase">&nbsp;</span> <span
+									id="decrease" class="decrease">&nbsp;</span>
+							</div>
+						</dd>
+						<dd>件</dd>
+					</dl>
+					<div class="buy">
+						<input id="addCart" class="addCart" value="加入购物车" type="button"
+							onclick="saveCart()" />
+						<!-- submit可以直接提交，普通button需要JS才可以 -->
+					</div>
 				</div>
-			</div>
 			</form>
 			<div id="bar" class="bar">
 				<ul>
@@ -160,30 +169,6 @@
 
 		</div>
 	</div>
-
-	<div class="container footer">
-		<div class="span24">
-			<div class="footerAd">
-				<img src="image\r___________renleipic_01/footer.jpg" alt="我们的优势"
-					title="我们的优势" height="52" width="950">
-			</div>
-		</div>
-		<div class="span24">
-			<ul class="bottomNav">
-				<li><a href="#">关于我们</a> |</li>
-				<li><a href="#">联系我们</a> |</li>
-				<li><a href="#">诚聘英才</a> |</li>
-				<li><a href="#">法律声明</a> |</li>
-				<li><a>友情链接</a> |</li>
-				<li><a target="_blank">支付方式</a> |</li>
-				<li><a target="_blank">配送方式</a> |</li>
-				<li><a>SHOP++官网</a> |</li>
-				<li><a>SHOP++论坛</a></li>
-			</ul>
-		</div>
-		<div class="span24">
-			<div class="copyright">Copyright © 2005-2015 网上商城 版权所有</div>
-		</div>
-	</div>
+	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
 </html>

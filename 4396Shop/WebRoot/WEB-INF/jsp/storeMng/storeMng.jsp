@@ -15,7 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="<%=path%>/css/index.css" rel="stylesheet" type="text/css"/>
 
 
-<jsp:include page="/WEB-INF/jsp/menu.jsp"/>
+<jsp:include page="/WEB-INF/jsp/header.jsp"/>
 </head>  
   <body>
   <div class="container">

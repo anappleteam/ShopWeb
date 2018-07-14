@@ -38,7 +38,7 @@
 	}
 </script>
 <div class="header"
-	style="background-color: #000000;position:fixed;z-index:9999;width:100%;height:160px;margin-top:-160px">
+	style="background-color: #000000;position:fixed;z-index:9999;width:100%">
 
 	<div class="span24 last">
 		<div class="logo">
@@ -99,19 +99,5 @@
 				<li><a>关于我们</a></li>
 			</ul>
 		</div>
-	</div>
-
-	<div class="span24">
-		<ul class="mainNav">
-			<li><a href="${pageContext.request.contextPath }/index.action">首页</a>
-				|</li>
-			<s:iterator var="c" value="#session.cList">
-				<li><a
-						href="${pageContext.request.contextPath }/product_findByCid.action?cid=<s:property value="#c.cid" />&page=1">
-						<s:property value="#c.cname" />
-					</a> |</li>
-			</s:iterator>
-
-		</ul>
 	</div>
 </div>
