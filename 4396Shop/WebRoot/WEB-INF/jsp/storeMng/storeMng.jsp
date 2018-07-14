@@ -14,9 +14,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css"/>
 <link href="<%=path%>/css/index.css" rel="stylesheet" type="text/css"/>
 
-
 <jsp:include page="/WEB-INF/jsp/header.jsp"/>
 </head>  
+
   <body>
   <div class="container">
  	<a href="<%=path %>/productMng_findByCurStore.action?page=1">商品管理</a>

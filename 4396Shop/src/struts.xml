@@ -16,7 +16,12 @@
     		<result name="msg">/WEB-INF/jsp/msg.jsp</result>
 			<result name="login">/WEB-INF/jsp/login.jsp</result>
 			<result name="loginFail">/admin/index.jsp</result>
+			<result name="userNotLogin">/WEB-INF/jsp/msg.jsp</result>
     	</global-results>
+    	<!-- 全局异常映射 -->
+    	<global-exception-mappings>
+    		<exception-mapping result="userNotLogin" exception="bupt.sse.shop.aspect.UserNotLoginException"></exception-mapping>
+    	</global-exception-mappings>
     	<!-- 首页访问的Action -->
     	<action name="index" class="indexAction">
     		<result name="index">/WEB-INF/jsp/index.jsp</result>
