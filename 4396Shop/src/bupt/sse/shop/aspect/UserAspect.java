@@ -46,7 +46,7 @@ public class UserAspect {
 		}
 
 	}
-	
+
 	private CategoryService categoryService;
 	
 	public void setCategoryService(CategoryService categoryService) {
@@ -89,7 +89,6 @@ public class UserAspect {
 	@Pointcut("execution(* bupt.sse.shop.cart.action.CartAction.*(..))")
 	private void cartActionPointCut() {
 	}
-
 
 	@Pointcut("execution(* bupt.sse.shop.*.action.*Action.*(..))")
 	private void allActionPointCut() {

@@ -10,7 +10,7 @@ import bupt.sse.shop.user.vo.User;
 
 @Aspect
 public class StoreAspect {
-	@Before("MngMethodPointCut()")
+	@Before("MngMethodPointCut()||MngMethodPointCut()||updatecut()")
 	public void before(JoinPoint joinPoint)throws UserNotLoginException
 	{
 		try{
@@ -25,8 +25,16 @@ public class StoreAspect {
 		}
 	}
 	
-	@Pointcut("execution(* *Mng(..))")
+	@Pointcut("execution(* bupt.sse.shop.store.action.StoreAction.*Mng(..))")
 	private void MngMethodPointCut(){	
+	}
+	
+	@Pointcut("execution(* bupt.sse.shop.store.action.StoreAction.findOrderItem(..))")
+	private void findOrderItemPointCut(){
+	}
+	
+	@Pointcut("execution(* bupt.sse.shop.store.action.StoreAction.updateState(..))")
+	private void updatecut(){
 	}
 
 }
