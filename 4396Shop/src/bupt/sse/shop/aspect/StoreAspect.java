@@ -11,13 +11,21 @@ import bupt.sse.shop.user.vo.User;
 @Aspect
 public class StoreAspect {
 	@Before("MngMethodPointCut()")
-	public void before(JoinPoint joinPoint)
+	public void before(JoinPoint joinPoint)throws UserNotLoginException
 	{
+		try{
 		User user=(User)ServletActionContext.getRequest().getSession().getAttribute("existUser");
-		if(user==null);
+		if(user==null){
+			throw new UserNotLoginException();
+		};
+		}
+		catch(Exception e){
+			ServletActionContext.getRequest().getSession().setAttribute("loginMessage","您尚未登陆！");
+			throw new UserNotLoginException();
+		}
 	}
 	
-	@Pointcut("execution(*bupt.sse.shop.store.action.StoreAction.*Mng(..))")
+	@Pointcut("execution(* *Mng(..))")
 	private void MngMethodPointCut(){	
 	}
 

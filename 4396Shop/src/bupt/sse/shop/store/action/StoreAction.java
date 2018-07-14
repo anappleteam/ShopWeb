@@ -39,10 +39,10 @@ public class StoreAction extends ActionSupport implements ModelDriven<OrderItem>
 	}
 	private Integer sid;
 	private Integer page;
-	private Store store;
+	private Store storeInfo;
 
-	public Store getStore() {
-		return store;
+	public Store getStoreInfo() {
+		return storeInfo;
 	}
 	public void setPage(Integer page) {
 		this.page = page;
@@ -124,7 +124,7 @@ public class StoreAction extends ActionSupport implements ModelDriven<OrderItem>
 	public String findBySid()
 	{
 		PageBean<Product> pageBean=storeService.findBySid(sid,page);
-		store =storeService.findStoreBySid(sid);
+		storeInfo =storeService.findStoreBySid(sid);
 		ActionContext.getContext().getValueStack().set("pageBean", pageBean);
 		return "findBySid";
 	}

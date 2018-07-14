@@ -38,7 +38,7 @@
 	}
 </script>
 <div class="header"
-	style="background-color: #000000;position:fixed;z-index:9999;width:100%;height:160px;margin-top:-160px">
+	style="background-color: #000000;position:fixed;z-index:9999;width:100%">
 
 	<div class="span24 last">
 		<div class="logo">
@@ -71,9 +71,6 @@
 					<li id="headerLogin" class="headerLogin"
 						style="display: list-item;"><a
 							href="${pageContext.request.contextPath}/order_findByUid.action?page=1">我的订单</a>|</li>
-											<li><a
-						href="${ pageContext.request.contextPath }/cart_myCart.action">购物车</a>
-					|</li>
 					<s:if
 						test="#session.existUser.state==1 ||#session.existUser.state==2 ">
 						<li id="headerLogin" class="headerLogin"
@@ -96,23 +93,11 @@
 						</li>
 					</s:elseif>
 				</s:else>
-				 |</li>
+				<li><a
+						href="${ pageContext.request.contextPath }/cart_myCart.action">购物车</a>
+					|</li>
 				<li><a>关于我们</a></li>
 			</ul>
 		</div>
-	</div>
-
-	<div class="span24">
-		<ul class="mainNav">
-			<li><a href="${pageContext.request.contextPath }/index.action">首页</a>
-				|</li>
-			<s:iterator var="c" value="#session.cList">
-				<li><a
-						href="${pageContext.request.contextPath }/product_findByCid.action?cid=<s:property value="#c.cid" />&page=1">
-						<s:property value="#c.cname" />
-					</a> |</li>
-			</s:iterator>
-
-		</ul>
 	</div>
 </div>

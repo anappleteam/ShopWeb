@@ -32,6 +32,9 @@ public class UserDao extends HibernateDaoSupport {
 		}
 		return null;
 	}
+	public User findByUid(Integer uid) {
+		return this.getHibernateTemplate().get(User.class,uid);
+	}
 	
 	public void update(User existUser) {
 		this.getHibernateTemplate().update(existUser);		

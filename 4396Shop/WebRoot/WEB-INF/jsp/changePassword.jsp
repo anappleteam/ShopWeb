@@ -165,7 +165,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<strong>找回密码</strong>
 						
 					</div>
-					<form id="changePasswordForm" action="<%=path %>/user_changePwd.action"  method="post" novalidate="novalidate" onsubmit="return checkForm();">
+					<form id="changePasswordForm" action="<%=path %>/user_changePwd.action"  method="post" onsubmit="return checkForm();">
 						<table>
 							<tbody>
 							<tr>
@@ -184,7 +184,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<td>
 									<span id="registEmail"></span><br/>
 									<input type="hidden" id="email" name="email" class="text" maxlength="50"  onblur="checkEmail(this)"></input>
-									<span id="email_span"><s:fielderror name="email"/></strong></span>
+									<span id="email_span"><s:fielderror name="email"/></span>
 								</td>
 							</tr>
 							<tr>
@@ -200,53 +200,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 	</div>
-<div class="container footer">
-	<div class="span24">
-		<div class="footerAd">
-					<img src="<%=path%>/image/footer.jpg" width="950" height="52" alt="我们的优势" title="我们的优势"></img>
-</div>	</div>
-	<div class="span24">
-		<ul class="bottomNav">
-					<li>
-						<a >关于我们</a>
-						|
-					</li>
-					<li>
-						<a >联系我们</a>
-						|
-					</li>
-					<li>
-						<a >招贤纳士</a>
-						|
-					</li>
-					<li>
-						<a>法律声明</a>
-						|
-					</li>
-					<li>
-						<a >友情链接</a>
-						|
-					</li>
-					<li>
-						<a  target="_blank">支付方式</a>
-						|
-					</li>
-					<li>
-						<a  target="_blank">配送方式</a>
-						|
-					</li>
-					<li>
-						<a>服务声明</a>
-						|
-					</li>
-					<li>
-						<a >广告声明</a>
-						
-					</li>
-		</ul>
-	</div>
-	<div class="span24">
-		<div class="copyright">Copyright © 2005-2015 网上商城 版权所有</div>
-	</div>
-</div>
+<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
