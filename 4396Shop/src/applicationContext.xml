@@ -64,6 +64,7 @@
 	
 	<!-- 切面类 -->
 	<bean id="userAspect" class="bupt.sse.shop.aspect.UserAspect" />
+	<bean id="storeAspect" class="bupt.sse.shop.aspect.StoreAspect"/>
 	
 	<!-- 根据注解进行自动切面代理，不需要aop:config -->
 	<aop:aspectj-autoproxy />

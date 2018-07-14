@@ -11,6 +11,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="Cache-Control" content="max-age=7200"/>
 <title>网上商城</title>
 <link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css">
 <link href="<%=path%>/css/product.css" rel="stylesheet" type="text/css">
@@ -51,7 +52,48 @@
 
 
 		</div>
-		
+		<script>
+			var gsFiles=JSON.parse(sessionStorage.getItem("gsFiles"))||{};
+			var a=document.getElementById("pimg");
+			var src1=a.getAttribute("src");
+			alert(src1);
+			gsFilesDate = gsFiles.date;
+		    date = new Date();
+		    todaysDate = (date.getMonth() + 1).toString() + date.getDate().toString();
+		     function imgLoad(el){
+		         var imgCanvas = document.createElement("canvas");
+		         imgContext = imgCanvas.getContext("2d");
+		// 确保canvas尺寸和图片一致
+		         imgCanvas.width = el.width;
+		         imgCanvas.height = el.height;
+		// 在canvas中绘制图片
+		         imgContext.drawImage(el, 0, 0, el.width, el.height);
+		// 将图片保存为Data URI		      
+		         gsFiles.a = imgCanvas.toDataURL("bj.png");
+		         //gsFiles.el = imgCanvas.toDataURL("bj.png");
+		         gsFiles.date = todaysDate;
+		// 将JSON保存到本地存储中
+		         try {
+		             sessionStorage.setItem("gsFiles", JSON.stringify(gsFiles));
+		         }
+		         catch (e) {
+		             console.log("Storage failed: " + e);
+		         }
+		     }
+		    // 检查数据，如果不存在或者数据过期，则创建一个本地存储
+		    if (typeof gsFilesDate === "undefined" || gsFilesDate < todaysDate) {
+		        // 图片加载完成后执行
+		        <!--image1-->
+		        a.addEventListener("load", function () {
+		            imgLoad(a)
+		        }, false);
+		        //设置图片
+		        a.setAttribute("src", str1);
+		        }else{
+		        a.setAttribute("src", gsFiles.a);
+		        }
+		        console.log(document.cookie)
+		</script>
 		<div class="span16 last">
 
 			<div class="productImage">
@@ -60,7 +102,7 @@
 					href="http://image/r___________renleipic_01/bigPic1ea8f1c9-8b8e-4262-8ca9-690912434692.jpg"
 					rel="gallery">
 					<div class="zoomPad">
-						<img style="opacity: 1;" title="" class="medium"
+						<img id="pimg" style="opacity: 1;" title="" class="medium"
 							src="<%=path%>/<s:property value="model.image"/>">
 						<div
 							style="display: block; top: 0px; left: 162px; width: 0px; height: 0px; position: absolute; border-width: 1px;"
