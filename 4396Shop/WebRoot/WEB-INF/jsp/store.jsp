@@ -7,10 +7,9 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- saved from url=(0048)http://localhost:8080/mango/product/list/1.jhtml -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>4396购物</title>
 <link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css" />
 <link href="<%=path%>/css/product.css" rel="stylesheet" type="text/css" />
@@ -42,14 +41,14 @@
 					<ul>
 						<s:iterator var="p" value="pageBean.list">
 							<li><a
-									href="<%=path%>/product_findByPid.action?pid=<s:property value="#p.pid"/>">
+								href="<%=path%>/product_findByPid.action?pid=<s:property value="#p.pid"/>">
 									<img src="<%=path%>/<s:property value="#p.image"/>" width="170"
-										height="170" style="display: inline-block;"> <span
-										style='color:green'> <s:property value="#p.pname" />
-									</span> <span class="price"> 商城价： ￥<s:property
-												value="#p.shop_price" />
-									</span>
-								</a></li>
+									height="170" style="display: inline-block;"/> <span
+										style='color:green' >
+								<s:property value="#p.pname" /> </span> <span class="price">
+										商城价： ￥<s:property value="#p.shop_price" />
+								</span>
+							</a></li>
 						</s:iterator>
 					</ul>
 				</div>

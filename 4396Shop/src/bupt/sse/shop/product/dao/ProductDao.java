@@ -113,8 +113,7 @@ public class ProductDao extends HibernateDaoSupport {
 	}
 	
 	public void save(Product product) {
-		this.getHibernateTemplate().save(product);
-		
+		this.getHibernateTemplate().save(product);		
 	}
 	
 	//删除商品

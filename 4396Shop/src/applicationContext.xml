@@ -129,6 +129,7 @@
 	<bean id="cartAction" class="bupt.sse.shop.cart.action.CartAction"
 		scope="prototype">
 		<property name="productService" ref="productService" />
+		<property name="cartItemService" ref="cartItemService" />
 	</bean>
 
 	<!-- 店铺action -->
@@ -148,6 +149,7 @@
 	<bean id="orderAction" class="bupt.sse.shop.order.action.OrderAction"
 		scope="prototype">
 		<property name="orderService" ref="orderService" />
+		<property name="cartItemService" ref="cartItemService" />
 	</bean>
 	<!-- 后台用户的action -->
 	<bean id="adminUserAction" class="bupt.sse.shop.adminuser.action.AdminUserAction"
@@ -164,6 +166,7 @@
 		scope="prototype">
 		<property name="categoryService" ref="categoryService" />
 	</bean>
+
 	<!-- 后台订单管理的action -->
 	<bean id="adminOrderAction" class="bupt.sse.shop.order.adminaction.AdminOrderAction"
 		scope="prototype">
@@ -208,6 +211,9 @@
 	<bean id="adminUserService" class="bupt.sse.shop.adminuser.service.AdminUserService">
 		<property name="adminUserDao" ref="adminUserDao" />
 	</bean>
+	<bean id="cartItemService" class="bupt.sse.shop.cart.service.CartItemService">
+		<property name="cartItemDao" ref="cartItemDao"></property>
+	</bean>
 	<!-- 二级分类的service -->
 	<bean id="categorySecondService"
 		class="bupt.sse.shop.categorysecond.service.CategorySecondService">
@@ -229,6 +235,9 @@
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<bean id="orderDao" class="bupt.sse.shop.order.dao.OrderDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="cartItemDao" class="bupt.sse.shop.cart.dao.CartItemDao">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<!-- 后台登录的Dao -->

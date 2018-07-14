@@ -110,14 +110,14 @@
 					</div>
 					<form id="registerForm"
 						action="<%=path %>/user_userChangePwd.action?username=${username}"
-						method="post" novalidate="novalidate"
+						method="post"
 						onsubmit="return checkForm();">
 						<table>
 							<tbody>
 								<tr>
 									<th><span class="requiredField">*</span>密&nbsp;&nbsp;码:</th>
 									<td><input type="password" id="password" name="password"
-										class="text" maxlength="20" autocomplete="off"
+										class="text" maxlength="20"
 										onblur="checkPassword(this);checkRepassword(document.getElementById('repassword'))"></input>
 										<span id="password_span">密码由字母、小数和符号组成，密码长度6-20位</span></td>
 								</tr>
@@ -125,13 +125,14 @@
 									<th><span class="requiredField">*</span>确认密码:</th>
 									<td><input type="password" id="repassword"
 										name="repassword" class="text" maxlength="20"
-										autocomplete="off" onblur="checkRepassword(this)"></input> <span
+										 onblur="checkRepassword(this)"></input> <span
 										id="repassword_span"></span></td>
 								</tr>
+								<tr>
 								<th><span class="requiredField">*</span>验证码:</th>
 								<td><span class="fieldSet"> <input type="text"
 										id="checkcode" name="code" class="text captcha" maxlength="5"
-										autocomplete="off" onblur="checkcodeFunction(this)"></input>
+										onblur="checkcodeFunction(this)"></input>
 								</span> <span id="checkcode_span"><font color="red"><s:actionerror
 												id="checkcodeActionerror" /></font></span></td>
 								</tr>
@@ -149,3 +150,4 @@
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
+</html>

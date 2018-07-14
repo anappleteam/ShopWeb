@@ -10,6 +10,7 @@
 		
 		<property name="count"/>
 		<property name="subtotal"/>
+		<property name="addtime"/>
 		<many-to-one name="product" lazy="false" class="bupt.sse.shop.product.vo.Product" column="pid" unique="true"/>
 		<many-to-one name="user" lazy="false" class="bupt.sse.shop.user.vo.User" column="uid"></many-to-one>
 	</class>

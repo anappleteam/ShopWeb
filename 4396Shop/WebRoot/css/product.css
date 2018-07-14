@@ -1139,43 +1139,31 @@ div.productContent .quantity dd {
 }
 
 div.productContent .quantity input {
+	
 	width: 22px;
-	height: 18px;
-	line-height: 18px;
-	float: left;
-	padding: 0px 2px;
+	height: 20px;
+		
 	text-align: center;
-	ime-mode: disabled;
+	
 	border: 1px solid #dbdbdb;
 }
 
-div.productContent .quantity div {
+/* div.productContent .quantity div {
 	height: 18px;
 	float: left;
 	padding-left: 2px;
+} */
+
+div.productContent .quantity .decrease {
+	width: 15px;
+	height: 22px;
+	float:both;	
 }
 
 div.productContent .quantity .increase {
-	width: 18px;
-	height: 7px;
-	display: block;
-	clear: both;
-	margin-bottom: 2px;
-	cursor: pointer;
-	overflow: hidden;
-	border: 1px solid #dbdbdb;
-	background: url(../images/product.gif) 0px -570px #f9f9f9 no-repeat;
-}
-
-div.productContent .quantity .decrease {
-	width: 18px;
-	height: 7px;
-	display: block;
-	clear: both;
-	cursor: pointer;
-	overflow: hidden;
-	border: 1px solid #dbdbdb;
-	background: url(../images/product.gif) -30px -570px #f9f9f9 no-repeat;
+	width: 15px;
+	height: 22px;
+	float:both;
 }
 
 div.productContent .buy {

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import bupt.sse.shop.product.vo.Product;
 import bupt.sse.shop.user.dao.UserDao;
 import bupt.sse.shop.user.vo.User;
 import bupt.sse.shop.utils.MailUitls;
@@ -23,6 +24,9 @@ public class UserService {
 	}
 	public User findByUsername(String username) {
 		return userDao.findByUsername(username);
+	}
+	public User findByUid(Integer uid) {
+		return userDao.findByUid(uid);
 	}
 	//实现用户注册
 	public void save(User user) throws UnknownHostException {

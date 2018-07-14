@@ -55,8 +55,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </script>
 </head>
 <body style="margin-top: 80px">
-
-	</div>
 	<div class="container login">
 		<div class="span12">
 			<div class="ad">
@@ -71,7 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<strong>会员登录</strong>USER LOGIN
 					</div>
 					<form id="loginForm" action="<%=path%>/user_login.action"
-						method="post" novalidate="novalidate"
+						method="post"
 						onsubmit="return checkForm();">
 						<table>
 							<tbody>
@@ -83,16 +81,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<tr>
 									<th>密&nbsp;&nbsp;码:</th>
 									<td><input type="password" id="password" name="password"
-										class="text" maxlength="20" autocomplete="off"
+										class="text" maxlength="20"
 										value="<%=password%>"></td>
 								</tr>
 								<tr>
 									<th>验证码:</th>
 									<td><span class="fieldSet"> <input type="text"
 											id="checkcode" name="checkcode" class="text" maxlength="5"
-											autocomplete="off"></input><img id="checkImage"
+											></input><img id="checkImage"
 											class="captchaImage" src="<%=path%>/checkImg.action"
-											onclick="change()" ontitle="点击更换验证码">
+											onclick="change()">
 									</span></td>
 								</tr>
 								<tr>
