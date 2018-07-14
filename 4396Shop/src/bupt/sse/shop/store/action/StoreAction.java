@@ -54,10 +54,6 @@ public class StoreAction extends ActionSupport implements ModelDriven<OrderItem>
 		this.storeService = storeService;
 	} 
 	
-	//我的商店
-	public String myStores() {
-		return "myStores";
-	}
 	
 	public String productMng(){
 		return null;

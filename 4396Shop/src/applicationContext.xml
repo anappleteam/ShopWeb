@@ -85,7 +85,9 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	
 	<!-- 切面类 -->
-	<bean id="userAspect" class="bupt.sse.shop.aspect.UserAspect" />
+	<bean id="userAspect" class="bupt.sse.shop.aspect.UserAspect" scope="prototype">
+		<property name="categoryService" ref="categoryService"></property>
+	</bean>
 	
 	<!-- 根据注解进行自动切面代理，不需要aop:config -->
 	<!-- proxy-target-class 属性值决定bean是基于jdk的接口方式的还是基于类的代理(CGLIB)被创建。

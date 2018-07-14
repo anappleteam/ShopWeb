@@ -4,6 +4,10 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <script>
 	window.onload = function() {
+		if(window.location.href.indexOf("user_registPage")==-1)
+		{
+			window.sessionStorage.setItem('t', null)
+		}
 		// 1.创建异步交互对象
 		var xhr = createXmlHttp();
 		// 2.设置监听
@@ -13,7 +17,8 @@
 		// 4.发送
 
 		xhr.send(null);
-
+		
+		
 
 	}
 	function createXmlHttp() {
@@ -71,9 +76,7 @@
 					<li id="headerLogin" class="headerLogin"
 						style="display: list-item;"><a
 							href="${pageContext.request.contextPath}/order_findByUid.action?page=1">我的订单</a>|</li>
-											<li><a
-						href="${ pageContext.request.contextPath }/cart_myCart.action">购物车</a>
-					|</li>
+											
 					<s:if
 						test="#session.existUser.state==1 ||#session.existUser.state==2 ">
 						<li id="headerLogin" class="headerLogin"
@@ -95,6 +98,9 @@
 							</div> |
 						</li>
 					</s:elseif>
+					<li><a
+						href="${ pageContext.request.contextPath }/cart_myCart.action">购物车</a>
+					|</li>
 				</s:else>
 				 |</li>
 				<li><a>关于我们</a></li>
