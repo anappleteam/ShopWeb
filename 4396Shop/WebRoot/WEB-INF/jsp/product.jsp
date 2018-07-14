@@ -81,7 +81,7 @@
 			<div class="productImage">
 				<a title="" style="outline-style: none; text-decoration: none;"
 					id="zoom"
-					href="http://image/r___________renleipic_01/bigPic1ea8f1c9-8b8e-4262-8ca9-690912434692.jpg"
+					href="<%=path%>/<s:property value="model.image"/>"
 					rel="gallery">
 					<div class="zoomPad">
 						<img style="opacity: 1;" title="" class="medium"
@@ -97,7 +97,7 @@
 									class="zoomWrapperTitle"></div>
 								<div style="width: 0%; height: 0px;" class="zoomWrapperImage">
 									<img
-										src="%E5%B0%9A%E9%83%BD%E6%AF%94%E6%8B%89%E5%A5%B3%E8%A3%852013%E5%A4%8F%E8%A3%85%E6%96%B0%E6%AC%BE%E8%95%BE%E4%B8%9D%E8%BF%9E%E8%A1%A3%E8%A3%99%20%E9%9F%A9%E7%89%88%E4%BF%AE%E8%BA%AB%E9%9B%AA%E7%BA%BA%E6%89%93%E5%BA%95%E8%A3%99%E5%AD%90%20%E6%98%A5%E6%AC%BE%20-%20Powered%20By%20Mango%20Team_files/6d53c211-2325-41ed-8696-d8fbceb1c199-large.jpg"
+										src="<%=path%>/<s:property value="model.image"/>"
 										style="position: absolute; border: 0px none; display: block; left: -432px; top: 0px;" />
 								</div>
 							</div>
