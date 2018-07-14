@@ -47,21 +47,6 @@ public class UserAspect {
 
 	}
 
-	@Before("storeActionPointCut()")
-	public void checkStoreLoginBefore(JoinPoint joinPoint) throws UserNotLoginException {
-		try {
-			User existUser = (User) ServletActionContext.getRequest().getSession().getAttribute("existUser");
-			if (existUser == null) {
-				if (!joinPoint.getSignature().getName().equals("findBySid")) {
-					throw new UserNotLoginException();
-				}
-			}
-		} catch (Exception e) {
-			ServletActionContext.getRequest().getSession().setAttribute("loginMessage", "您尚未登陆！");
-			throw new UserNotLoginException();
-		}
-	}
-
 	private CategoryService categoryService;
 	
 	public void setCategoryService(CategoryService categoryService) {
@@ -103,10 +88,6 @@ public class UserAspect {
 
 	@Pointcut("execution(* bupt.sse.shop.cart.action.CartAction.*(..))")
 	private void cartActionPointCut() {
-	}
-
-	@Pointcut("execution(* bupt.sse.shop.store.action.StoreAction.*(..))")
-	private void storeActionPointCut() {
 	}
 
 	@Pointcut("execution(* bupt.sse.shop.*.action.*Action.*(..))")
