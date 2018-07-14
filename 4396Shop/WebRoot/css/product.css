@@ -81,7 +81,8 @@ div.score10 {
 div.storeTitle .title{
 	font-size:2em;
 	font-family:"micosoft 雅黑";
-	width:110px;
+	word-break:keep-all;
+	width:150px;
 	margin:5px;
 	display:inline-block;
 	line-height:40px;
