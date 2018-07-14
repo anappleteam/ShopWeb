@@ -66,7 +66,14 @@
 	<bean id="userAspect" class="bupt.sse.shop.aspect.UserAspect" />
 	
 	<!-- 根据注解进行自动切面代理，不需要aop:config -->
-	<aop:aspectj-autoproxy />
+	<!-- proxy-target-class 属性值决定bean是基于jdk的接口方式的还是基于类的代理(CGLIB)被创建。
+
+		在ssh整合的项目中如果action继承了实现了别的接口的类,比如ActionSupport,ActionSupport实现了Action等接口，
+
+		在用aop拦截action的时候如果不指定proxy-target-class="true"的话，Spring会默认按照jdk默认接口的方式去代理对象，
+
+		由于Action没有父类实现的接口的方法，就会报java.lang.NoSuchMethodException:/> -->
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
 	<!-- Action的配置 =========================== -->
 
 	<!-- 首页访问的Action -->
