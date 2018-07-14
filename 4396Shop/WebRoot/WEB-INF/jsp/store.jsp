@@ -1,7 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
@@ -11,114 +12,77 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>4396购物</title>
-<link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css"/>
-<link href="<%=path%>/css/product.css" rel="stylesheet" type="text/css"/>
+<link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css" />
+<link href="<%=path%>/css/product.css" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
-	<jsp:include page="menu.jsp"/>
-<div class="container productList">
+	<jsp:include page="menu.jsp" />
+	<div class="container productList">
 		<div class="span6">
-		<div class="storeTitle">
-			<img class="size" src="<%=path %>/image/shop-icon.png"/>
-			<p class="title"><s:property value="store.sname"/></p>
-			<p class="desc"><s:property value="store.sdesc"/></p>
-		</div>
+			<div class="storeTitle">
+				<img class="size" src="<%=path%>/image/shop-icon.png" />
+				<p class="title">
+					<s:property value="storeInfo.sname" />
+				</p>
+				<p class="desc">
+					<s:property value="storeInfo.sdesc" />
+				</p>
+
+			</div>
 		</div>
 		<div class="span18 last">
-			
-			<form id="productForm" action="<%=path%>/image/蔬菜 - Powered By Mango Team.htm" method="get">
-					 
+
+			<form id="productForm">
+
 				<div id="result" class="result table clearfix">
-						<ul>
+					<ul>
 						<s:iterator var="p" value="pageBean.list">
-						<li>
-						
-										<a href="<%=path%>/product_findByPid.action?pid=<s:property value="#p.pid"/>">
-											<img src="<%=path%>/<s:property value="#p.image"/>" width="170" height="170"  style="display: inline-block;">
-											   
-											<span style='color:green'>
-											<s:property value="#p.pname"/>
-											</span>
-											 
-											<span class="price">
-												商城价： ￥<s:property value="#p.shop_price"/>
-											</span>
-											 
-										</a>
-									</li>
-									</s:iterator>
-						</ul>
+							<li><a
+									href="<%=path%>/product_findByPid.action?pid=<s:property value="#p.pid"/>">
+									<img src="<%=path%>/<s:property value="#p.image"/>" width="170"
+										height="170" style="display: inline-block;"> <span
+										style='color:green'> <s:property value="#p.pname" />
+									</span> <span class="price"> 商城价： ￥<s:property
+												value="#p.shop_price" />
+									</span>
+								</a></li>
+						</s:iterator>
+					</ul>
 				</div>
-	<div class="pagination">
-	<span>第<s:property value="pageBean.page"/>/<s:property value="pageBean.totalPage"/>页</span>
-	<s:if test="pageBean.page != 1">
-			<a href="<%=path %>/store_findBySid.action?sid=<s:property value="sid"/>&page=1" class="firstPage">&nbsp;</a>
-			<a href="<%=path %>/store_findBySid.action?sid=<s:property value="sid"/>&page=<s:property value="pageBean.page-1"/>" class="previousPage">&nbsp;</a>
-	</s:if>
-			<s:iterator var="i" begin="1" end="pageBean.totalPage">
-				<s:if test="pageBean.page != #i">
-					<a href="<%=path %>/store_findBySid.action?sid=<s:property value="sid"/>&page=<s:property value="#i"/>"><s:property value="#i"/></a>
-				</s:if>
-				<s:else>
-					<span class="currentPage"><s:property value="#i"/></span>
-				</s:else>
-			</s:iterator>
-	<s:if test="pageBean.page != pageBean.totalPage">
-			<a class="nextPage" href="<%=path %>/store_findBySid.action?sid=<s:property value="sid"/>&page=<s:property value="pageBean.page+1"/>">&nbsp;</a>			
-			<a class="lastPage" href="<%=path %>/store_findBySid.action?sid=<s:property value="sid"/>&page=<s:property value="pageBean.totalPage"/>">&nbsp;</a>
-	</s:if>
-	</div>
+				<div class="pagination">
+					<span>第<s:property value="pageBean.page" />/<s:property
+							value="pageBean.totalPage" />页
+					</span>
+					<s:if test="pageBean.page != 1">
+						<a
+							href="<%=path%>/store_findBySid.action?sid=<s:property value="sid"/>&page=1"
+							class="firstPage">&nbsp;</a>
+						<a
+							href="<%=path%>/store_findBySid.action?sid=<s:property value="sid"/>&page=<s:property value="pageBean.page-1"/>"
+							class="previousPage">&nbsp;</a>
+					</s:if>
+					<s:iterator var="i" begin="1" end="pageBean.totalPage">
+						<s:if test="pageBean.page != #i">
+							<a
+								href="<%=path%>/store_findBySid.action?sid=<s:property value="sid"/>&page=<s:property value="#i"/>">
+								<s:property value="#i" />
+							</a>
+						</s:if>
+						<s:else>
+							<span class="currentPage"><s:property value="#i" /></span>
+						</s:else>
+					</s:iterator>
+					<s:if test="pageBean.page != pageBean.totalPage">
+						<a class="nextPage"
+							href="<%=path%>/store_findBySid.action?sid=<s:property value="sid"/>&page=<s:property value="pageBean.page+1"/>">&nbsp;</a>
+						<a class="lastPage"
+							href="<%=path%>/store_findBySid.action?sid=<s:property value="sid"/>&page=<s:property value="pageBean.totalPage"/>">&nbsp;</a>
+					</s:if>
+				</div>
 			</form>
 		</div>
 	</div>
-<div class="container footer">
-	<div class="span24">
-		<div class="footerAd">
-					<img src="<%=path%>/image/footer.jpg" width="950" height="52" alt="我们的优势" title="我们的优势">
-</div>	</div>
-	<div class="span24">
-		<ul class="bottomNav">
-					<li>
-						<a >关于我们</a>
-						|
-					</li>
-					<li>
-						<a>联系我们</a>
-						|
-					</li>
-					<li>
-						<a >诚聘英才</a>
-						|
-					</li>
-					<li>
-						<a >法律声明</a>
-						|
-					</li>
-					<li>
-						<a>友情链接</a>
-						|
-					</li>
-					<li>
-						<a target="_blank">支付方式</a>
-						|
-					</li>
-					<li>
-						<a  target="_blank">配送方式</a>
-						|
-					</li>
-					<li>
-						<a >官网</a>
-						|
-					</li>
-					<li>
-						<a >论坛</a>
-						
-					</li>
-		</ul>
-	</div>
-	<div class="span24">
-		<div class="copyright">Copyright©2005-2015 网上商城 版权所有</div>
-	</div>
-</div>
-</body></html>
+	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
+</body>
+</html>
