@@ -71,6 +71,9 @@
 					<li id="headerLogin" class="headerLogin"
 						style="display: list-item;"><a
 							href="${pageContext.request.contextPath}/order_findByUid.action?page=1">我的订单</a>|</li>
+											<li><a
+						href="${ pageContext.request.contextPath }/cart_myCart.action">购物车</a>
+					|</li>
 					<s:if
 						test="#session.existUser.state==1 ||#session.existUser.state==2 ">
 						<li id="headerLogin" class="headerLogin"
@@ -93,9 +96,7 @@
 						</li>
 					</s:elseif>
 				</s:else>
-				<li><a
-						href="${ pageContext.request.contextPath }/cart_myCart.action">购物车</a>
-					|</li>
+				 |</li>
 				<li><a>关于我们</a></li>
 			</ul>
 		</div>

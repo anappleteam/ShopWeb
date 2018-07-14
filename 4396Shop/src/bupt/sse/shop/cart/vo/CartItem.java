@@ -1,5 +1,7 @@
 package bupt.sse.shop.cart.vo;
 
+import java.util.Date;
+
 import bupt.sse.shop.product.vo.Product;
 import bupt.sse.shop.user.vo.User;
 
@@ -9,6 +11,9 @@ public class CartItem {
 	private Double subtotal;
 	private Product product;	//product information
 	private User user;
+	private Date addtime;
+	
+	private Boolean selected;   //标记该购物项是否已被选择
 	
 	public Integer getCitemid() {
 		return citemid;
@@ -24,10 +29,6 @@ public class CartItem {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public void setSubtotal(Double subtotal) {
-		this.subtotal = subtotal;
 	}
 
 	public Product getProduct() {
@@ -47,8 +48,28 @@ public class CartItem {
 	}
 	
 	public Double getSubtotal() {
-		//return count*product.getShop_price();
+		subtotal=count*product.getShop_price();
 		return subtotal;
+	}
+	
+	public void setSubtotal(Double subtotal) {
+		this.subtotal =subtotal;
+	}
+	
+	public Date getAddtime() {
+		return addtime;
+	}
+	
+	public void setAddtime(Date addtime) {
+		this.addtime = addtime;
+	}
+	
+	public Boolean getSelected() {
+		return selected;
+	}
+	
+	public void setSelected(Boolean selected) {
+		this.selected = selected;
 	}
 
 }

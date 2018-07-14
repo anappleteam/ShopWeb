@@ -15,8 +15,27 @@
 <link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css">
 <link href="<%=path%>/css/product.css" rel="stylesheet" type="text/css">
 <script>
+	function decrease(){
+		var c=document.getElementById("count").value;
+		if(c>1){
+			document.getElementById("count").value--;
+		}		
+	}
+	function increase(){
+		var c=document.getElementById("count").value;
+		if(c>0){
+			document.getElementById("count").value++;
+		}		
+	}
+
 	function saveCart() {
-		document.getElementById("cartForm").submit();
+		var user=document.getElementById("addCart_currentUser").value;
+	  	if(user== ""){
+	  		alert("请先登录！");			
+		}
+		else{
+			document.getElementById("cartForm").submit();
+		}
 	}
 </script>
 
@@ -133,19 +152,22 @@
 					<dl class="quantity">
 						<dt>购买数量:</dt>
 						<dd>
+							<span id="decrease" class="decrease">
+								<button type="button" onclick="decrease()">-</button>
+							</span>
 							<input id="count" name="count" value="1" maxlength="4"
 								onpaste="return false;" type="text">
-							<div>
-								<span id="increase" class="increase">&nbsp;</span> <span
-									id="decrease" class="decrease">&nbsp;</span>
-							</div>
+							<span id="increase" class="increase">
+								<button type="button" onclick="increase()">+</button>
+							</span>
 						</dd>
 						<dd>件</dd>
 					</dl>
 					<div class="buy">
+						<input id="addCart_currentUser" type="hidden" value="${session.existUser}"/>
+
 						<input id="addCart" class="addCart" value="加入购物车" type="button"
 							onclick="saveCart()" />
-						<!-- submit可以直接提交，普通button需要JS才可以 -->
 					</div>
 				</div>
 			</form>
