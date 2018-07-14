@@ -96,7 +96,7 @@ div.storeImg{
 	display:inline-block;
 }
 p.desc{
-	margin:5px;	
+	margin:5px;
 	word-break:break-all;
 }
 img.size{
@@ -105,7 +105,7 @@ img.size{
 	display:inline-block;
 }
 a.link{
-	display:inline-block;
+	display:block;
 	margin:0px 6px;
 }
 div.storeTitle{
