@@ -21,7 +21,7 @@
 <body>
 	
 		<%@ include file="menu.jsp" %>
-</div>	<div class="container cart">
+	<div class="container cart">
 		<s:if test="#session.cart.cartItems.size() !=0">		
 		<!-- 不判断map是否为空，map一旦new出来后就有地址 -->
 		<div class="span24">
