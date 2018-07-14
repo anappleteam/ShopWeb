@@ -150,6 +150,7 @@
 		scope="prototype">
 		<property name="orderService" ref="orderService" />
 		<property name="cartItemService" ref="cartItemService" />
+		<property name="productService" ref="productService" />
 	</bean>
 	<!-- 后台用户的action -->
 	<bean id="adminUserAction" class="bupt.sse.shop.adminuser.action.AdminUserAction"

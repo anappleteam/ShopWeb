@@ -77,7 +77,7 @@
 	<%@ include file="menu.jsp"%>
 	</div>
 	<div class="container cart">
-		<s:if test="pageBean !=null">
+		<s:if test="pageBean.list !=null">
 			<!-- 不判断map是否为空，map一旦new出来后就有地址 -->
 			<div class="span24">
 				<div class="step step1">购物车信息</div>

@@ -35,6 +35,8 @@ import bupt.sse.shop.cart.vo.CartItem;
 import bupt.sse.shop.order.service.OrderService;
 import bupt.sse.shop.order.vo.Order;
 import bupt.sse.shop.order.vo.OrderItem;
+import bupt.sse.shop.product.service.ProductService;
+import bupt.sse.shop.product.vo.Product;
 import bupt.sse.shop.user.vo.User;
 import bupt.sse.shop.utils.PageBean;
 
@@ -50,12 +52,11 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	private Double total=0.0;
 	private Integer itemid;
 	
-	
+	private ProductService productService;
 	
 	public void setPage(Integer page) {
 		this.page = page;
 	}
-
 	
 	public void setItemid(Integer itemid) {
 		this.itemid = itemid;
@@ -75,6 +76,10 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	
 	public Order getModel(){
 		return order;
+	}
+	
+	public void setProductService(ProductService productService) {
+		this.productService = productService;
 	}
 	
 	//从购物车到订单
@@ -107,6 +112,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 			Integer cid=Integer.valueOf(string);
 			if(cartItemMap.containsKey(cid))
 			{
+				//购物项中的信息填入订单项
 				CartItem cartItem=cartItemMap.get(cid);
 				OrderItem orderItem = new OrderItem();
 				orderItem.setCount(cartItem.getCount());
@@ -114,12 +120,19 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 				orderItem.setProduct(cartItem.getProduct());
 				orderItem.setOrder(order);
 				orderItem.setStore(cartItem.getProduct().getStore());
-				
+				//修改订单项的总金额
 				total+=cartItem.getSubtotal();
 				order.getOrderItems().add(orderItem);
+				//将对应购物项从购物车移除
 				cartItemService.removeCartItem(cartItem.getCitemid());
-			}
-			
+				//更新商品库存
+				Product product=cartItem.getProduct();
+				Integer new_pAvailable=product.getPavailable()-orderItem.getCount();
+				if (new_pAvailable>=0) {
+					product.setPavailable(new_pAvailable);				
+				}
+				productService.update(product);
+			}	
 		}
 		order.setTotal(total);
 		order.setState(1);
