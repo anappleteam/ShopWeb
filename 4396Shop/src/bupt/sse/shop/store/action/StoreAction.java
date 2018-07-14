@@ -54,38 +54,10 @@ public class StoreAction extends ActionSupport implements ModelDriven<OrderItem>
 		this.storeService = storeService;
 	} 
 	
-	//我的商店
-	public String myStores() {
-		return "myStores";
-	}
 	
 	public String productMng(){
 		return null;
 		
-	}
-	
-	public String storeMng() {
-		User user=(User)ServletActionContext.getRequest().getSession().getAttribute("existUser");
-		if(user==null)return "storeError";
-		List<Store> stores=storeService.findByUid(user.getUid());
-		if(sid==null){	
-			/*if(!stores.isEmpty()){
-				ServletActionContext.getRequest().getSession().setAttribute("managedStore", new ArrayList<Store>(stores).get(0));
-				ArrayList<Product> list=new ArrayList<Product>(new ArrayList<Store>(stores).get(0).getProducts());
-				return "storeMng";
-			}*/
-			ServletActionContext.getRequest().getSession().setAttribute("managedStore", stores.get(0));
-			return "storeMng";
-		}else {
-			for(Store store:stores){
-				if(store.getSid().intValue()==sid.intValue()){
-					ServletActionContext.getRequest().getSession().setAttribute("managedStore", store);
-					return "storeMng";
-				}
-			}
-		}
-
-		return "storeError";
 	}
 	
 	//商店的订单管理

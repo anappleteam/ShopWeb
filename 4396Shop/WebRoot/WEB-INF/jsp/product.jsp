@@ -11,29 +11,29 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="Cache-Control" content="max-age=7200"/>
 <title>网上商城</title>
 <link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css">
 <link href="<%=path%>/css/product.css" rel="stylesheet" type="text/css">
 <script>
-	function decrease(){
-		var c=document.getElementById("count").value;
-		if(c>1){
+	function decrease() {
+		var c = document.getElementById("count").value;
+		if (c > 1) {
 			document.getElementById("count").value--;
-		}		
+		}
 	}
-	function increase(){
-		var c=document.getElementById("count").value;
-		if(c>0){
+	function increase() {
+		var c = document.getElementById("count").value;
+		if (c > 0) {
 			document.getElementById("count").value++;
-		}		
+		}
 	}
 
 	function saveCart() {
-		var user=document.getElementById("addCart_currentUser").value;
-	  	if(user== ""){
-	  		alert("请先登录！");			
-		}
-		else{
+		var user = document.getElementById("addCart_currentUser").value;
+		if (user == "") {
+			alert("请先登录！");
+		} else {
 			document.getElementById("cartForm").submit();
 		}
 	}
@@ -154,20 +154,24 @@
 						<dd>
 							<span id="decrease" class="decrease">
 								<button type="button" onclick="decrease()">-</button>
-							</span>
-							<input id="count" name="count" value="1" maxlength="4"
-								onpaste="return false;" type="text">
-							<span id="increase" class="increase">
-								<button type="button" onclick="increase()">+</button>
+							</span> <input id="count" name="count" value="1" maxlength="4"
+								onpaste="return false;" type="text"> <span id="increase"
+								class="increase">
+									<button type="button" onclick="increase()">+</button>
 							</span>
 						</dd>
 						<dd>件</dd>
 					</dl>
+					<dl class="quantity">
+						<dt>库存：</dt>
+						<dd>
+							<span id="p_inventory"><s:property value="model.pavailable"/></span>
+						</dd>
+					</dl>
 					<div class="buy">
-						<input id="addCart_currentUser" type="hidden" value="${session.existUser}"/>
-
-						<input id="addCart" class="addCart" value="加入购物车" type="button"
-							onclick="saveCart()" />
+						<input id="addCart_currentUser" type="hidden"
+							value="${session.existUser}" /> <input id="addCart"
+							class="addCart" value="加入购物车" type="button" onclick="saveCart()" />
 					</div>
 				</div>
 			</form>
