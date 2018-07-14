@@ -11,6 +11,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="Cache-Control" content="max-age=7200"/>
 <title>网上商城</title>
 <link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css">
 <link href="<%=path%>/css/product.css" rel="stylesheet" type="text/css">

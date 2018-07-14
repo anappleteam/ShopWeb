@@ -165,7 +165,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<strong>找回密码</strong>
 						
 					</div>
-					<form id="changePasswordForm" action="<%=path %>/user_changePwd.action"  method="post" novalidate="novalidate" onsubmit="return checkForm();">
+					<form id="changePasswordForm" action="<%=path %>/user_changePwd.action"  method="post" onsubmit="return checkForm();">
 						<table>
 							<tbody>
 							<tr>
@@ -184,7 +184,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<td>
 									<span id="registEmail"></span><br/>
 									<input type="hidden" id="email" name="email" class="text" maxlength="50"  onblur="checkEmail(this)"></input>
-									<span id="email_span"><s:fielderror name="email"/></strong></span>
+									<span id="email_span"><s:fielderror name="email"/></span>
 								</td>
 							</tr>
 							<tr>
