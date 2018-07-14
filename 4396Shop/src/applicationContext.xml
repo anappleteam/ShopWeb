@@ -85,7 +85,7 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	
 	<!-- 切面类 -->
-
+	<bean id="orderAspect" class="bupt.sse.shop.aspect.OrderAspect" />
 	<bean id="userAspect" class="bupt.sse.shop.aspect.UserAspect" scope="prototype">
 		<property name="categoryService" ref="categoryService"></property>
 	</bean>

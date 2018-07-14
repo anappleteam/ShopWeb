@@ -4,7 +4,7 @@
 	
    display:inline-block;
    font-size: 20px;
-   color: teal;
+   color: #777777;
 }
 
 .comment li {
@@ -15,7 +15,7 @@
 .commented {
    display:inline-block;
    font-size: 20px;
-   color: teal;
+   color: #777777;
 }
 
 .commented li {
@@ -26,7 +26,7 @@
 .scorenum{
 	width:20px;
 	font-size: 20px;
-    color: teal;
+    color: #777777;
 	margin-left:10px;
 	display:inline-block;
 }
@@ -34,7 +34,7 @@
 .scorednum{
 	width:20px;
 	font-size: 20px;
-    color: teal;
+    color: #777777;
 	margin-left:10px;
 	display:inline-block;
 }
