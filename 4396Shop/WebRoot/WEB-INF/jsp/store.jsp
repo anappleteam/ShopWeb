@@ -21,7 +21,10 @@
 	<div class="container productList">
 		<div class="span6">
 			<div class="storeTitle">
-				<img class="size" src="<%=path%>/image/shop-icon.png" />
+				<div class="storeImg">
+					<img class="size" src="<%=path%>/image/shop-icon.png" />
+				</div>
+				
 				<p class="title">
 					<s:property value="storeInfo.sname" />
 				</p>
