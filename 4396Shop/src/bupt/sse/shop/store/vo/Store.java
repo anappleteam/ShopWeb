@@ -2,6 +2,8 @@ package bupt.sse.shop.store.vo;
 
 import java.util.Set;
 
+
+
 import bupt.sse.shop.product.vo.Product;
 import bupt.sse.shop.user.vo.User;
 
@@ -9,6 +11,7 @@ public class Store {
 	private Integer sid;
 	private String sname;
 	private String sdesc;
+	private Integer state;
 	private User owner;
 	private Set<Product> products;
 	
@@ -41,5 +44,11 @@ public class Store {
 	}
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
+	public void setState(Integer state) {
+		this.state = state;
+	}
+	public Integer getState() {
+		return state;
 	}
 }

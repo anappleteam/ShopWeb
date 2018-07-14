@@ -93,6 +93,25 @@ public class ProductDao extends HibernateDaoSupport {
 		}
 		return null;
 	}
+	
+	public int findCountSid(Integer sid) {
+		String hql= "select count(*) from Product p where p.store.sid=?";
+		List<Long> list = this.getHibernateTemplate().find(hql,sid);
+		if (list != null&& list.size()>0) {
+			return list.get(0).intValue();
+		}
+		return 0;
+	}
+	public List<Product> findByPageSid(Integer sid, int begin, int limit) {
+		String hql = "select p from Product p where p.store.sid= ?";
+		//分页的一种写法；
+		List<Product> list = this.getHibernateTemplate().execute(new PageHibernateCallback<Product>(hql, new Object[]{sid}, begin, limit));
+		if (list !=null && list.size()>0) {
+			return list;
+		}
+		return null;
+	}
+	
 	public void save(Product product) {
 		this.getHibernateTemplate().save(product);		
 	}
@@ -107,5 +126,10 @@ public class ProductDao extends HibernateDaoSupport {
 		this.getHibernateTemplate().update(product);
 		
 	}
+	public List<Product> findBySid(Integer sid) {
+		String hql="from Product where sid=?";
+		return getHibernateTemplate().find(hql,sid);
+	}
+
 
 }

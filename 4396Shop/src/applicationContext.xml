@@ -19,6 +19,16 @@
 		<property name="jdbcUrl" value="${jdbc.url}" />
 		<property name="user" value="${jdbc.user}" />
 		<property name="password" value="${jdbc.password}" />
+
+		<property name="checkoutTimeout" value="${jdbc.checkoutTimeout}" />
+		<property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}" />
+		<!-- <property name="initialPoolSize" value="${jdbc.initialPoolSize}" /> -->
+		<property name="maxIdleTime" value="${jdbc.maxIdleTime}" />
+		<property name="acquireIncrement" value="${jdbc.acquireIncrement}"/>
+
+<!-- 		<property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
+		<property name="minPoolSize" value="${jdbc.minPoolSize}" />
+		<property name="maxStatements" value="${jdbc.maxStatements}" /> -->
 	</bean>
 
 	<!-- Hibernate相关信息 -->
@@ -34,15 +44,28 @@
 				<prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.connection.autocommit">false</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<!-- <prop key="hibernate.autoReconnect">true</prop> -->
+				<prop key="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider
+				</prop>
+<!-- 				<prop key="c3p0.min_size">5</prop>
+				<prop key="c3p0.max_size">30</prop>
+				<prop key="c3p0.time_out">1800</prop>
+				<prop key="c3p0.max_statement">50</prop>
+				<prop key="c3p0.acquire_increment">1</prop>
+				<prop key="c3p0.idle_test_period">120</prop>
+				<prop key="c3p0.validate">true</prop> -->
 			</props>
 		</property>
+
+
 		<!-- 配置Hibernate映射文件 -->
 		<property name="mappingResources">
 			<list>
 				<value>bupt/sse/shop/user/vo/User.hbm.xml</value>
 				<value>bupt/sse/shop/category/vo/Category.hbm.xml</value>
 				<value>bupt/sse/shop/product/vo/Product.hbm.xml</value>
-				<value>bupt/sse/shop/categorysecond/vo/CategorySecond.hbm.xml</value>
+				<value>bupt/sse/shop/categorysecond/vo/CategorySecond.hbm.xml
+				</value>
 				<value>bupt/sse/shop/order/vo/Order.hbm.xml</value>
 				<value>bupt/sse/shop/order/vo/OrderItem.hbm.xml</value>
 				<value>bupt/sse/shop/adminuser/vo/AdminUser.hbm.xml</value>
@@ -51,7 +74,7 @@
 			</list>
 		</property>
 	</bean>
-
+	
 	<!-- 事务管理 -->
 	<!-- 事务管理器 -->
 	<bean id="transactionManager"
@@ -60,7 +83,19 @@
 	</bean>
 	<!-- 开启注解事务 -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<!-- 切面类 -->
+	<bean id="userAspect" class="bupt.sse.shop.aspect.UserAspect" />
+	
+	<!-- 根据注解进行自动切面代理，不需要aop:config -->
+	<!-- proxy-target-class 属性值决定bean是基于jdk的接口方式的还是基于类的代理(CGLIB)被创建。
 
+		在ssh整合的项目中如果action继承了实现了别的接口的类,比如ActionSupport,ActionSupport实现了Action等接口，
+
+		在用aop拦截action的时候如果不指定proxy-target-class="true"的话，Spring会默认按照jdk默认接口的方式去代理对象，
+
+		由于Action没有父类实现的接口的方法，就会报java.lang.NoSuchMethodException:/> -->
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
 	<!-- Action的配置 =========================== -->
 
 	<!-- 首页访问的Action -->
@@ -81,6 +116,7 @@
 		scope="prototype">
 		<!-- 注入Service -->
 		<property name="userService" ref="userService" />
+		<property name="storeService" ref="storeService"></property>
 	</bean>
 
 	<!-- 商品模块的Action -->
@@ -96,6 +132,19 @@
 		<property name="cartItemService" ref="cartItemService" />
 	</bean>
 
+	<!-- 店铺action -->
+	<bean id="storeAction" class="bupt.sse.shop.store.action.StoreAction"
+		scope="prototype">
+		<property name="storeService" ref="storeService" />
+		<property name="orderService" ref="orderService" />
+	</bean>
+	<!-- 店铺商品管理action -->
+	<bean id="productMngAction" class="bupt.sse.shop.product.mngaction.ProductMngAction"
+		scope="prototype">
+		<property name="productService" ref="productService"></property>
+		<property name="categorySecondService" ref="categorySecondService"></property>
+	</bean>
+
 	<!--订单的Action -->
 	<bean id="orderAction" class="bupt.sse.shop.order.action.OrderAction"
 		scope="prototype">
@@ -107,17 +156,23 @@
 		scope="prototype">
 		<property name="adminUserService" ref="adminUserService" />
 	</bean>
+	<!-- 后台用户管理action -->
+	<bean id="userAdminAction" class="bupt.sse.shop.user.adminaction.UserAdminAction"
+		scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
 	<!-- 后台一级分类管理的action -->
 	<bean id="adminCategoryAction" class="bupt.sse.shop.category.adminaction.AdminCategoryAction"
 		scope="prototype">
 		<property name="categoryService" ref="categoryService" />
 	</bean>
-	
+
 	<!-- 后台订单管理的action -->
-	<bean id="adminOrderAction" class="bupt.sse.shop.order.adminaction.AdminOrderAction" scope="prototype">
-		<property name="orderService" ref="orderService"/>
+	<bean id="adminOrderAction" class="bupt.sse.shop.order.adminaction.AdminOrderAction"
+		scope="prototype">
+		<property name="orderService" ref="orderService" />
 	</bean>
-	
+
 	<!-- 后台二级分类管理的action -->
 	<bean id="adminCategorySecondAction"
 		class="bupt.sse.shop.categorysecond.adminaction.AdminCategorySecondAction"
@@ -132,6 +187,13 @@
 		<property name="categorySecondService" ref="categorySecondService"></property>
 	</bean>
 
+
+	<!-- 后台店铺管理的action -->
+	<bean id="adminStoreAction" class="bupt.sse.shop.store.adminaction.AdminStoreAction"
+		scope="prototype">
+		<property name="storeService" ref="storeService" />
+		<property name="userService" ref="userService" />
+	</bean>
 
 	<!-- Service的配置 =========================== -->
 	<bean id="userService" class="bupt.sse.shop.user.service.UserService">
@@ -157,8 +219,10 @@
 		class="bupt.sse.shop.categorysecond.service.CategorySecondService">
 		<property name="categorySecondDao" ref="categorySecondDao"></property>
 	</bean>
-
-
+	<!-- 店铺的service -->
+	<bean id="storeService" class="bupt.sse.shop.store.service.StoreService">
+		<property name="storeDao" ref="storeDao" />
+	</bean>
 
 	<!-- Dao的配置 =========================== -->
 	<bean id="userDao" class="bupt.sse.shop.user.dao.UserDao">
@@ -182,6 +246,11 @@
 	</bean>
 	<!-- 二级分类的Dao -->
 	<bean id="categorySecondDao" class="bupt.sse.shop.categorysecond.dao.CategorySecondDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- 店铺的Dao -->
+	<bean id="storeDao" class="bupt.sse.shop.store.dao.StoreDao">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 </beans>

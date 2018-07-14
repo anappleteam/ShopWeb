@@ -6,6 +6,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import bupt.sse.shop.order.vo.Order;
 import bupt.sse.shop.order.vo.OrderItem;
+import bupt.sse.shop.product.vo.Product;
 import bupt.sse.shop.utils.PageHibernateCallback;
 
 public class OrderDao extends HibernateDaoSupport{
@@ -31,9 +32,19 @@ public class OrderDao extends HibernateDaoSupport{
 	public Order findByOid(Integer oid) {
 		return this.getHibernateTemplate().get(Order.class, oid);
 	}
+	
+	public OrderItem findByTid(Integer itemid) {
+		return this.getHibernateTemplate().get(OrderItem.class, itemid);
+	}
+
+
 
 	public void update(Order curOrder) {
 		this.getHibernateTemplate().update(curOrder);
+	}
+	
+	public void updateItem(OrderItem curItem) {
+		this.getHibernateTemplate().update(curItem);
 	}
 	
 	//Dao层统计订单个数
@@ -61,6 +72,26 @@ public class OrderDao extends HibernateDaoSupport{
 		String hql="from OrderItem oi where oi.order.oid=?";
 		List<OrderItem> list=this.getHibernateTemplate().find(hql,oid);
 		if(list !=null&&list.size()>0){
+			return list;
+		}
+		return null;
+	}
+
+	//根据店铺ID查询其所属的所有商品订单项
+	public int findByCountSid(Integer sid) {
+		String hql="select count(*) from OrderItem o where o.store.sid=? and o.state!=null";
+		List<Long> list =this.getHibernateTemplate().find(hql,sid);
+		if(list !=null&&list.size()>0){
+			return list.get(0).intValue();
+		}
+		return 0;
+	}
+
+	public List<OrderItem> findByPageSid(Integer sid, int begin, int limit) {
+		String hql = "select OI from OrderItem OI where OI.store.sid= ? and OI.state!=null";
+		//分页的一种写法；
+		List<OrderItem> list= this.getHibernateTemplate().find(hql,sid);
+		if (list !=null && list.size()>0) {
 			return list;
 		}
 		return null;

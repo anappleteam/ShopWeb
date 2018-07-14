@@ -12,6 +12,7 @@ public class OrderItem {
 	private Order order;
 	private Store store;
 	private Integer state;
+	private Integer evaluate;
 	
 	public Store getStore() {
 		return store;
@@ -54,6 +55,12 @@ public class OrderItem {
 	}
 	public void setOrder(Order order) {
 		this.order = order;
+	}
+	public Integer getEvaluate() {
+		return evaluate;
+	}
+	public void setEvaluate(Integer evaluate) {
+		this.evaluate = evaluate;
 	}
 	
 	

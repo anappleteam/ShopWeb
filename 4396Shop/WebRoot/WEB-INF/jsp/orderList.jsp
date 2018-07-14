@@ -1,164 +1,241 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- saved from url=(0043)http://localhost:8080/mango/cart/list.jhtml -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <title>我的订单页面</title>
-<link href="${pageContext.request.contextPath}/css/common.css" rel="stylesheet" type="text/css"/>
-<link href="${pageContext.request.contextPath}/css/cart.css" rel="stylesheet" type="text/css"/>
+<link href="${pageContext.request.contextPath}/css/common.css"
+	rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath}/css/cart.css"
+	rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath}/css/evaluate.css"
+	rel="stylesheet" type="text/css" />
 
+
+<script src="${pageContext.request.contextPath}/js/jquery-1.8.3.js"></script>
+<script>
+	$(document).ready(function() {
+		var shixin = "★";
+		var kongxin = "☆";
+		var flag = false; //没有点击*/
+		for (var j = 0; j < $(".scorednum").length; j++) {
+			$(".scorednum").eq(j).prev().children().text(kongxin);
+			var scored = $(".scorednum").eq(j).text();
+			for (var i = 0; i < scored / 2; i++) {
+				$(".scorednum").eq(j).prev().children().eq(i).text(shixin);
+			}
+		}
+		$(".comment li").mouseenter(function() {
+			if (!flag) {
+				$(this).text(shixin).prevAll().text(shixin);
+				$(this).nextAll().text(kongxin);
+				$(this).text(shixin).prevAll().text(shixin).end().nextAll().text(kongxin);
+			}
+		});
+		$(".comment").mouseleave(function() {
+			if (!flag) {
+				$("comment li").text(kongxin);
+			}
+			$("comment li").text(kongxin);
+			$(".clicked").text(shixin).prevAll().text(shixin);
+		});
+		$(".comment li").on("click", function() {
+			$(this).text(shixin).prevAll().text(shixin);
+			$(this).nextAll().text(kongxin);
+			flag = true;
+			var score = $(this).attr("id");
+			switch ($(this).attr("id")) {
+			case "star1":
+				score = 2;
+				break;
+			case "star2":
+				score = 4;
+				break;
+			case "star3":
+				score = 6;
+				break;
+			case "star4":
+				score = 8;
+				break;
+			case "star5":
+				score = 10;
+				break;
+			}
+			$(this).parent().next().text(score);
+		});
+		$(".btn_comment").click(function() {
+
+			$.post("${pageContext.request.contextPath}/order_submitscore.action",
+				{
+					evaluate : ($(this).prev().text()),
+					itemid : ($(this).next().text())
+				},
+				function() {
+					window.location.reload();
+				});
+		});
+	});
+</script>
 </head>
 <body>
-
-
-</div>
-	<%@ include file="menu.jsp" %>
-</div>	
-
-<div class="container cart">
+	<%@ include file="menu.jsp"%>
+	<div class="container cart">
 
 		<div class="span24">
-		
+
 			<div class="step">
-				<ul> 
-					<li  >我的所有订单</li>
+				<ul>
+					<li>我的所有订单</li>
 				</ul>
 			</div>
-	
-		
-				<table>
-					<tbody>
+
+
+			<table>
+				<tbody>
 					<s:iterator value="pageBean.list" var="order">
-					<tr>
-						<th colspan="5">订单编号:<s:property value="#order.oid"/>&nbsp;&nbsp;&nbsp;&nbsp;
-							订单状态:
-							<s:if test="#order.state==1">
-								<a href="${pageContext.request.contextPath}/order_findByOid.action?oid=<s:property value="#order.oid"/>"><font color="red">付款</font></a>
-							</s:if>
-							<s:if test="#order.state==2">
+						<tr>
+							<th colspan="7">订单编号:<s:property value="#order.oid" />&nbsp;&nbsp;&nbsp;&nbsp;
+								订单状态: <s:if test="#order.state==1">
+									<a
+										href="${pageContext.request.contextPath}/order_findByOid.action?oid=<s:property value="#order.oid"/>">
+										<font color="red">付款</font>
+									</a>
+								</s:if> <s:if test="#order.state==2">
 								已付款
-							</s:if>
-							<s:if test="#order.state==3">
-								<a href="${pageContext.request.contextPath}/order_updateState.action?oid=<s:property value="#order.oid"/>"><font color="red">确认收货</font></a>
-							</s:if>
-							<s:if test="#order.state==4">
+							</s:if> <s:if test="#order.state==3">
+								待收货
+							</s:if> <s:if test="#order.state==4">
 								交易完成
 							</s:if>
-						</th>
-					</tr>
-					<tr>
-						<th>图片</th>
-						<th>商品</th>
-						<th>价格</th>
-						<th>数量</th>
-						<th>小计</th>
-					</tr>
-					
-					<s:iterator value="#order.orderItems" var='orderItem'>
-						<tr>
-							<td width="60">
-								<input type="hidden" name="id" value="22"/>
-								<img src="${pageContext.request.contextPath}/<s:property value="#orderItem.product.image"/>"/>
-							</td>
-							<td>
-								<a target="_blank"><s:property value="#orderItem.product.pname"/></a>
-							</td>
-							<td>
-								<s:property value="#orderItem.product.shop_price"/>
-							</td>
-							<td class="quantity" width="60">
-								<s:property value="#orderItem.count"/>
-							</td>
-							<td width="140">
-								<span class="subtotal"><s:property value="#orderItem.subtotal"/></span>
-							</td>
+							</th>
 						</tr>
+						<tr>
+							<th>图片</th>
+							<th>商品</th>
+							<th>价格</th>
+							<th>数量</th>
+							<th>小计</th>
+							<th>物流</th>
+							<th>评价</th>
+						</tr>
+
+						<s:iterator value="#order.orderItems" var='orderItem'>
+							<tr>
+								<td width="60"><input type="hidden" name="id" value="22" />
+									<img
+									src="${pageContext.request.contextPath}/<s:property value="#orderItem.product.image"/>" />
+								</td>
+								<td width="360"><a target="_blank">
+										<s:property value="#orderItem.product.pname" />
+									</a></td>
+								<td width="180"><s:property
+										value="#orderItem.product.shop_price" /></td>
+								<td class="quantity" width="120"><s:property
+										value="#orderItem.count" /></td>
+								<td width="180"><span class="subtotal"><s:property
+											value="#orderItem.subtotal" /></span></td>
+								<s:if test="#order.state==3	|| #order.state==2">
+									<td width="120"><s:if test="#orderItem.state==2">
+											<a
+												href="${pageContext.request.contextPath}/order_updateState.action?itemid=<s:property value="#orderItem.itemid"/>">
+												<font color="red">确认收货</font>
+											</a>
+										</s:if> <s:else>
+											<s:if test="#orderItem.state==0">
+												<a>待发货</a>
+											</s:if>
+											<s:else>
+												<a>已收货</a>
+											</s:else>
+										</s:else></td>
+								</s:if>
+								<s:else>
+									<s:if test="#order.state==4	">
+										<td><a>已收货&nbsp;&nbsp;&nbsp;&nbsp;</a></td>
+									</s:if>
+									<s:else>
+										<td></td>
+									</s:else>
+								</s:else>
+								<td><s:if test="#orderItem.state==1">
+										<s:if test="#orderItem.evaluate==null">
+											<ul class="comment">
+												<li id="star1">★</li>
+												<li id="star2">★</li>
+												<li id="star3">★</li>
+												<li id="star4">★</li>
+												<li id="star5">★</li>
+											</ul>
+											<span class="scorenum">10</span>
+											<button class="btn_comment">提交评价</button>
+											<span style="display:none"><s:property
+													value="#orderItem.itemid" /></span>
+										</s:if>
+										<s:else>
+											<ul class="commented">
+												<li id="star1"></li>
+												<li id="star1"></li>
+												<li id="star1"></li>
+												<li id="star1"></li>
+												<li id="star1"></li>
+											</ul>
+											<span class="scorednum"><s:property
+													value="#orderItem.evaluate" /></span>
+										</s:else>
+									</s:if></td>
+							</tr>
 						</s:iterator>
 					</s:iterator>
 					<tr>
 						<td colspan="5">
 							<div class="pagination">
-								<span>第<s:property value="pageBean.page"/>/<s:property value="pageBean.totalPage"/>页</span>
-									<s:if test="pageBean.page != 1">
-										<a href="<%=path %>/order_findByUid.action?page=1" class="firstPage">&nbsp;</a>
-										<a href="<%=path %>/order_findByUid.action?page=<s:property value="pageBean.page-1"/>" class="previousPage">&nbsp;</a>
-									</s:if>
-									<s:iterator var="i" begin="1" end="pageBean.totalPage">
+								<span>第<s:property value="pageBean.page" />/<s:property
+										value="pageBean.totalPage" />页
+								</span>
+								<s:if test="pageBean.page != 1">
+									<a href="<%=path%>/order_findByUid.action?page=1"
+										class="firstPage">&nbsp;</a>
+									<a
+										href="<%=path%>/order_findByUid.action?page=<s:property value="pageBean.page-1"/>"
+										class="previousPage">&nbsp;</a>
+								</s:if>
+								<s:iterator var="i" begin="1" end="pageBean.totalPage">
 									<s:if test="pageBean.page != #i">
-										<a href="<%=path %>/order_findByUid.action?page=<s:property value="#i"/>"><s:property value="#i"/></a>
+										<a
+											href="<%=path%>/order_findByUid.action?page=<s:property value="#i"/>">
+											<s:property value="#i" />
+										</a>
 									</s:if>
 									<s:else>
-										<span class="currentPage"><s:property value="#i"/></span>
+										<span class="currentPage"><s:property value="#i" /></span>
 									</s:else>
-									</s:iterator>
-									<s:if test="pageBean.page != pageBean.totalPage">
-										<a class="nextPage" href="<%=path %>/order_findByUid.action?page=<s:property value="pageBean.page+1"/>">&nbsp;</a>			
-										<a class="lastPage" href="<%=path %>/order_findByUid.action?page=<s:property value="pageBean.totalPage"/>">&nbsp;</a>
-									</s:if>
+								</s:iterator>
+								<s:if test="pageBean.page != pageBean.totalPage">
+									<a class="nextPage"
+										href="<%=path%>/order_findByUid.action?page=<s:property value="pageBean.page+1"/>">&nbsp;</a>
+									<a class="lastPage"
+										href="<%=path%>/order_findByUid.action?page=<s:property value="pageBean.totalPage"/>">&nbsp;</a>
+								</s:if>
 							</div>
 						</td>
 					</tr>
 				</tbody>
 			</table>
-				
-		
+		</div>
 	</div>
-<div class="container footer">
-	<div class="span24">
-		<div class="footerAd">
-					<img src="image\r___________renleipic_01/footer.jpg" alt="我们的优势" title="我们的优势" height="52" width="950">
-</div>
-</div>
-	<div class="span24">
-		<ul class="bottomNav">
-					<li>
-						<a href="#">关于我们</a>
-						|
-					</li>
-					<li>
-						<a href="#">联系我们</a>
-						|
-					</li>
-					<li>
-						<a href="#">诚聘英才</a>
-						|
-					</li>
-					<li>
-						<a href="#">法律声明</a>
-						|
-					</li>
-					<li>
-						<a>友情链接</a>
-						|
-					</li>
-					<li>
-						<a target="_blank">支付方式</a>
-						|
-					</li>
-					<li>
-						<a target="_blank">配送方式</a>
-						|
-					</li>
-					<li>
-						<a >SHOP++官网</a>
-						|
-					</li>
-					<li>
-						<a>SHOP++论坛</a>
-						
-					</li>
-		</ul>
-	</div>
-	<div class="span24">
-		<div class="copyright">Copyright © 2005-2015 网上商城 版权所有</div>
-	</div>
-</div>
+	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
+	<script>
+		function myFunction() {
+			alert("你好，我是一个警告框！");
+		}
+	</script>
 </body>
 </html>

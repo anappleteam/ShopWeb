@@ -24,7 +24,7 @@ public class MailUitls {
  
     // 收件人邮箱（替换为自己知道的有效邮箱）
     public static String receiveMailAccount;
-	public static void sendMail(String to,String name , String code) throws Exception {
+	public static void sendMail(String to,String name , String code,String title,String content) throws Exception {
 		receiveMailAccount=to;
 		  // 1. 创建参数配置, 用于连接邮件服务器的参数配置
         Properties props = new Properties();                    // 参数配置
@@ -51,7 +51,7 @@ public class MailUitls {
         session.setDebug(true);                                 // 设置为debug模式, 可以查看详细的发送 log
 
         // 3. 创建一封邮件
-        MimeMessage message = createMimeMessage(session, myEmailAccount, receiveMailAccount,name,code);
+        MimeMessage message = createMimeMessage(session, myEmailAccount, receiveMailAccount,name,code,title,content);
 
         // 4. 根据 Session 获取邮件传输对象
         Transport transport = session.getTransport();
@@ -87,7 +87,7 @@ public class MailUitls {
      * @return
      * @throws Exception
      */
-    public static MimeMessage createMimeMessage(Session session, String sendMail, String receiveMail,String name, String code) throws Exception {
+    public static MimeMessage createMimeMessage(Session session, String sendMail, String receiveMail,String name, String code,String title,String content) throws Exception {
         // 1. 创建一封邮件
         MimeMessage message = new MimeMessage(session);
 
@@ -98,13 +98,13 @@ public class MailUitls {
         message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail));
 
         // 4. Subject: 邮件主题（标题有广告嫌疑，避免被邮件服务器误认为是滥发广告以至返回失败，请修改标题）
-        message.setSubject("激活4396账号", "UTF-8");
+        message.setSubject(title, "UTF-8");
         
         InetAddress address = InetAddress.getLocalHost();
         String hostAddress = address.getHostAddress();   
         
         // 5. Content: 邮件正文（可以使用html标签）（内容有广告嫌疑，避免被邮件服务器误认为是滥发广告以至返回失败，请修改发送内容）
-        message.setContent("<h1>"+name+"您好！4396购物商城官方激活邮件！点下面链接完成激活操作！</h1><h3>激活码:"+code+"</h3><h3><a href='http://"+hostAddress+":8080/4396Shop/user_active.action?code="+code+"'>点此链接完成验证</a></h3>", "text/html;charset=UTF-8");
+        message.setContent(content, "text/html;charset=UTF-8");
 
         // 6. 设置发件时间
         message.setSentDate(new Date());

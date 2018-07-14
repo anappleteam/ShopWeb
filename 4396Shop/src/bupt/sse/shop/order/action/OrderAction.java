@@ -1,6 +1,5 @@
 package bupt.sse.shop.order.action;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,30 +15,16 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.servlet.Servlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.JspContext;
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.PageContext;
-import javax.swing.text.html.HTML;
-
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.interceptor.debugging.PrettyPrintWriter;
-
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
-import com.alipay.api.domain.AlipayAccount;
-import com.alipay.api.domain.AlipayTradeAppPayModel;
-import com.alipay.api.domain.AlipayTradePayModel;
-import com.alipay.api.domain.AlipayTradePrecreateModel;
+
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
-import com.alipay.api.request.AlipayTradePrecreateRequest;
-import com.alipay.api.response.AlipayTradePagePayResponse;
-import com.alipay.api.response.AlipayTradePayResponse;
-import com.alipay.api.response.AlipayTradePrecreateResponse;
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -50,7 +35,6 @@ import bupt.sse.shop.cart.vo.CartItem;
 import bupt.sse.shop.order.service.OrderService;
 import bupt.sse.shop.order.vo.Order;
 import bupt.sse.shop.order.vo.OrderItem;
-import bupt.sse.shop.product.vo.Product;
 import bupt.sse.shop.user.vo.User;
 import bupt.sse.shop.utils.PageBean;
 
@@ -64,10 +48,19 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	private CartItemService cartItemService;
 	private Integer page;
 	private Double total=0.0;
+	private Integer itemid;
+	
+	
+	
 	public void setPage(Integer page) {
 		this.page = page;
 	}
 
+	
+	public void setItemid(Integer itemid) {
+		this.itemid = itemid;
+	}
+	
 	public void setOrderService(OrderService orderService) {
 		this.orderService = orderService;
 	}
@@ -248,6 +241,10 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 			Order currOrder = orderService.findByOid(Integer.parseInt(out_trade_no.replace("43967777", "")));
 			currOrder.setState(2);
 			orderService.update(currOrder);
+			for (OrderItem orderitem : currOrder.getOrderItems()) {
+				orderitem.setState(0);
+				orderService.updateItem(orderitem);
+			}
 			
 			System.out.println("success");
 			
@@ -295,6 +292,11 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 			Order currOrder = orderService.findByOid(Integer.parseInt(out_trade_no.replace("43967777", "")));
 			currOrder.setState(2);
 			orderService.update(currOrder);
+
+			for (OrderItem orderitem : currOrder.getOrderItems()) {
+				orderitem.setState(0);
+				orderService.updateItem(orderitem);
+			}
 			
 			System.out.println("trade_no:"+trade_no+"<br/>out_trade_no:"+out_trade_no+"<br/>total_amount:"+total_amount);
 		}else {
@@ -304,12 +306,31 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
     }
 	
 	//确认收货Action
-	public String updateState() {
+	public String updateState() throws Exception{
 		//根据订单id查询订单
-		Order curOrder=orderService.findByOid(order.getOid());
-		curOrder.setState(4);
-		orderService.update(curOrder);
+		
+		int receiveall=0;
+		OrderItem curItem = orderService.findByTid(itemid);
+		curItem.setState(1);
+		orderService.updateItem(curItem);
+		Order curOrder=orderService.findByOid(curItem.getOrder().getOid());
+		for(OrderItem orderItem : curOrder.getOrderItems()){
+			if(orderItem.getState()!=1)
+				receiveall=1;
+		}
+		if(receiveall==0){
+			curOrder.setState(4);
+			orderService.update(curOrder);
+		}
 		return "updateStateSuccess";
 	}
 	
+	public void submitscore(){
+		HttpServletRequest request = ServletActionContext.getRequest();  
+		int item = Integer.parseInt(request.getParameter("itemid"));
+		int eva = Integer.parseInt(request.getParameter("evaluate"));
+		OrderItem curItem = orderService.findByTid(item);
+		curItem.setEvaluate(eva);
+		orderService.updateItem(curItem);
+	}
 }

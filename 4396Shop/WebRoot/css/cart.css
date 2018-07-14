@@ -11,11 +11,13 @@
 
 /* ---------- Cart ---------- */
 
+
 #empty_cart{
 	padding-top:100px;
 	font-size:20px;
 	text-decoration:underline;
 }
+
 div.cart .step {
 	height: 38px;
 	margin-bottom: 10px;

@@ -14,16 +14,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css"/>
 <link href="<%=path%>/css/index.css" rel="stylesheet" type="text/css"/>
 
+
+<script src="${pageContext.request.contextPath}/js/jquery-1.8.3.js"></script>
+<script src="${pageContext.request.contextPath}/js/Myapi.js"></script>
+
 <jsp:include page="menu.jsp"/>
 	
 </head>
 <body>
-</div>	
 
 <div class="container index" >
-		
-		<img src="<%=path%>/image/20180708212234_278212.jpg" width="100%" height="100%" href="${ pageContext.request.contextPath }/user_loginPage.action" />
-		<div class="span24">
+		<div class="J_banner J_banner1" >
+        <ul class="img">
+            <li>
+                <img src="<%=path%>/image/20180708212234_278212.jpg" >
+            </li>
+            <li>
+                <img  src="<%=path%>/image/20180708212234_271188.jpg" >
+            </li>
+            <li>
+                <img src="<%=path%>/image/20180710093533_307265.jpg" >
+            </li>
+        </ul>
+        <ul class="pointer"></ul><!-- 点 -->
+   		</div>	
+   		
+    <script>
+    $(function(){
+        var myApi1 = new Myapi();
+        myApi1.JSON.lagout($('.J_banner1'),3000,0);
+    })
+</script>
+	<div class="span24">
 			<div id="hotProduct" class="hotProduct clearfix">
 					<div class="title">
 						<strong>热门商品</strong>
@@ -231,54 +253,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 	</div>
-<div class="container footer">
-	<div class="span24">
-		<div class="footerAd">
-					<img src="<%=path%>/image/footer.jpg" width="950" height="52" alt="我们的优势" title="我们的优势">
-</div>	</div>
-	<div class="span24">
-		<ul class="bottomNav">
-					<li>
-						<a>关于我们</a>
-						|
-					</li>
-					<li>
-						<a>联系我们</a>
-						|
-					</li>
-					<li>
-						<a>招贤纳士</a>
-						|
-					</li>
-					<li>
-						<a>法律声明</a>
-						|
-					</li>
-					<li>
-						<a>友情链接</a>
-						|
-					</li>
-					<li>
-						<a target="_blank">支付方式</a>
-						|
-					</li>
-					<li>
-						<a target="_blank">配送方式</a>
-						|
-					</li>
-					<li>
-						<a>服务声明</a>
-						|
-					</li>
-					<li>
-						<a>广告声明</a>
-						
-					</li>
-		</ul>
-	</div>
-	<div class="span24">
-		<div class="copyright">Copyright © An Apple Team 网上商城 版权所有</div>
-		
-	</div>
-</div>
+	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body></html>

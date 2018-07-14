@@ -17,7 +17,7 @@
 					xhr.onreadystatechange = function(){
 						if(xhr.readyState == 4){
 							if(xhr.status == 200){
-								
+								alert(xhr.responseText);
 								div1.innerHTML = xhr.responseText;
 							}
 						}

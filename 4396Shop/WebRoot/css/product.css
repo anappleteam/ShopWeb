@@ -78,6 +78,33 @@ div.score10 {
 	background: url(../images/review.gif) 0px -360px no-repeat;
 }
 
+p.title{
+	font-size:2em;
+	font-family:"micosoft 雅黑";
+	margin:5px;
+	display:inline-block;
+}
+p.desc{
+	margin:5px;	
+}
+img.size{
+	width:130px;
+	height:150px;
+	display:inline-block;
+}
+a.link{
+	display:inline-block;
+}
+div.storeTitle{
+	width: 216px;
+	padding: 20px 6px;
+	margin-bottom:0px;
+	overflow: hidden;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	border: solid 1px #e4e4e4;
+}
 /* ---------- HotProductCategory ---------- */
 
 div.hotProductCategory {

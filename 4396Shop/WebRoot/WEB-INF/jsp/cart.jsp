@@ -37,8 +37,12 @@
 			var names = document.getElementsByName("selectCartItem");
 			if (!flagAll) {
 				for (var i = 0; i < names.length; i++) {
-					names[i].checked = true;
-					selectOne(names[i]);
+					if (names[i].checked) {
+						continue;
+					} else {
+						names[i].checked = true;
+						selectOne(names[i]);
+					}
 				}
 				flagAll = true;
 			} else {
@@ -62,7 +66,6 @@
 			}
 			if (cids.length > 0) {
 				var cidsstring = cids.join(",");
-				alert(total);
 				window.location.href = "${pageContext.request.contextPath}/order_save.action?cidsstring=" + cidsstring + "&total?=" + (parseFloat(total));
 				return false;
 			} else {
@@ -140,29 +143,6 @@
 			</div>
 		</s:else>
 	</div>
-	<div class="container footer">
-		<div class="span24">
-			<div class="footerAd">
-				<img src="${pageContext.request.contextPath}/image/footer.jpg"
-					width="950" height="52" alt="我们的优势" title="我们的优势">
-			</div>
-		</div>
-		<div class="span24">
-			<ul class="bottomNav">
-				<li><a>关于我们</a> |</li>
-				<li><a>联系我们</a> |</li>
-				<li><a>招贤纳士</a> |</li>
-				<li><a>法律声明</a> |</li>
-				<li><a>友情链接</a> |</li>
-				<li><a target="_blank">支付方式</a> |</li>
-				<li><a target="_blank">配送方式</a> |</li>
-				<li><a>服务声明</a> |</li>
-				<li><a>广告声明</a></li>
-			</ul>
-		</div>
-		<div class="span24">
-			<div class="copyright">Copyright © 2005-2015 网上商城 版权所有</div>
-		</div>
-	</div>
+	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
 </html>

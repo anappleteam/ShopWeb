@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Set;
 
 import bupt.sse.shop.cart.vo.CartItem;
+import bupt.sse.shop.store.vo.Store;
 
 /**
  * 
@@ -24,6 +25,14 @@ public class User {
 	private int state;
 	private String code;
 	private Set<CartItem> cart;
+	private Set<Store> stores;
+	
+	public Set<Store> getStores() {
+		return stores;
+	}
+	public void setStores(Set<Store> stores) {
+		this.stores = stores;
+	}
 	public Set<CartItem> getCart() {
 		return cart;
 	}
