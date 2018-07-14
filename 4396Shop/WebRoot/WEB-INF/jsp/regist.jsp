@@ -290,7 +290,7 @@
 
 					</div>
 					<form id="registerForm" action="<%=path%>/user_regist.action"
-						method="post" novalidate="novalidate"
+						method="post"
 						onsubmit="return checkForm();">
 						<table>
 							<tbody>
@@ -303,7 +303,7 @@
 								<tr>
 									<th><span class="requiredField">*</span>密&nbsp;&nbsp;码:</th>
 									<td><input type="password" id="password" name="password"
-										class="text" maxlength="20" autocomplete="off"
+										class="text" maxlength="20"
 										onblur="checkPassword(this);checkRepassword(document.getElementById('repassword'))"></input>
 										<span id="password_span">密码由字母、小数和符号组成，密码长度6-20位</span></td>
 								</tr>
@@ -311,14 +311,14 @@
 									<th><span class="requiredField">*</span>确认密码:</th>
 									<td><input type="password" id="repassword"
 										name="repassword" class="text" maxlength="20"
-										autocomplete="off" onblur="checkRepassword(this)"></input> <span
+										 onblur="checkRepassword(this)"></input> <span
 										id="repassword_span"></span></td>
 								</tr>
 								<tr>
 									<th><span class="requiredField">*</span>E-mail:</th>
 									<td><input type="email" id="email" name="email"
 										class="text" maxlength="50" onblur="checkEmail(this)"></input>
-										<span id="email_span"><s:fielderror name="email" /></strong></span></td>
+										<span id="email_span"><s:fielderror name="email" /></span></td>
 								</tr>
 								<tr>
 									<th><span class="requiredField">*</span>真实姓名:</th>
@@ -361,10 +361,10 @@
 									<th><span class="requiredField">*</span>验证码:</th>
 									<td><span class="fieldSet"> <input type="text"
 											id="checkcode" name="checkcode" class="text captcha"
-											maxlength="5" autocomplete="off"
+											maxlength="5"
 											onblur="checkcodeFunction(this)"></input><img id="checkImage"
 											class="captchaImage" src="<%=path%>/checkImg.action"
-											onclick="change()" ontitle="点击更换验证码">
+											onclick="change()"/>
 									</span> <span id="checkcode_span"><font color="red"><s:actionerror
 													id="checkcodeActionerror" /></font></span></td>
 								</tr>
@@ -466,3 +466,4 @@
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
+</html>

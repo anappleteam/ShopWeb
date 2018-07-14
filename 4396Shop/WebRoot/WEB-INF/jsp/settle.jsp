@@ -30,11 +30,11 @@
 						<tr>
 							<th>店铺名称<span class="requiredField">*</span></th>
 							<td><input type="text" id="storename" name="storename"
-								class="text" maxlength="20"></td>
+								class="text" maxlength="20"/></td>
 						</tr>
 						<tr>
 							<th>店铺介绍<span class="requiredField">*</span></th>
-							<td><textarea type="text" id="storeinfo" name="storeinfo"
+							<td><textarea id="storeinfo" name="storeinfo"
 									rows="5" class="txt"></textarea></td>
 						</tr>
 					</table>

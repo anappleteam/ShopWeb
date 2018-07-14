@@ -7,16 +7,15 @@
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- saved from url=(0043)http://localhost:8080/mango/cart/list.jhtml -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <title>购物车</title>
 
 <link href="${pageContext.request.contextPath}/css/common.css"
-	rel="stylesheet" type="text/css">
+	rel="stylesheet" type="text/css"/>
 <link href="${pageContext.request.contextPath}/css/cart.css"
-	rel="stylesheet" type="text/css">
+	rel="stylesheet" type="text/css"/>
 </head>
 <body>
 	<script>
@@ -75,7 +74,6 @@
 	</script>
 
 	<%@ include file="menu.jsp"%>
-	</div>
 	<div class="container cart">
 		<s:if test="pageBean !=null">
 			<!-- 不判断map是否为空，map一旦new出来后就有地址 -->
@@ -101,7 +99,7 @@
 								<td width="60"><a
 									href="<%=path%>/product_findByPid.action?pid=<s:property value="#cartItem.product.pid"/>"
 									target="_blank"> <img
-										src="${pageContext.request.contextPath}/<s:property value="#cartItem.product.image" />"></a></td>
+										src="${pageContext.request.contextPath}/<s:property value="#cartItem.product.image" />"/></a></td>
 								<td><a
 									href="<%=path%>/product_findByPid.action?pid=<s:property value="#cartItem.product.pid"/>"
 									target="_blank"> <s:property
