@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-
+import bupt.sse.shop.product.vo.Product;
 import bupt.sse.shop.user.vo.User;
 
 public class UserDao extends HibernateDaoSupport {
@@ -30,6 +30,9 @@ public class UserDao extends HibernateDaoSupport {
 			return users.get(0);
 		}
 		return null;
+	}
+	public User findByUid(Integer uid) {
+		return this.getHibernateTemplate().get(User.class,uid);
 	}
 	
 	public void update(User existUser) {

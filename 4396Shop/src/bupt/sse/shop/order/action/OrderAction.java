@@ -1,14 +1,20 @@
 package bupt.sse.shop.order.action;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.servlet.Servlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +44,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
+import bupt.sse.shop.cart.service.CartItemService;
 import bupt.sse.shop.cart.vo.Cart;
 import bupt.sse.shop.cart.vo.CartItem;
 import bupt.sse.shop.order.service.OrderService;
@@ -51,10 +58,12 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	
 	private Order order = new Order();
 	private OrderService orderService;
+	//revieve uid 
+	private Integer uid;
+
+	private CartItemService cartItemService;
 	private Integer page;
-	
-	
-	
+	private Double total=0.0;
 	public void setPage(Integer page) {
 		this.page = page;
 	}
@@ -63,27 +72,25 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 		this.orderService = orderService;
 	}
 
+	public void setUid(Integer uid) {
+		this.uid = uid;
+	}
+	
+	public void setCartItemService(CartItemService cartItemService) {
+		this.cartItemService = cartItemService;
+	}
+	
 	public Order getModel(){
 		return order;
 	}
 	
 	//从购物车到订单
-	
+	private String cidsstring;
+	public void setCidsstring(String cidsstring) {
+		this.cidsstring = cidsstring;
+	}
 	public String save() throws ParseException{
-		Cart cart = (Cart) ServletActionContext.getRequest().getSession().getAttribute("cart");
-		if (cart == null) {
-			this.addActionMessage("亲!您还没有购物!");
-			return "msg";
-		}
-		order.setTotal(cart.getTotal());
-		order.setState(1);
-		Date date=new Date();                             
-        SimpleDateFormat temp=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");  
-        String date2=temp.format(date);  
-        Date date3=temp.parse(date2);  
-		order.setOrdertime(date3);
-		
-		
+		// 加前置通知
 		User existUser = (User) ServletActionContext.getRequest().getSession()
 				.getAttribute("existUser");
 		if(existUser == null){
@@ -91,21 +98,47 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 			return "login";
 		}
 		order.setUser(existUser);
-		
-		for (CartItem cartItem : cart.getCartItems()) {
-			// 订单项的信息从购物项获得的.
-			OrderItem orderItem = new OrderItem();
-			orderItem.setCount(cartItem.getCount());
-			orderItem.setSubtotal(cartItem.getSubtotal());
-			orderItem.setProduct(cartItem.getProduct());
-			orderItem.setOrder(order);
-
-			order.getOrderItems().add(orderItem);
+		order.setName(existUser.getName());
+		order.setAddr(existUser.getAddr());
+		order.setPhone(existUser.getPhone());
+		String[] cids=cidsstring.split(",");
+		Cart cart = (Cart) ServletActionContext.getRequest().getSession().getAttribute("cart");
+		if (cart == null) {
+			this.addActionMessage("亲!您还没有购物!");
+			return "msg";
 		}
-		
-		
+		List<CartItem> cartItems=cart.getCartItems();
+		Map<Integer,CartItem> cartItemMap=cartItems.stream().collect(Collectors.toMap(CartItem::getCitemid, a -> a,(k1,k2)->k1));
+		for (int i = 0; i < cids.length; i++) {
+			String string = cids[i];
+			Integer cid=Integer.valueOf(string);
+			if(cartItemMap.containsKey(cid))
+			{
+				CartItem cartItem=cartItemMap.get(cid);
+				OrderItem orderItem = new OrderItem();
+				orderItem.setCount(cartItem.getCount());
+				orderItem.setSubtotal(cartItem.getSubtotal());
+				orderItem.setProduct(cartItem.getProduct());
+				orderItem.setOrder(order);
+				orderItem.setStore(cartItem.getProduct().getStore());
+				
+				total+=cartItem.getSubtotal();
+				order.getOrderItems().add(orderItem);
+				cartItemService.removeCartItem(cartItem.getCitemid());
+			}
+			
+		}
+		order.setTotal(total);
+		order.setState(1);
+		Date date=new Date();                             
+        SimpleDateFormat temp=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+        String date2=temp.format(date);  
+        Date date3=temp.parse(date2);  
+		order.setOrdertime(date3);
+
+
+		//加事务	
 		orderService.save(order);
-		cart.clearCart();
 		
 		return "saveSuccess";
 	}
