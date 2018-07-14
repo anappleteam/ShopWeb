@@ -130,7 +130,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			return "loginSuccess";
 		}
 	}
-	/**
+	/** 
 	 * 用户退出
 	 */
 	public String quit() {
