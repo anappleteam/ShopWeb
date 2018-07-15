@@ -142,6 +142,7 @@ public class CartAction extends ActionSupport {
 
 	public String myCart() {
 		// find all cartitems and put them into the SET
+		//刷新购物车
 		User user = currentUser();
 		//刷新购物车
 		cartItemService.loadCartItems(user.getUid());
@@ -150,6 +151,4 @@ public class CartAction extends ActionSupport {
 		// 页面跳转
 		return "myCart";
 	}
-	
-
 }

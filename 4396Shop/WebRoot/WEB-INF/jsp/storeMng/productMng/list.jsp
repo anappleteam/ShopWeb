@@ -40,8 +40,11 @@
 								<tr
 									style="FONT-WEIGHT: bold; FONT-SIZE: 12pt; HEIGHT: 25px; BACKGROUND-COLOR: #afd1f3">
 
-									<td align="center" width="18%">
+									<td align="center" width="7%">
 										序号
+									</td>
+									<td align="center" width="7%">
+										编号
 									</td>
 									<td align="center" width="17%">
 										商品图片
@@ -51,6 +54,9 @@
 									</td>
 									<td align="center" width="17%">
 										商品价格
+									</td>
+									<td align="center" width="7%">
+										库存
 									</td>
 									<td align="center" width="17%">
 										是否热门
@@ -65,24 +71,25 @@
 									<s:iterator var="p" value="pageBean.list" status="status">
 										<tr onmouseover="this.style.backgroundColor = 'white'"
 											onmouseout="this.style.backgroundColor = '#F5FAFE';">
-											<td style="CURSOR: hand; HEIGHT: 22px" align="center"
-												width="18%">
+											<td style="CURSOR: hand; HEIGHT: 22px" align="center">
 												<s:property value="#status.count"/>
 											</td>
-											<td style="CURSOR: hand; HEIGHT: 22px" align="center"
-												width="17%">
+											<td style="CURSOR: hand; HEIGHT: 22px" align="center">
+												<s:property value="#p.pid"/>
+											</td>
+											<td style="CURSOR: hand; HEIGHT: 22px" align="center">
 												<img alt="商品图标"width="40" height="45" src="${ pageContext.request.contextPath }/<s:property value="#p.image"/>">
 											</td>
-											<td style="CURSOR: hand; HEIGHT: 22px" align="center"
-												width="17%">
+											<td style="CURSOR: hand; HEIGHT: 22px" align="center">
 												<s:property value="#p.pname"/>
 											</td>
-											<td style="CURSOR: hand; HEIGHT: 22px" align="center"
-												width="17%">
+											<td style="CURSOR: hand; HEIGHT: 22px" align="center">
 												<s:property value="#p.shop_price"/>
 											</td>
-											<td style="CURSOR: hand; HEIGHT: 22px" align="center"
-												width="17%">
+											<td style="CURSOR: hand; HEIGHT: 22px" align="center">
+												<s:property value="#p.pavailable"/>
+											</td>
+											<td style="CURSOR: hand; HEIGHT: 22px" align="center">
 												<s:if test="#p.is_hot==1">
 													是
 												</s:if>

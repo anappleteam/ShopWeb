@@ -77,7 +77,7 @@ public class UserAspect {
 				+ proceedingJoinPoint.getSignature().getName() + (double) (end - start) / 1000 + "秒");
 		return result;
 	}
-
+	
 	@Pointcut("execution(* bupt.sse.shop..*(..))")
 	private void allMethodPointCut() {
 	}
