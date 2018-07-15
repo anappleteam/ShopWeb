@@ -7,7 +7,7 @@
     <constant name="struts.devMode" value="true" />
     <package name="shop" extends="struts-default" namespace="/">
     	<interceptors>
-    		<interceptor name="PrivilegeInterceptor" class="bupt.sse.shop.interceptor.PrivilegeInterceptor"/>
+    		<interceptor name="PrivilegeInterceptor" class="privilegeInterceptor"/>
     	</interceptors>
     	
     	<default-action-ref name="index"></default-action-ref>

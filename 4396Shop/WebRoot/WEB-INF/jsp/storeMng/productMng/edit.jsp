@@ -111,5 +111,6 @@
 			</table>
 		</form>
 		</div>
+		<s:debug/>
 	</body>
 </HTML>

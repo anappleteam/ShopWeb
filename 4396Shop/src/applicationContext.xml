@@ -102,6 +102,10 @@
 
 		由于Action没有父类实现的接口的方法，就会报java.lang.NoSuchMethodException:/> -->
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	
+	<!-- strust2 拦截器bean -->
+	<bean id="privilegeInterceptor" class="bupt.sse.shop.interceptor.PrivilegeInterceptor" scope="prototype"></bean>
+	
 	<!-- Action的配置 =========================== -->
 
 	<!-- 首页访问的Action -->
