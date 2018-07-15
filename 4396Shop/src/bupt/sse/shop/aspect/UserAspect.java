@@ -67,7 +67,7 @@ public class UserAspect {
 	 * @param proceedingJoinPoint
 	 * @return
 	 * @throws Throwable
-	 */
+	
 	@Around("allMethodPointCut()")
 	public Object performanceAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
 		long start = System.currentTimeMillis();
@@ -77,6 +77,7 @@ public class UserAspect {
 				+ proceedingJoinPoint.getSignature().getName() + (double) (end - start) / 1000 + "秒");
 		return result;
 	}
+	 */
 
 	@Pointcut("execution(* bupt.sse.shop..*(..))")
 	private void allMethodPointCut() {

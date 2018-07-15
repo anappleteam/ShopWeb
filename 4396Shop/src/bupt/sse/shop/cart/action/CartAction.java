@@ -125,8 +125,9 @@ public class CartAction extends ActionSupport {
 	public String myCart() {
 		// find all cartitems and put them into the SET
 		//刷新购物车
-		cartItemService.findCartItems(uid);
+		
 		User user = currentUser();
+		cartItemService.findCartItems(user.getUid());
 		PageBean<CartItem> pageBean = cartItemService.findByUid(user.getUid());
 		ActionContext.getContext().getValueStack().set("pageBean", pageBean);
 		// 页面跳转
