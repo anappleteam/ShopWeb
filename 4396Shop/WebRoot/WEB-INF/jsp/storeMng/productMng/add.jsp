@@ -57,8 +57,14 @@
 					<td width="18%" align="center" bgColor="#f5fafe" class="ta_01">
 						商品图片：
 					</td>
-					<td class="ta_01" bgColor="#ffffff" colspan="3">
+					<td class="ta_01" bgColor="#ffffff">
 						<input type="file" name="upload" />
+					</td>
+					<td width="18%" align="center" bgColor="#f5fafe" class="ta_01">
+						库存：
+					</td>
+					<td class="ta_01" bgColor="#ffffff">
+						<input type="text" name="pavailable" value="<s:property value="model.pavailable"/>" id="userAction_save_do_logonName" class="bg"/>
 					</td>
 				</tr>
 				<tr>
