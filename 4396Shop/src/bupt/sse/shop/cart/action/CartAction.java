@@ -4,6 +4,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+import javax.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -29,17 +34,16 @@ public class CartAction extends ActionSupport {
 	private Integer pid;
 	// recieve uid
 	private Integer uid;
-	// 接收数量count
+	// 接收商品数量count
 	private Integer count;
 	// 注入商品的Service
 	private ProductService productService;
-	// 接收page
-	private Integer page;
-	// 接收选中的cartitemID
-	private String cidsstring;
-
-	public void setcidsstring(String cidsstring) {
-		this.cidsstring = cidsstring;
+	
+	//接收购物项修改后的数量
+	private Integer newCount;
+	
+	public void setNewCount(Integer newCount) {
+		this.newCount = newCount;
 	}
 
 	public void setCartItemService(CartItemService cartItemService) {
@@ -66,10 +70,6 @@ public class CartAction extends ActionSupport {
 		this.count = count;
 	}
 
-	public void setPage(Integer page) {
-		this.page = page;
-	}
-
 	// 获取当前登录的user
 	public User currentUser() {
 		User user = (User) ServletActionContext.getRequest().getSession().getAttribute("existUser");
@@ -94,10 +94,28 @@ public class CartAction extends ActionSupport {
 		cartItemService.generateCartItem(cartItem);
 		Cart cart = cartItemService.getCart();
 		//刷新购物车
-		cartItemService.findCartItems(user.getUid());
+		cartItemService.loadCartItems(user.getUid());
 		PageBean<CartItem> pageBean = cartItemService.findByUid(user.getUid());
 		ActionContext.getContext().getValueStack().set("pageBean", pageBean);
 		return "addCart";
+	}
+	
+	public String updateCart() throws IOException{
+		CartItem cartItem=cartItemService.findByCitemid(citemid);
+		HttpServletResponse response=ServletActionContext.getResponse();
+		response.setContentType("text/html;charset=UTF-8");
+		if(cartItem.getProduct().getPavailable()>=newCount)
+		{
+			cartItem.setCount(newCount);
+			cartItem.setSubtotal(cartItem.getProduct().getShop_price()*newCount);
+			cartItemService.updateCartItem(cartItem);
+			response.getWriter().print("true,"+cartItem.getSubtotal());
+		}else {
+			Integer left=cartItem.getProduct().getPavailable();
+			response.getWriter().print("false,"+left);
+		}
+		
+		return NONE;
 	}
 
 	public String removeCart() {
@@ -105,18 +123,18 @@ public class CartAction extends ActionSupport {
 		cartItemService.removeCartItem(citemid);
 		//刷新购物车
 		User user = currentUser();
-		cartItemService.findCartItems(user.getUid());
+		cartItemService.loadCartItems(user.getUid());
 		PageBean<CartItem> pageBean = cartItemService.findByUid(user.getUid());
 		ActionContext.getContext().getValueStack().set("pageBean", pageBean);
 		return "removeCart";
 	}
 
 	public String clearCart() {
-		// 调用购物车清空方法
-		cartItemService.clearCart(uid);
-		//刷新购物车
-		cartItemService.findCartItems(uid);
 		User user = currentUser();
+		// 调用购物车清空方法
+		cartItemService.clearCart(user.getUid());
+		//刷新购物车
+		cartItemService.loadCartItems(user.getUid());
 		PageBean<CartItem> pageBean = cartItemService.findByUid(user.getUid());
 		ActionContext.getContext().getValueStack().set("pageBean", pageBean);
 		return "clearCart";
@@ -124,9 +142,9 @@ public class CartAction extends ActionSupport {
 
 	public String myCart() {
 		// find all cartitems and put them into the SET
-		//刷新购物车
-		cartItemService.findCartItems(uid);
 		User user = currentUser();
+		//刷新购物车
+		cartItemService.loadCartItems(user.getUid());
 		PageBean<CartItem> pageBean = cartItemService.findByUid(user.getUid());
 		ActionContext.getContext().getValueStack().set("pageBean", pageBean);
 		// 页面跳转
