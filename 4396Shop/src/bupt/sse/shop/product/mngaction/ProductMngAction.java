@@ -23,6 +23,11 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 
 	private Product product = new Product();
 	private Integer sid;
+	private Integer csid;
+
+	public void setCsid(Integer csid) {
+		this.csid = csid;
+	}
 
 	public void setSid(Integer sid) {
 		this.sid = sid;
@@ -105,6 +110,10 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 	// 保存商品的方法
 	public String save() throws IOException {
 		Store store = (Store) ServletActionContext.getRequest().getSession().getAttribute("managedStore");
+		CategorySecond thiSecond=new CategorySecond();
+		thiSecond.setCsid(csid);
+		product.setCategorySecond(thiSecond);
+		
 		if (store != null) {
 			product.setPdate(new Date(System.currentTimeMillis()));
 
@@ -184,6 +193,10 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 		product.setPdate(new Date(System.currentTimeMillis()));
 		product.setStore(managedProduct.getStore());
 
+		CategorySecond thiSecond=new CategorySecond();
+		thiSecond.setCsid(csid);
+		product.setCategorySecond(thiSecond);
+		
 		if (upload != null) {
 			// 删除源图片
 			String pathOld = product.getImage();
