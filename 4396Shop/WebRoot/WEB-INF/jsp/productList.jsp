@@ -10,7 +10,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>4396购物</title>
-<link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css" />
 <link href="<%=path%>/css/product.css" rel="stylesheet" type="text/css" />
 
 </head>

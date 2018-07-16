@@ -9,17 +9,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>4396购物</title>
-
-<link href="<%=path%>/css/slider.css" rel="stylesheet" type="text/css" />
-<link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css" />
 <link href="<%=path%>/css/index.css" rel="stylesheet" type="text/css" />
-
-
-<script src="${pageContext.request.contextPath}/js/jquery-1.8.3.js"></script>
-<script src="${pageContext.request.contextPath}/js/Myapi.js"></script>
-
 <jsp:include page="menu.jsp" />
-
 </head>
 <body>
 
@@ -34,12 +25,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<!-- 点 -->
 		</div>
 
-		<script>
-    $(function(){
-        var myApi1 = new Myapi();
-        myApi1.JSON.lagout($('.J_banner1'),3000,0);
-    })
-</script>
 		<div class="span24">
 			<div id="hotProduct" class="hotProduct clearfix">
 				<div class="title">
@@ -90,5 +75,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 	</div>
+	
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/Myapi.js"></script>
+<script>
+    $(function(){
+        var myApi1 = new Myapi();
+        myApi1.JSON.lagout($('.J_banner1'),3000,0);
+    })
+</script>
 </body>
 </html>

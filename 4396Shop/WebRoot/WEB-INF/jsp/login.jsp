@@ -22,37 +22,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>会员登录</title>
-
-<link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css" />
 <link href="<%=path%>/css/login.css" rel="stylesheet" type="text/css" />
 <jsp:include page="menu.jsp" />
-<script>
-	function checkForm() {
-		var username = document.getElementById("username").value;
-		if (username == null || username == '') {
-			alert("用户名不能为空！")
-			return false;
-		}
-		var password = document.getElementById("password").value;
-		if (password == null || password == '') {
-			alert("密码不能为空！")
-			return false;
-		}
-		var checkcode = document.getElementById("checkcode").value;
-		if (checkcode == null || checkcode == '') {
-			alert("验证码不能为空！")
-			return false;
-		}
-	}
-	function change() {
-		var img1 = document.getElementById("checkImage");
-		img1.src = "<%=path%>/checkImg.action?" + new Date().getTime();
-	}
-</script>
 </head>
 <body style="margin-top: 80px">
 	<div class="container login">
@@ -133,5 +108,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
+	<script>
+	function checkForm() {
+		var username = document.getElementById("username").value;
+		if (username == null || username == '') {
+			alert("用户名不能为空！")
+			return false;
+		}
+		var password = document.getElementById("password").value;
+		if (password == null || password == '') {
+			alert("密码不能为空！")
+			return false;
+		}
+		var checkcode = document.getElementById("checkcode").value;
+		if (checkcode == null || checkcode == '') {
+			alert("验证码不能为空！")
+			return false;
+		}
+	}
+	function change() {
+		var img1 = document.getElementById("checkImage");
+		img1.src = "<%=path%>/checkImg.action?" + new Date().getTime();
+	}
+</script>
 </body>
 </html>

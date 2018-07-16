@@ -3,14 +3,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<link href="${pageContext.request.contextPath}/css/common.css" rel="stylesheet" type="text/css" />
 		<link href="${pageContext.request.contextPath}/css/cart.css" rel="stylesheet" type="text/css" />
-		<script src="${pageContext.request.contextPath}/js/public.js"></script>
-		<script type="text/javascript">
-			function addProduct(){
-				window.location.href = "${pageContext.request.contextPath}/productMng_add.action";
-			}
-		</script>
 		<jsp:include page="/WEB-INF/jsp/header.jsp"></jsp:include>
 	</head>
 	<body>
@@ -114,6 +107,12 @@
 			</table>
 		</form>
 		</div>
+		<script src="${pageContext.request.contextPath}/js/public.js"></script>
+		<script type="text/javascript">
+			function addProduct(){
+				window.location.href = "${pageContext.request.contextPath}/productMng_add.action";
+			}
+		</script>
 	</body>
 </html>
 
