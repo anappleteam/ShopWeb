@@ -49,7 +49,7 @@
 	<!-- 切换数据源 -->
 	<bean id="dataSourceAdvice" class="bupt.sse.shop.aspect.DataSourceAdvice" />
 		<aop:config>
-		<aop:advisor pointcut="execution(* bupt..*.dao.*(..))"
+		<aop:advisor pointcut="execution(* bupt..*.dao..*(..))"
 		advice-ref="dataSourceAdvice" />
 	</aop:config>
 	
