@@ -16,125 +16,129 @@
 	rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath}/css/cart.css"
 	rel="stylesheet" type="text/css" />
-</head>
-<body>
-	<script>
-		var flagAll = false;
-		var total = 0.0;
-		function selectOne(node) {
-			var cartId = node.value;
-			var subtotal = document.getElementById("span_" + cartId).innerText;
-			if (node.checked) {
-				total += Number(subtotal);
-			} else {
-				total -= Number(subtotal);
-			}
-			document.getElementById("effectivePrice").innerText = parseFloat(total).toFixed(1);
+<script>
+	var flagAll = false;
+	var total = 0.0;
+	function selectOne(node) {
+		var cartId = node.value;
+		var subtotal = document.getElementById("span_" + cartId).innerText;
+		if (node.checked) {
+			total += Number(subtotal);
+		} else {
+			total -= Number(subtotal);
 		}
-	
-		function selectAll() {
-			var names = document.getElementsByName("selectCartItem");
-			if (!flagAll) {
-				for (var i = 0; i < names.length; i++) {
-					if (names[i].checked) {
-						continue;
-					} else {
-						names[i].checked = true;
-						selectOne(names[i]);
-					}
-				}
-				flagAll = true;
-			} else {
-				for (var i = 0; i < names.length; i++) {
-					names[i].checked = false;
-					selectOne(names[i]);
-				}
-				flagAll = false;
-			}
-		}
-	
-		function submitSelected() {
-			var names = document.getElementsByName("selectCartItem");
-			var cids = new Array();
-			var j = 0;
+		document.getElementById("effectivePrice").innerText = parseFloat(total).toFixed(1);
+	}
+
+	function selectAll() {
+		var names = document.getElementsByName("selectCartItem");
+		if (!flagAll) {
 			for (var i = 0; i < names.length; i++) {
 				if (names[i].checked) {
-					cids.push(names[i].value);
-					j++;
+					continue;
+				} else {
+					names[i].checked = true;
+					selectOne(names[i]);
 				}
 			}
-			if (cids.length > 0) {
-				var cidsstring = cids.join(",");
-				window.location.href = "${pageContext.request.contextPath}/order_save.action?cidsstring=" + cidsstring + "&total?=" + (parseFloat(total));
-				return false;
-			} else {
-				return false;
+			flagAll = true;
+		} else {
+			for (var i = 0; i < names.length; i++) {
+				names[i].checked = false;
+				selectOne(names[i]);
+			}
+			flagAll = false;
+		}
+	}
+
+	function submitSelected() {
+		var names = document.getElementsByName("selectCartItem");
+		var cids = new Array();
+		var j = 0;
+		for (var i = 0; i < names.length; i++) {
+			if (names[i].checked) {
+				cids.push(names[i].value);
+				j++;
 			}
 		}
-	
-		function changeCount(node) {
-			var cartId = node.value;
-			var oldCount = document.getElementById(cartId + "_oldCount").value;
-			var newCount = document.getElementById(cartId + "_itemCount").value;
-			if (newCount <= 0) {
-				alert("请输入大于0的有效值！");
-				document.getElementById(cartId + "_itemCount").value=oldCount;
-				return;
-			}else if(newCount==oldCount){
-				return ;
-			}
-			// 1.创建异步交互对象
-			var xhr = createXmlHttp();
-			// 2.设置监听
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState == 4) {
-					if (xhr.status == 200) {
-						if (xhr.responseText != '') {
-							var returns = xhr.responseText.split(",")
-							if (returns[0] == "true") {
-								document.getElementById("span_" + cartId).innerText = returns[1];
-							} else if (returns[0] == "false") {
-								alert("当前库存剩余" + returns[1]);
-							}
+		if (cids.length > 0) {
+			var cidsstring = cids.join(",");
+			window.location.href = "${pageContext.request.contextPath}/order_save.action?cidsstring=" + cidsstring + "&total?=" + (parseFloat(total));
+			return false;
+		} else {
+			return false;
+		}
+	}
+
+	function changeCount(node) {
+		var cartId = node.value;
+		var oldCount = document.getElementById(cartId + "_oldCount").value;
+		var newCount = document.getElementById(cartId + "_itemCount").value;
+		if (newCount <= 0) {
+			alert("请输入大于0的有效值！");
+			document.getElementById(cartId + "_itemCount").value = oldCount;
+			return;
+		} else if (newCount == oldCount) {
+			return;
+		}
+		// 1.创建异步交互对象
+		var xhr = createXmlHttp();
+		// 2.设置监听
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4) {
+				if (xhr.status == 200) {
+					if (xhr.responseText != '') {
+						var returns = xhr.responseText.split(",")
+						if (returns[0] == "true") {
+							document.getElementById("span_" + cartId).innerText = returns[1];
+						} else if (returns[0] == "false") {
+							alert("当前库存剩余" + returns[1]);
 						}
 					}
 				}
 			}
-			// 3.打开连接
-			xhr.open("GET", "${pageContext.request.contextPath}/cart_updateCart.action?time=" + new Date().getTime() + "&citemid=" + cartId + "&newCount=" + newCount, true);
-			// 4.发送
-			xhr.send(null);
 		}
-		function createXmlHttp() {
-			var xmlHttp;
-			try { // Firefox, Opera 8.0+, Safari
-				xmlHttp = new XMLHttpRequest();
+		// 3.打开连接
+		xhr.open("GET", "${pageContext.request.contextPath}/cart_updateCart.action?time=" + new Date().getTime() + "&citemid=" + cartId + "&newCount=" + newCount, true);
+		// 4.发送
+		xhr.send(null);
+	}
+	function createXmlHttp() {
+		var xmlHttp;
+		try { // Firefox, Opera 8.0+, Safari
+			xmlHttp = new XMLHttpRequest();
+		} catch (e) {
+			alert(e.message);
+			try { // Internet Explorer
+				xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
 			} catch (e) {
 				alert(e.message);
-				try { // Internet Explorer
-					xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+				try {
+					xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
 				} catch (e) {
 					alert(e.message);
-					try {
-						xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-					} catch (e) {
-						alert(e.message);
-					}
 				}
 			}
-	
-			return xmlHttp;
 		}
-	</script>
 
+		return xmlHttp;
+	}
+</script>
+</head>
+<body>
 	<%@ include file="menu.jsp"%>
 	<div class="container cart">
 		<s:if test="pageBean.list !=null">
 			<!-- 不判断map是否为空，map一旦new出来后就有地址 -->
 			<div class="span24">
-				<div class="step step1">购物车信息</div>
 				<table>
 					<tbody>
+						<br/>
+						<tr>
+							<th colspan="7" style="text-align:center;vertical-align:middle;">
+							<strong>购物车信息</strong>
+						</th>
+						</tr>
 						<tr>
 							<th><input type="checkbox" id="checkAll"
 								onclick="selectAll()" />全选</th>
@@ -170,7 +174,7 @@
 									type="hidden"
 									value="<s:property
 											value="#cartItem.count"/>" />
-									<button name="changeCountButton" onclick="changeCount(this)"
+									<button class="myButton" style="font-size:12px;" name="changeCountButton" onclick="changeCount(this)"
 										value="<s:property value="#cartItem.citemid"/>">确认修改</button></td>
 								<td width="100">￥<span
 									id="span_<s:property value="#cartItem.citemid"/>"

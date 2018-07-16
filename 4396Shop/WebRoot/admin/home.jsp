@@ -1,25 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
-<!-- <html>
-	<head>
-		<meta http-equiv="Content-Language" content="zh-cn">
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <style>
-		body
-		{
-			SCROLLBAR-ARROW-COLOR: #ffffff;  SCROLLBAR-BASE-COLOR: #dee3f7;
-		}
-    </style>
-  </head>
-<frameset rows="103,*,43" frameborder=0 border="0" framespacing="0">
-  <frame src="${pageContext.request.contextPath}/admin/top.jsp" name="topFrame" scrolling="NO" noresize>
-  <frameset cols="159,*" frameborder="0" border="0" framespacing="0">
-		<frame src="${pageContext.request.contextPath}/admin/left.jsp" name="leftFrame" noresize scrolling="YES">
-		<frame src="${pageContext.request.contextPath}/admin/welcome.jsp" name="mainFrame">
-  </frameset>
-  <frame src="${pageContext.request.contextPath}/admin/bottom.jsp" name="bottomFrame" scrolling="NO"  noresize>
-</frameset>
-</html> -->
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -64,6 +44,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <script>
 	new WOW().init();
 </script>
+
 <!--//end-animate-->
 <!-- Metis Menu -->
 <script src="js/metisMenu.min.js"></script>
@@ -81,84 +62,53 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 					id="cbp-spmenu-s1">
 					<div class="scrollbar scrollbar1">
 						<ul class="nav" id="side-menu">
-							<li>
-								<a href="#"><i class="fa fa-th-large nav_icon"></i>用户管理 <span class="fa arrow"></span></a>
+							<li><a href="#"><i class="fa fa-th-large nav_icon"></i>用户管理
+									<span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level collapse">
-									<li>
-										<a href="${pageContext.request.contextPath}/userAdmin_findAll.action?page=1" target="mainFrame">用户管理</a>
-									</li>								
-								</ul>
-								<!-- /nav-second-level -->
-							</li>
-							<li>
-								<a href="#"><i class="fa fa-th-large nav_icon"></i>一级分类管理 <span class="fa arrow"></span></a>
+									<li><a
+										href="${pageContext.request.contextPath}/userAdmin_findAll.action?page=1"
+										target="mainFrame">用户管理</a></li>
+								</ul> <!-- /nav-second-level --></li>
+							<li><a href="#"><i class="fa fa-th-large nav_icon"></i>一级分类管理
+									<span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level collapse">
-									<li>
-										<a href="${pageContext.request.contextPath}/adminCategory_findAll.action" target="mainFrame">一级分类管理</a>
-									</li>								
-								</ul>
-								<!-- /nav-second-level -->
-							</li>
-							<li>
-								<a href="#"><i class="fa fa-th-large nav_icon"></i>二级分类管理 <span class="fa arrow"></span></a>
+									<li><a
+										href="${pageContext.request.contextPath}/adminCategory_findAll.action"
+										target="mainFrame">一级分类管理</a></li>
+								</ul> <!-- /nav-second-level --></li>
+							<li><a href="#"><i class="fa fa-th-large nav_icon"></i>二级分类管理
+									<span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level collapse">
-									<li>
-										<a href="${pageContext.request.contextPath}/adminCategorySecond_findAll.action?page=1" target="mainFrame">二级分类管理</a>
-									</li>		
-								</ul>
-								<!-- /nav-second-level -->
-							</li>
-							<li>
-								<a href="#"><i class="fa fa-th-large nav_icon"></i>商品管理 <span class="fa arrow"></span></a>
+									<li><a
+										href="${pageContext.request.contextPath}/adminCategorySecond_findAll.action?page=1"
+										target="mainFrame">二级分类管理</a></li>
+								</ul> <!-- /nav-second-level --></li>
+							<li><a href="#"><i class="fa fa-th-large nav_icon"></i>店铺管理<span
+									class="fa arrow"></span></a>
 								<ul class="nav nav-second-level collapse">
-									<li>
-										<a href="${pageContext.request.contextPath}/adminProduct_findAll.action?page=1" target="mainFrame">商品管理</a>
-									</li>		
-								</ul>
-								<!-- /nav-second-level -->
-							</li>
-							<li>
-								<a href="#"><i class="fa fa-th-large nav_icon"></i>订单管理 <span class="fa arrow"></span></a>
-								<ul class="nav nav-second-level collapse">
-									<li>
-										<a href="${pageContext.request.contextPath}/adminOrder_findAll.action?page=1" target="mainFrame">订单管理</a>
-									</li>		
-								</ul>
-								<!-- /nav-second-level -->
-							</li>
-							<li>
-								<a href="#"><i class="fa fa-th-large nav_icon"></i>店铺管理<span class="fa arrow"></span></a>
-								<ul class="nav nav-second-level collapse">
-									<li>
-										<a href="${pageContext.request.contextPath}/adminStore_findAllAudit.action?page=1" target="mainFrame">开店审核</a>
-									</li>	
-									<li>
-										<a href="${pageContext.request.contextPath}/adminStore_findAll.action?page=1" target="mainFrame">店铺管理</a>
-									</li>	
-								</ul>
-								<!-- /nav-second-level -->
-							</li>
+									<li><a
+										href="${pageContext.request.contextPath}/adminStore_findAllAudit.action?page=1"
+										target="mainFrame">开店审核</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/adminStore_findAll.action?page=1"
+										target="mainFrame">店铺管理</a></li>
+								</ul> <!-- /nav-second-level --></li>
 						</ul>
 					</div>
-					<!-- //sidebar-collapse -->
 				</nav>
 			</div>
 		</div>
-		<!--left-fixed -navigation-->
-		<!-- header-starts -->
 		<div class="sticky-header header-section ">
 			<div class="header-left">
-				<!--logo -->
 				<div class="logo">
 					<a href="index.html">
 						<ul>
-							<li><img src="images/logo1.png" alt="" /></li>
+							<li><img src="images/logo1.png" /></li>
 							<li><h1>4396商城</h1></li>
 							<div class="clearfix"></div>
 						</ul>
 					</a>
 				</div>
-				<!--//logo-->
 
 
 				<div class="clearfix"></div>
@@ -207,37 +157,22 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 			</div>
 		</div>
 	</div>
-	
-	    <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
-        <script type="text/javascript" src="js/dev-loaders.js"></script>
-        <script type="text/javascript" src="js/dev-layout-default.js"></script>
-		<script type="text/javascript" src="js/jquery.marquee.js"></script>
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		
-		<!-- candlestick -->
-		<script type="text/javascript" src="js/jquery.jqcandlestick.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="css/jqcandlestick.css" />
-		<!-- //candlestick -->
-		
-		<!--max-plugin-->
-		<script type="text/javascript" src="js/plugins.js"></script>
-		<!--//max-plugin-->
-		
-		<!--scrolling js-->
-		<script src="js/jquery.nicescroll.js"></script>
-		<script src="js/scripts.js"></script>
-		<!--//scrolling js-->
-		
-		<!-- real-time-updates -->
-		<script language="javascript" type="text/javascript" src="js/jquery.flot.js"></script>
-		
-		<script language="javascript" type="text/javascript" src="js/jquery.flot.errorbars.js"></script>
-		<script language="javascript" type="text/javascript" src="js/jquery.flot.navigate.js"></script>
-		
-		<script src='http://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.3.0/snap.svg-min.js'></script> 
-		
-		<script src="js/jquery.fn.gantt.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="js/dev-loaders.js"></script>
+	<script type="text/javascript" src="js/dev-layout-default.js"></script>
+	<script type="text/javascript" src="js/jquery.marquee.js"></script>
+
+	<!-- candlestick -->
+	<script type="text/javascript" src="js/jquery.jqcandlestick.min.js"></script>
+	<!-- //candlestick -->
+
+
+	<!--scrolling js-->
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--//scrolling js-->
 	<script src="js/classie.js"></script>
 	<script>
 		var menuLeft = document.getElementById('cbp-spmenu-s1'),

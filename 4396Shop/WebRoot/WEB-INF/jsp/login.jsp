@@ -102,11 +102,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</tr>
 								<tr>
 									<th>&nbsp;</th>
-									<td><label> <input type="checkbox" name="remember"
+									<td> <input type="checkbox" name="remember"
 											id="remember" value="remember" <%=check%>>记住用户名
-									</label> <label> &nbsp;&nbsp;<a
-												href="<%=path%>/user_changePwdPage.action">忘记密码?</a>
-									</label></td>
+											&nbsp;&nbsp;
+										<a href="<%=path%>/user_changePwdPage.action">忘记密码?</a>
+									</td>
 								</tr>
 								<tr>
 									<th>&nbsp;</th>
