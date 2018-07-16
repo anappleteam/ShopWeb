@@ -13,7 +13,6 @@
 <title>我的订单页面</title>
 <link href="${pageContext.request.contextPath}/css/cart.css"
 	rel="stylesheet" type="text/css" />
-<<<<<<< HEAD
 <link href="${pageContext.request.contextPath}/css/evaluate.css"
 	rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath}/css/avgrund.css"
