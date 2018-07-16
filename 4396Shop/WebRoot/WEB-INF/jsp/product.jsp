@@ -12,8 +12,8 @@
 <head>
 <meta http-equiv="Cache-Control" content="max-age=7200" />
 <title>网上商城</title>
-<link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css"/>
-<link href="<%=path%>/css/product.css" rel="stylesheet" type="text/css"/>
+<link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css" />
+<link href="<%=path%>/css/product.css" rel="stylesheet" type="text/css" />
 <script>
 	function decrease() {
 		var c = document.getElementById("count").value;
@@ -78,36 +78,10 @@
 		<div class="span16 last">
 
 			<div class="productImage">
-				<a style="outline-style: none; text-decoration: none;"
-					id="zoom"
-					href="<%=basePath%><s:property value="model.image"/>"
-					rel="gallery">
-					<div class="zoomPad">
-						<img style="opacity: 1;" class="medium"
-							src="<%=path%>/<s:property value="model.image"/>" />
-						<div
-								style="display: block; top: 0px; left: 162px; width: 0px; height: 0px; position: absolute; border-width: 1px;"
-								class="zoomPup"></div>
-							<div
-								style="position: absolute; z-index: 5001; left: 312px; top: 0px; display: block;"
-								class="zoomWindow">
-								<div style="width: 368px;" class="zoomWrapper">
-									<div style="width: 100%; position: absolute; display: block;"
-										class="zoomWrapperTitle"></div>
-									<div style="width: 0%; height: 0px;" class="zoomWrapperImage">
-										<img
-											src="<%=path%>/<s:property value="model.image"/>"
-											style="position: absolute; border: 0px none; display: block; left: -432px; top: 0px;"/>
-									</div>
-								</div>
-							</div>
-							<div
-								style="visibility: hidden; top: 129.5px; left: 106px; position: absolute;"
-								class="zoomPreload">Loading zoom</div>
-					</div>
-				</a>
-
-			</div>
+				<a style="outline-style: none; text-decoration: none;" id="zoom"
+					href="<%=basePath%><s:property value="model.image"/>" rel="gallery">
+					<img style="opacity: 1;" class="medium"
+					src="<%=path%>/<s:property value="model.image"/>" /> </a> </div>
 			<div class="name">
 				<s:property value="model.pname" />
 			</div>
@@ -152,11 +126,12 @@
 						<dt>购买数量:</dt>
 						<dd>
 							<span id="decrease" class="decrease">
-								<button class="myButton" style="padding: 2px 8px" type="button" onclick="decrease()">-</button>
+								<button class="myButton" style="padding: 2px 8px" type="button"
+									onclick="decrease()">-</button>
 							</span> <input id="count" name="count" value="1" maxlength="4"
-								 type="text"/> <span id="increase"
-								class="increase">
-									<button class="myButton"  style="padding: 2px 6px" type="button" onclick="increase()">+</button>
+								type="text" /> <span id="increase" class="increase">
+								<button class="myButton" style="padding: 2px 6px" type="button"
+									onclick="increase()">+</button>
 							</span>
 						</dd>
 						<dd>件</dd>
@@ -164,7 +139,8 @@
 					<dl class="quantity">
 						<dt>库存：</dt>
 						<dd>
-							<span id="p_inventory"><s:property value="model.pavailable"/></span>
+							<span id="p_inventory"><s:property
+									value="model.pavailable" /></span>
 						</dd>
 					</dl>
 					<div class="buy">
@@ -186,7 +162,7 @@
 					<strong><s:property value="model.pdesc" /></strong>
 				</div>
 				<div>
-					<img src="<%=path%>/<s:property value="model.image"/>"/>
+					<img src="<%=path%>/<s:property value="model.image"/>" />
 				</div>
 			</div>
 
