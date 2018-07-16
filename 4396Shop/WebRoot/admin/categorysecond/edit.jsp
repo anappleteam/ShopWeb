@@ -30,10 +30,15 @@
 					<td width="18%" align="center" bgColor="#f5fafe" class="ta_01">
 						所属的一级分类：
 					</td>
-<!--  -->					<td class="ta_01" bgColor="#ffffff" >
+						<td class="ta_01" bgColor="#ffffff" >
 						<select name="category.cid">
 						<s:iterator var="c" value="cList">
-						<option value="<s:property value="#c.cid" />"  <s:if test="#c.cid=model.category.cid">selected</s:if> > <s:property value="#c.cname"/></option>
+						<s:if test="#c.cid=model.category.cid">
+							<option value="<s:property value="#c.cid" />"  selected="selected" > <s:property value="#c.cname"/></option>
+						</s:if>
+						<s:else>
+							<option value="<s:property value="#c.cid" />"> <s:property value="#c.cname"/></option>
+						</s:else>
 						</s:iterator>
 
 						</select>
@@ -51,7 +56,7 @@
 						<button type="reset" value="重置" class="button_cancel">&#37325;&#32622;</button>
 
 						<FONT face="宋体">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT>
-						<INPUT class="button_ok" type="button" onclick="history.go(-1)" value="返回"/>
+						<input class="button_ok" type="button" onclick="history.go(-1)" value="返回"/>
 						<span id="Label1"></span>
 					</td>
 				</tr>
