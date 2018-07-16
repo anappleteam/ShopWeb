@@ -45,12 +45,19 @@
 	display:block;
 }
 
+.fold{
+	padding-left:15px;
+	cursor:pointer;
+}
+.fold:hover{
+	color:#0066cc;
+}
+
 .yourcom{
 	margin-top:2px;
 	margin-bottom:2px;
 	max-width:250px;
 	display:block;
-	display:none;
 }
 
 .btn_evaluate{

@@ -26,6 +26,7 @@
 		var shixin = "★";
 		var kongxin = "☆";
 		var flag = false; //没有点击*/
+		$(".yourcom").hide();
 		for (var j = 0; j < $(".scorednum").length; j++) {
 			$(".scorednum").eq(j).prev().children().text(kongxin);
 			var scored = $(".scorednum").eq(j).text();
@@ -82,6 +83,14 @@
 				function() {
 					window.location.reload();
 				});
+		});
+		$(".fold").click(function() {
+			if($(this).html()=="展开评论"){		
+				$(this).html("收起评论");
+			}else if($(this).html()=="收起评论"){
+				$(this).html("展开评论");
+			}	
+			$(this).next().slideToggle(300)		
 		});
 	});
 	function openDialog() {
@@ -198,6 +207,9 @@
 											</ul>
 											<span class="scorednum"><s:property
 													value="#orderItem.evaluate" /></span>
+											<span class="fold">展开评论</span>
+											<span class="yourcom"><s:property
+													value="#orderItem.comment" /></span>
 										</s:else>
 									</s:if></td>
 							</tr>
