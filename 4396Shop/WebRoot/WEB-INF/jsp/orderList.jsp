@@ -6,7 +6,6 @@
 %>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- saved from url=(0043)http://localhost:8080/mango/cart/list.jhtml -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -18,8 +17,6 @@
 	rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath}/css/evaluate.css"
 	rel="stylesheet" type="text/css" />
-
-
 <script src="${pageContext.request.contextPath}/js/jquery-1.8.3.js"></script>
 <script>
 	$(document).ready(function() {
@@ -88,16 +85,12 @@
 <body>
 	<%@ include file="menu.jsp"%>
 	<div class="container cart">
-
 		<div class="span24">
-
 			<div class="step">
 				<ul>
 					<li>我的所有订单</li>
 				</ul>
 			</div>
-
-
 			<table>
 				<tbody>
 					<s:iterator value="pageBean.list" var="order">
@@ -232,10 +225,5 @@
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
-	<script>
-		function myFunction() {
-			alert("你好，我是一个警告框！");
-		}
-	</script>
 </body>
 </html>

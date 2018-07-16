@@ -12,9 +12,9 @@
 <body>
 
 <div>
-<table width="100%" border="0" cellspacing="0" style="margin-top:200px">
+<table width="80%" border="0" cellspacing="0" style="margin-top:200px">
       <tr>
-      	<td style="width:98"><img src="${pageContext.request.contextPath}/images/IconTexto_WebDev_009.jpg" width="128" height="128"style=" margin-left:80%" ></td>
+      	<td><img src="${pageContext.request.contextPath}/images/notice.png" width="128" height="128"style=" margin-left:80%" ></td>
         <td style="padding-top:30px"><font style="font-weight:bold;">
 	        <s:actionmessage /><s:if test="#session.loginMessage!=null">
 	        <s:property value="#session.loginMessage"/>
@@ -26,7 +26,7 @@
          </td>
       </tr>
     </table>
-    <h1>&nbsp;</h1></td>
+    <h1>&nbsp;</h1>
 </div>
 <jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>

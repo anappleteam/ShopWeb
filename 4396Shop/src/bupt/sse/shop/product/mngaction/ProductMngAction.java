@@ -35,6 +35,7 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 
 	@Override
 	public Product getModel() {
+		//product.setCategorySecond(new CategorySecond());
 		return product;
 	}
 
@@ -193,9 +194,9 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 		product.setPdate(new Date(System.currentTimeMillis()));
 		product.setStore(managedProduct.getStore());
 
-		CategorySecond thiSecond=new CategorySecond();
-		thiSecond.setCsid(csid);
-		product.setCategorySecond(thiSecond);
+		CategorySecond thisSecond=new CategorySecond();
+		thisSecond.setCsid(csid);
+		product.setCategorySecond(thisSecond);
 		
 		if (upload != null) {
 			// 删除源图片

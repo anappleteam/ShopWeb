@@ -52,7 +52,7 @@ body {
 			<form method="post"
 				action="${pageContext.request.contextPath }/adminUser_login.action"
 				target="_parent" name='theForm' onsubmit="return validate()">
-				<input type="text" class="user" name="username" placeholder="Username" required=""/>
+				<input type="text" class="user" name="username" placeholder="Username"/>
 				<input type="password" name="password" class="lock" placeholder="Password"/>
 				<input type="submit" value="进入管理中心" class="button" />
 			</form>

@@ -29,6 +29,10 @@ public class CartItemService {
 		cartItemDao.save(cartItem);
 	}
 	
+	public void updateCartItem(CartItem cartItem){
+		cartItemDao.update(cartItem);
+	}
+	
 	public Cart getCart(){
 		Cart cart = (Cart) ServletActionContext.getRequest().getSession().getAttribute("cart");
 		if (cart == null) {
@@ -36,6 +40,10 @@ public class CartItemService {
 			ServletActionContext.getRequest().getSession().setAttribute("cart", cart);
 		}
 		return cart;
+	}
+	
+	public CartItem findByCitemid(Integer citemid){
+		return cartItemDao.findByCitemid(citemid);
 	}
 	
 	public List<CartItem> findByUid(Integer uid){
@@ -46,7 +54,7 @@ public class CartItemService {
 		return null;		
 	}
 	
-	public void findCartItems(Integer uid){
+	public void loadCartItems(Integer uid){
 		Cart cart=new Cart();
 		List<CartItem> list= cartItemDao.findByUid(uid);
 		//if list is not null, add cartitem to set

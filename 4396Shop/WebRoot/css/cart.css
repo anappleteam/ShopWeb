@@ -98,7 +98,7 @@ div.cart .quantity input {
 	width: 30px;
 	height: 18px;
 	line-height: 18px;
-	float: left;
+	float: both;
 	padding: 0px 2px;
 	text-align: center;
 	ime-mode: disabled;

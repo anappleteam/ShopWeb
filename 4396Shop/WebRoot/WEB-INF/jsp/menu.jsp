@@ -67,21 +67,22 @@
 				<s:else>
 					<li id="headerUsername" class="headerUsername"
 						style="display: list-item;"><s:property
-							value="#session.existUser.username" /></li>
-
+							value="#session.existUser.username" />
+					</li>
 					<li id="headerLogout" class="headerLogout"
 						style="display: list-item;"><a
 							href="${pageContext.request.contextPath}/user_quit.action">退出</a>|
 					</li>
 					<li id="headerLogin" class="headerLogin"
 						style="display: list-item;"><a
-							href="${pageContext.request.contextPath}/order_findByUid.action?page=1">我的订单</a>|</li>
-											
+							href="${pageContext.request.contextPath}/order_findByUid.action?page=1">我的订单</a>|
+					</li>					
 					<s:if
 						test="#session.existUser.state==1 ||#session.existUser.state==2 ">
 						<li id="headerLogin" class="headerLogin"
 							style="display: list-item;"><a
-								href="${pageContext.request.contextPath}/user_merchantsettle.action">商家入驻</a>|</li>
+								href="${pageContext.request.contextPath}/user_merchantsettle.action">商家入驻</a>|
+						</li>
 					</s:if>
 					<s:elseif test="#session.existUser.state==3">
 						<li id="headerLogin" class="headerLogin"
@@ -99,10 +100,9 @@
 						</li>
 					</s:elseif>
 					<li><a
-						href="${ pageContext.request.contextPath }/cart_myCart.action">购物车</a>
-					|</li>
+						href="${ pageContext.request.contextPath }/cart_myCart.action">购物车</a>|
+					</li>
 				</s:else>
-				 |</li>
 				<li><a>关于我们</a></li>
 			</ul>
 		</div>

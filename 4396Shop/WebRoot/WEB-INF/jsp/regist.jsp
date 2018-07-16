@@ -336,10 +336,9 @@
 								</tr>
 								<tr>
 									<th>性别:</th>
-									<td><span class="fieldSet"> <label> <input
-												type="radio" name="sex" value="male">男</input>
-										</label> <label> <input type="radio" name="sex" value="female">女</input>
-										</label>
+									<td><span class="fieldSet"> 
+									<input type="radio" name="sex" value="male">男</input>
+									<input type="radio" name="sex" value="female">女</input>
 									</span></td>
 								</tr>
 								<tr>

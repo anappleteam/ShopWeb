@@ -23,8 +23,6 @@ public class AdminProductAction extends ActionSupport implements ModelDriven<Pro
 
 	@Override
 	public Product getModel() {
-		int i=0;
-		i=11;
 		return product;
 	}
 
