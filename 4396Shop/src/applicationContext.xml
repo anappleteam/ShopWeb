@@ -13,7 +13,50 @@
 	<!-- 配置连接池: -->
 	<!-- 引入外部属性文件 -->
 	<context:property-placeholder location="classpath:jdbc.properties" />
+	
+	<!-- 主从数据库配置 -->
+	<!-- c3p0配置 -->
+	<bean id="parentDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driver}" /> <!-- 驱动类 -->
+		<property name="maxIdleTime" value="${jdbc.maxIdleTime}" />       <!-- 空闲丢弃时间 -->
+		<property name="acquireIncrement" value="${jdbc.acquireIncrement}" /> <!-- 耗尽再创建的连接数 -->
+		<property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}" /> <!-- 间隔检查空闲连接秒数 -->
+		<property name="checkoutTimeout" value="${jdbc.checkoutTimeout}" />
+	</bean>
+	<!-- 配置主数据源 -->
+	<bean id="masterDataSource" parent="parentDataSource"
+	destroy-method="close">
+		<property name="jdbcUrl" value="${jdbc.url.master}" /> <!-- 连接字符串 -->
+		<property name="user" value="${jdbc.user.master}" /> <!-- 用户名 -->
+		<property name="password" value="${jdbc.password.master}" /> <!-- 密码 -->
+	</bean>
+	<!-- 配置从数据源 -->
+	<bean id="slaveDataSource" parent="parentDataSource"
+	destroy-method="close">
+		<property name="jdbcUrl" value="${jdbc.url.slave}" /> <!-- 连接字符串 -->
+		<property name="user" value="${jdbc.user.slave}" /> <!-- 用户名 -->
+		<property name="password" value="${jdbc.password.slave}" /> <!-- 密码 -->
+	</bean>
+	<!-- 配置数据源 -->
+	<bean id="dataSource" class="bupt.sse.shop.aspect.DynamicdataSource">
+		<property name="targetDataSources">
+		<map key-type="java.lang.String">
+		<entry key="slave" value-ref="slaveDataSource" />
+		</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="masterDataSource" />
+	</bean>
+	<!-- 切换数据源 -->
+	<bean id="dataSourceAdvice" class="bupt.sse.shop.aspect.DataSourceAdvice" />
+		<aop:config>
+		<aop:advisor pointcut="execution(* bupt..*.dao.*(..))"
+		advice-ref="dataSourceAdvice" />
+	</aop:config>
+	
+	
+	
 	<!-- 配置C3P0连接池: -->
+	<!--
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="${jdbc.driver}" />
 		<property name="jdbcUrl" value="${jdbc.url}" />
@@ -22,15 +65,15 @@
 
 		<property name="checkoutTimeout" value="${jdbc.checkoutTimeout}" />
 		<property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}" />
-		<!-- <property name="initialPoolSize" value="${jdbc.initialPoolSize}" /> -->
+		<property name="initialPoolSize" value="${jdbc.initialPoolSize}" />
 		<property name="maxIdleTime" value="${jdbc.maxIdleTime}" />
 		<property name="acquireIncrement" value="${jdbc.acquireIncrement}"/>
 
-<!-- 		<property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
+		<property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
 		<property name="minPoolSize" value="${jdbc.minPoolSize}" />
-		<property name="maxStatements" value="${jdbc.maxStatements}" /> -->
+		<property name="maxStatements" value="${jdbc.maxStatements}" />
 	</bean>
-
+  	-->
 	<!-- Hibernate相关信息 -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">

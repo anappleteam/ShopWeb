@@ -34,7 +34,7 @@ public class OrderAspect {
 	private void allMethodPointCut(){
 	}
 	
-	@Pointcut("execution(* bupt.sse.shop.order.service.OrderService.Order*(..))")
+	@Pointcut("execution(* bupt.sse.shop.order.action.OrderAction.*Order(..))")
 	private void MoneyPointCut(){
 	}
 }
