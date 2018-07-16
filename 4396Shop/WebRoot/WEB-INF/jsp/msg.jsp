@@ -6,11 +6,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>消息</title>
-
 <jsp:include page="menu.jsp"/>
 </head>
 <body>
-
 <div>
 <table width="80%" border="0" cellspacing="0" style="margin-top:200px">
       <tr>

@@ -11,7 +11,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>4396购物</title>
-<link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css" />
 <link href="<%=path%>/css/product.css" rel="stylesheet" type="text/css" />
 
 </head>

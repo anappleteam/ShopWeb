@@ -11,76 +11,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <title>我的订单页面</title>
-<link href="${pageContext.request.contextPath}/css/common.css"
-	rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath}/css/cart.css"
 	rel="stylesheet" type="text/css" />
-<link href="${pageContext.request.contextPath}/css/evaluate.css"
-	rel="stylesheet" type="text/css" />
-<script src="${pageContext.request.contextPath}/js/jquery-1.8.3.js"></script>
-<script>
-	$(document).ready(function() {
-		var shixin = "★";
-		var kongxin = "☆";
-		var flag = false; //没有点击*/
-		for (var j = 0; j < $(".scorednum").length; j++) {
-			$(".scorednum").eq(j).prev().children().text(kongxin);
-			var scored = $(".scorednum").eq(j).text();
-			for (var i = 0; i < scored / 2; i++) {
-				$(".scorednum").eq(j).prev().children().eq(i).text(shixin);
-			}
-		}
-		$(".comment li").mouseenter(function() {
-			if (!flag) {
-				$(this).text(shixin).prevAll().text(shixin);
-				$(this).nextAll().text(kongxin);
-				$(this).text(shixin).prevAll().text(shixin).end().nextAll().text(kongxin);
-			}
-		});
-		$(".comment").mouseleave(function() {
-			if (!flag) {
-				$("comment li").text(kongxin);
-			}
-			$("comment li").text(kongxin);
-			$(".clicked").text(shixin).prevAll().text(shixin);
-		});
-		$(".comment li").on("click", function() {
-			$(this).text(shixin).prevAll().text(shixin);
-			$(this).nextAll().text(kongxin);
-			flag = true;
-			var score = $(this).attr("id");
-			switch ($(this).attr("id")) {
-			case "star1":
-				score = 2;
-				break;
-			case "star2":
-				score = 4;
-				break;
-			case "star3":
-				score = 6;
-				break;
-			case "star4":
-				score = 8;
-				break;
-			case "star5":
-				score = 10;
-				break;
-			}
-			$(this).parent().next().text(score);
-		});
-		$(".btn_comment").click(function() {
-
-			$.post("${pageContext.request.contextPath}/order_submitscore.action",
-				{
-					evaluate : ($(this).prev().text()),
-					itemid : ($(this).next().text())
-				},
-				function() {
-					window.location.reload();
-				});
-		});
-	});
-</script>
 </head>
 <body>
 	<%@ include file="menu.jsp"%>
@@ -119,16 +51,15 @@
 							<th>物流</th>
 							<th>评价</th>
 						</tr>
-
 						<s:iterator value="#order.orderItems" var='orderItem'>
 							<tr>
 								<td width="60"><input type="hidden" name="id" value="22" />
 									<img
 									src="${pageContext.request.contextPath}/<s:property value="#orderItem.product.image"/>" />
 								</td>
-								<td width="360"><a target="_blank">
-										<s:property value="#orderItem.product.pname" />
-									</a></td>
+								<td width="360"><a target="_blank"> <s:property
+											value="#orderItem.product.pname" />
+								</a></td>
 								<td width="180"><s:property
 										value="#orderItem.product.shop_price" /></td>
 								<td class="quantity" width="120"><s:property
@@ -225,5 +156,69 @@
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
+	<script src="${pageContext.request.contextPath}/js/jquery-1.8.3.js"></script>
+	<script>
+		$(document).ready(function() {
+			var shixin = "★";
+			var kongxin = "☆";
+			var flag = false; //没有点击*/
+			for (var j = 0; j < $(".scorednum").length; j++) {
+				$(".scorednum").eq(j).prev().children().text(kongxin);
+				var scored = $(".scorednum").eq(j).text();
+				for (var i = 0; i < scored / 2; i++) {
+					$(".scorednum").eq(j).prev().children().eq(i).text(shixin);
+				}
+			}
+			$(".comment li").mouseenter(function() {
+				if (!flag) {
+					$(this).text(shixin).prevAll().text(shixin);
+					$(this).nextAll().text(kongxin);
+					$(this).text(shixin).prevAll().text(shixin).end().nextAll().text(kongxin);
+				}
+			});
+			$(".comment").mouseleave(function() {
+				if (!flag) {
+					$("comment li").text(kongxin);
+				}
+				$("comment li").text(kongxin);
+				$(".clicked").text(shixin).prevAll().text(shixin);
+			});
+			$(".comment li").on("click", function() {
+				$(this).text(shixin).prevAll().text(shixin);
+				$(this).nextAll().text(kongxin);
+				flag = true;
+				var score = $(this).attr("id");
+				switch ($(this).attr("id")) {
+				case "star1":
+					score = 2;
+					break;
+				case "star2":
+					score = 4;
+					break;
+				case "star3":
+					score = 6;
+					break;
+				case "star4":
+					score = 8;
+					break;
+				case "star5":
+					score = 10;
+					break;
+				}
+				$(this).parent().next().text(score);
+			});
+			$(".btn_comment").click(function() {
+	
+				$.post("${pageContext.request.contextPath}/order_submitscore.action",
+					{
+						evaluate : ($(this).prev().text()),
+						itemid : ($(this).next().text())
+					},
+					function() {
+						window.location.reload();
+					});
+			});
+		});
+	</script>
 </body>
 </html>
