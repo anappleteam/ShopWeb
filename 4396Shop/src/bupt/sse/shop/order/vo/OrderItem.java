@@ -13,7 +13,14 @@ public class OrderItem {
 	private Store store;
 	private Integer state;
 	private Integer evaluate;
+	private String comment;
 	
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 	public Store getStore() {
 		return store;
 	}

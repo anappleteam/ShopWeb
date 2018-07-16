@@ -17,7 +17,10 @@
 	rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath}/css/evaluate.css"
 	rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath}/css/avgrund.css"
+	rel="stylesheet" type="text/css" />
 <script src="${pageContext.request.contextPath}/js/jquery-1.8.3.js"></script>
+<script src="${pageContext.request.contextPath}/js/avgrund.js"></script>
 <script>
 	$(document).ready(function() {
 		var shixin = "★";
@@ -72,7 +75,8 @@
 
 			$.post("${pageContext.request.contextPath}/order_submitscore.action",
 				{
-					evaluate : ($(this).prev().text()),
+					evaluate : ($(this).prev().prev().text()),
+					comment : ($(this).prev().text()),
 					itemid : ($(this).next().text())
 				},
 				function() {
@@ -80,11 +84,17 @@
 				});
 		});
 	});
+	function openDialog() {
+			Avgrund.show( "#default-popup" );
+	}
+	function closeDialog() {
+			Avgrund.hide();
+	}
 </script>
 </head>
 <body>
 	<%@ include file="menu.jsp"%>
-	<div class="container cart">
+	<div class="container cart ">
 		<div class="span24">
 			<div class="step">
 				<ul>
@@ -160,17 +170,23 @@
 								</s:else>
 								<td><s:if test="#orderItem.state==1">
 										<s:if test="#orderItem.evaluate==null">
-											<ul class="comment">
-												<li id="star1">★</li>
-												<li id="star2">★</li>
-												<li id="star3">★</li>
-												<li id="star4">★</li>
-												<li id="star5">★</li>
-											</ul>
-											<span class="scorenum">10</span>
-											<button class="btn_comment">提交评价</button>
-											<span style="display:none"><s:property
-													value="#orderItem.itemid" /></span>
+											<aside id="default-popup" class="avgrund-popup">
+												<h2>对商品进行评价</h2>
+												<ul class="comment">
+													<li id="star1">★</li>
+													<li id="star2">★</li>
+													<li id="star3">★</li>
+													<li id="star4">★</li>
+													<li id="star5">★</li>
+												</ul>
+												<span class="scorenum">10</span>
+												<textarea rows="5" cols="40" class="commenttext"></textarea>
+												<button class="btn_comment">提交评价</button>
+												<span style="display:none"><s:property
+														value="#orderItem.itemid" /></span>
+												<button class = "btn_evaluate" onclick="closeDialog()">返回页面</button>
+											</aside>
+											<button class="btn_evaluate" onclick="openDialog()">去评价商品</button>
 										</s:if>
 										<s:else>
 											<ul class="commented">
@@ -225,5 +241,6 @@
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
+	<div class="avgrund-cover"></div>
 </body>
 </html>
