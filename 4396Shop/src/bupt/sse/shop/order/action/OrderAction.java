@@ -32,6 +32,7 @@ import com.opensymphony.xwork2.ModelDriven;
 import bupt.sse.shop.cart.service.CartItemService;
 import bupt.sse.shop.cart.vo.Cart;
 import bupt.sse.shop.cart.vo.CartItem;
+import bupt.sse.shop.order.service.OrderItemService;
 import bupt.sse.shop.order.service.OrderService;
 import bupt.sse.shop.order.vo.Order;
 import bupt.sse.shop.order.vo.OrderItem;
@@ -44,6 +45,9 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	
 	private Order order = new Order();
 	private OrderService orderService;
+	private OrderItemService orderItemService;
+	
+
 	//revieve uid 
 	private Integer uid;
 
@@ -65,7 +69,11 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	public void setOrderService(OrderService orderService) {
 		this.orderService = orderService;
 	}
-
+	
+	public void setOrderItemService(OrderItemService orderItemService) {
+		this.orderItemService = orderItemService;
+	}
+	
 	public void setUid(Integer uid) {
 		this.uid = uid;
 	}
@@ -256,7 +264,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 			orderService.update(currOrder);
 			for (OrderItem orderitem : currOrder.getOrderItems()) {
 				orderitem.setState(0);
-				orderService.updateItem(orderitem);
+				orderItemService.update(orderitem);
 			}
 			
 			System.out.println("success");
@@ -308,7 +316,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 
 			for (OrderItem orderitem : currOrder.getOrderItems()) {
 				orderitem.setState(0);
-				orderService.updateItem(orderitem);
+				orderItemService.update(orderitem);
 			}
 			
 			System.out.println("trade_no:"+trade_no+"<br/>out_trade_no:"+out_trade_no+"<br/>total_amount:"+total_amount);
@@ -323,9 +331,9 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 		//根据订单id查询订单
 		
 		int receiveall=0;
-		OrderItem curItem = orderService.findByTid(itemid);
+		OrderItem curItem = orderItemService.findByTid(itemid);
 		curItem.setState(1);
-		orderService.updateItem(curItem);
+		orderItemService.update(curItem);
 		Order curOrder=orderService.findByOid(curItem.getOrder().getOid());
 		for(OrderItem orderItem : curOrder.getOrderItems()){
 			if(orderItem.getState()!=1)
@@ -343,9 +351,9 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 		int item = Integer.parseInt(request.getParameter("itemid"));
 		int eva = Integer.parseInt(request.getParameter("evaluate"));
 		String com = request.getParameter("comment");
-		OrderItem curItem = orderService.findByTid(item);
+		OrderItem curItem = orderItemService.findByTid(item);
 		curItem.setComment(com);
 		curItem.setEvaluate(eva);
-		orderService.updateItem(curItem);
+		orderItemService.update(curItem);
 	}
 }
