@@ -12,6 +12,7 @@
 		<property name="subtotal"/>
 		<property name="state"/>
 		<property name="evaluate"/>
+		<property name="comment"/>
 		<many-to-one name="order" lazy="false" class="bupt.sse.shop.order.vo.Order" column="oid"/>
 		<many-to-one name="product" lazy="false" class="bupt.sse.shop.product.vo.Product" column="pid"/>
 		<many-to-one name="store" lazy="false" class="bupt.sse.shop.store.vo.Store" column="sid"/>

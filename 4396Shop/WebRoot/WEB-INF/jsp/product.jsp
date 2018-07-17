@@ -12,7 +12,6 @@
 <head>
 <meta http-equiv="Cache-Control" content="max-age=7200" />
 <title>网上商城</title>
-<link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css" />
 <link href="<%=path%>/css/product.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -141,7 +140,7 @@
 					<strong><s:property value="model.pdesc" /></strong>
 				</div>
 				<div>
-					<img src="<%=path%>/<s:property value="model.image"/>" />
+					<img src="<%=path%>/<s:property value="model.image"/>"></img>
 				</div>
 			</div>
 
@@ -150,41 +149,41 @@
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
-</body>
-</html>
-<script>
-	function decrease() {
-		var c = document.getElementById("count").value;
-		if (c > 1) {
-			document.getElementById("count").value--;
-		}
-	}
-	function increase() {
-		var c = document.getElementById("count").value;
-		if (c > 0) {
-			document.getElementById("count").value++;
-		}
-	}
-
-	function checkNull() {
-		var c = document.getElementById("count").value;
-		if (c == '') {
-			document.getElementById("count").value = 1;
-		}
-	}
-
-	function saveCart() {
-		var user = document.getElementById("addCart_currentUser").value;
-		var inventory = document.getElementById("p_inventory").innerText;
-		if (user == "") {
-			alert("请先登录！");
-		} else {
-			if (document.getElementById("count").value > inventory) {
-				alert("库存不足，请重新输入数量！");
-				document.getElementById("count").value = 1;
-			} else {
-				document.getElementById("cartForm").submit();
+	<script>
+		function decrease() {
+			var c = document.getElementById("count").value;
+			if (c > 1) {
+				document.getElementById("count").value--;
 			}
 		}
-	}
-</script>
+		function increase() {
+			var c = document.getElementById("count").value;
+			if (c > 0) {
+				document.getElementById("count").value++;
+			}
+		}
+		function checkNull() {
+			var c = document.getElementById("count").value;
+			if (c == '') {
+				document.getElementById("count").value = 1;
+			}
+		}
+		function saveCart() {
+			var user = document.getElementById("addCart_currentUser").value;
+			var inventory = document.getElementById("p_inventory").innerText;
+			if (user
+				== "") {
+				alert("请先登录！");
+			} else {
+				if
+				(document.getElementById("count").value > inventory) {
+					alert("库存不足，请重新输入数量！");
+					document.getElementById("count").value = 1;
+				} else {
+					document.getElementById("cartForm").submit();
+				}
+			}
+		}
+	</script>
+</body>
+</html>

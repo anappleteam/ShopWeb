@@ -5,18 +5,13 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>购物车</title>
-
-<link href="${pageContext.request.contextPath}/css/common.css"
-	rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath}/css/cart.css"
 	rel="stylesheet" type="text/css" />
-
 </head>
 <body>
 	<%@ include file="menu.jsp"%>
@@ -24,9 +19,10 @@
 		<s:if test="pageBean.list !=null">
 			<!-- 不判断map是否为空，map一旦new出来后就有地址 -->
 			<div class="span24">
+			<br/>
+			<br/>
 				<table>
 					<tbody>
-						<br />
 						<tr>
 							<th colspan="8" style="text-align:center;vertical-align:middle;">
 								<strong>购物车信息</strong>
@@ -109,10 +105,7 @@
 		</s:else>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
-</body>
-</html>
-
-<script>
+	<script>
 	var flagAll = false;
 	var total = 0.0;
 	function selectOne(node) {
@@ -234,4 +227,6 @@
 
 		return xmlHttp;
 	}
-</script>	
+</script>
+</body>
+</html>

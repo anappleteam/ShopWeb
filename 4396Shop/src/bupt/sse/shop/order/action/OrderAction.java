@@ -349,7 +349,9 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 		HttpServletRequest request = ServletActionContext.getRequest();  
 		int item = Integer.parseInt(request.getParameter("itemid"));
 		int eva = Integer.parseInt(request.getParameter("evaluate"));
+		String com = request.getParameter("comment");
 		OrderItem curItem = orderService.findByTid(item);
+		curItem.setComment(com);
 		curItem.setEvaluate(eva);
 		orderService.updateItem(curItem);
 	}
