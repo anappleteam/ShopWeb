@@ -41,7 +41,8 @@
 	<bean id="dataSource" class="bupt.sse.shop.aspect.DynamicdataSource">
 		<property name="targetDataSources">
 		<map key-type="java.lang.String">
-		<entry key="slave" value-ref="slaveDataSource" />
+			<entry key="slave" value-ref="slaveDataSource" />		
+			<entry key="master" value-ref="masterDataSource" />
 		</map>
 		</property>
 		<property name="defaultTargetDataSource" ref="masterDataSource" />
@@ -202,6 +203,7 @@
 	<bean id="orderAction" class="bupt.sse.shop.order.action.OrderAction"
 		scope="prototype">
 		<property name="orderService" ref="orderService" />
+		<property name="orderItemService" ref="orderItemService" />
 		<property name="cartItemService" ref="cartItemService" />
 		<property name="productService" ref="productService" />
 	</bean>
@@ -262,6 +264,9 @@
 	<bean id="orderService" class="bupt.sse.shop.order.service.OrderService">
 		<property name="orderDao" ref="orderDao" />
 	</bean>
+	<bean id="orderItemService" class="bupt.sse.shop.order.service.OrderItemService">
+		<property name="orderItemDao" ref="orderItemDao" />
+	</bean>
 	<bean id="adminUserService" class="bupt.sse.shop.adminuser.service.AdminUserService">
 		<property name="adminUserDao" ref="adminUserDao" />
 	</bean>
@@ -290,6 +295,9 @@
 	</bean>
 	<bean id="orderDao" class="bupt.sse.shop.order.dao.OrderDao">
 		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="orderItemDao" class="bupt.sse.shop.order.dao.OrderItemDao">
+		<property name="sessionFactory" ref="sessionFactory" />		
 	</bean>
 	<bean id="cartItemDao" class="bupt.sse.shop.cart.dao.CartItemDao">
 		<property name="sessionFactory" ref="sessionFactory" />

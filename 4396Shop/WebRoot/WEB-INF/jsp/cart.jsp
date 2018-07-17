@@ -5,7 +5,6 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -20,20 +19,22 @@
 		<s:if test="pageBean.list !=null">
 			<!-- 不判断map是否为空，map一旦new出来后就有地址 -->
 			<div class="span24">
+			<br/>
+			<br/>
 				<table>
 					<tbody>
-						<br/>
 						<tr>
-							<th colspan="7" style="text-align:center;vertical-align:middle;">
-							<strong>购物车信息</strong>
-						</th>
+							<th colspan="8" style="text-align:center;vertical-align:middle;">
+								<strong>购物车信息</strong>
+							</th>
 						</tr>
 						<tr>
 							<th><input type="checkbox" id="checkAll"
 								onclick="selectAll()" />全选</th>
 							<th>图片</th>
 							<th>商品</th>
-							<th>价格</th>
+							<th>库存</th>
+							<th>单价</th>
 							<th>数量</th>
 							<th>小计</th>
 							<th>操作</th>
@@ -52,18 +53,23 @@
 									href="<%=path%>/product_findByPid.action?pid=<s:property value="#cartItem.product.pid"/>"
 									target="_blank"> <s:property
 											value="#cartItem.product.pname" /></a></td>
+								<td><span
+									id="<s:property value="#cartItem.citemid"/>_inventory"><s:property
+											value="#cartItem.product.pavailable" /></span></td>
 								<td>￥<s:property value="#cartItem.product.shop_price" />
 								</td>
 								<td class="quantity" width="140"><input
 									id="<s:property value="#cartItem.citemid"/>_itemCount"
 									value="<s:property
 											value="#cartItem.count"  />"
-									maxlength="2" type="text" /> <input
+									maxlength="2" onkeyup="value=value.replace(/[^\d]/g,'')"
+									type="text" /> <input
 									id="<s:property value="#cartItem.citemid"/>_oldCount"
 									type="hidden"
 									value="<s:property
 											value="#cartItem.count"/>" />
-									<button class="myButton" style="font-size:12px;" name="changeCountButton" onclick="changeCount(this)"
+									<button class="myButton" style="font-size:12px;"
+										name="changeCountButton" onclick="changeCount(this)"
 										value="<s:property value="#cartItem.citemid"/>">确认修改</button></td>
 								<td width="100">￥<span
 									id="span_<s:property value="#cartItem.citemid"/>"
@@ -105,8 +111,16 @@
 	function selectOne(node) {
 		var cartId = node.value;
 		var subtotal = document.getElementById("span_" + cartId).innerText;
+		var inventory = parseInt(document.getElementById(cartId + "_inventory").innerText);
+		var count = parseInt(document.getElementById(cartId + "_oldCount").value);
 		if (node.checked) {
-			total += Number(subtotal);
+			if (count > inventory) {
+				node.checked = false;
+				alert("库存不足，请修改数量！");
+				return;
+			} else {
+				total += Number(subtotal);
+			}
 		} else {
 			total -= Number(subtotal);
 		}
@@ -155,10 +169,15 @@
 
 	function changeCount(node) {
 		var cartId = node.value;
+		var inventory = document.getElementById(cartId + "_inventory").innerText;
 		var oldCount = document.getElementById(cartId + "_oldCount").value;
 		var newCount = document.getElementById(cartId + "_itemCount").value;
 		if (newCount <= 0) {
 			alert("请输入大于0的有效值！");
+			document.getElementById(cartId + "_itemCount").value = oldCount;
+			return;
+		} else if (newCount > inventory) {
+			alert("库存不足，请重新输入数量！");
 			document.getElementById(cartId + "_itemCount").value = oldCount;
 			return;
 		} else if (newCount == oldCount) {
@@ -174,8 +193,10 @@
 						var returns = xhr.responseText.split(",")
 						if (returns[0] == "true") {
 							document.getElementById("span_" + cartId).innerText = returns[1];
+							document.getElementById(cartId + "_oldCount").value = newCount;
 						} else if (returns[0] == "false") {
 							alert("当前库存剩余" + returns[1]);
+							document.getElementById(cartId + "_itemCount").value = oldCount;
 						}
 					}
 				}

@@ -11,12 +11,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <title>我的订单页面</title>
-<link href="${pageContext.request.contextPath}/css/cart.css" rel="stylesheet" type="text/css" />
-<link href="${pageContext.request.contextPath}/css/evaluate.css" rel="stylesheet" type="text/css"/>
+<link href="${pageContext.request.contextPath}/css/cart.css"
+	rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath}/css/evaluate.css"
+	rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath}/css/avgrund.css"
+	rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<%@ include file="menu.jsp"%>
-	<div class="container cart">
+	<div class="container cart ">
 		<div class="span24">
 			<div class="step">
 				<ul>
@@ -91,17 +95,23 @@
 								</s:else>
 								<td><s:if test="#orderItem.state==1">
 										<s:if test="#orderItem.evaluate==null">
-											<ul class="comment">
-												<li id="star1">★</li>
-												<li id="star2">★</li>
-												<li id="star3">★</li>
-												<li id="star4">★</li>
-												<li id="star5">★</li>
-											</ul>
-											<span class="scorenum">10</span>
-											<button class="btn_comment">提交评价</button>
-											<span style="display:none"><s:property
-													value="#orderItem.itemid" /></span>
+											<aside id="default-popup" class="avgrund-popup">
+												<h2>对商品进行评价</h2>
+												<ul class="comment">
+													<li id="star1">★</li>
+													<li id="star2">★</li>
+													<li id="star3">★</li>
+													<li id="star4">★</li>
+													<li id="star5">★</li>
+												</ul>
+												<span class="scorenum">10</span>
+												<textarea rows="5" cols="40" class="commenttext" placeholder="填写评论..."></textarea>
+												<button class="btn_comment">提交评价</button>
+												<span style="display:none"><s:property
+														value="#orderItem.itemid" /></span>
+												<button class = "btn_evaluate" onclick="closeDialog()">返回页面</button>
+											</aside>
+											<button class="btn_evaluate" onclick="openDialog()">去评价商品</button>
 										</s:if>
 										<s:else>
 											<ul class="commented">
@@ -113,6 +123,9 @@
 											</ul>
 											<span class="scorednum"><s:property
 													value="#orderItem.evaluate" /></span>
+											<span class="fold">展开评论</span>
+											<span class="yourcom"><s:property
+													value="#orderItem.comment" /></span>
 										</s:else>
 									</s:if></td>
 							</tr>
@@ -156,69 +169,105 @@
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
+	<div class="avgrund-cover"></div>
 	<script src="${pageContext.request.contextPath}/js/jquery-1.8.3.js"></script>
+	<script src="${pageContext.request.contextPath}/js/avgrund.js"></script>
 	<script>
-		$(document).ready(function() {
-			var shixin = "★";
-			var kongxin = "☆";
-			var flag = false; //没有点击*/
-			for (var j = 0; j < $(".scorednum").length; j++) {
-				$(".scorednum").eq(j).prev().children().text(kongxin);
-				var scored = $(".scorednum").eq(j).text();
-				for (var i = 0; i < scored / 2; i++) {
-					$(".scorednum").eq(j).prev().children().eq(i).text(shixin);
-				}
+	$(document).ready(function() {
+		var shixin = "★";
+		var kongxin = "☆";
+		var flag = false; //没有点击*/
+		$(".yourcom").hide();
+		for (var j = 0; j < $(".scorednum").length; j++) {
+			$(".scorednum").eq(j).prev().children().text(kongxin);
+			var scored = $(".scorednum").eq(j).text();
+			for (var i = 0; i < scored / 2; i++) {
+				$(".scorednum").eq(j).prev().children().eq(i).text(shixin);
 			}
-			$(".comment li").mouseenter(function() {
-				if (!flag) {
-					$(this).text(shixin).prevAll().text(shixin);
-					$(this).nextAll().text(kongxin);
-					$(this).text(shixin).prevAll().text(shixin).end().nextAll().text(kongxin);
-				}
-			});
-			$(".comment").mouseleave(function() {
-				if (!flag) {
-					$("comment li").text(kongxin);
-				}
-				$("comment li").text(kongxin);
-				$(".clicked").text(shixin).prevAll().text(shixin);
-			});
-			$(".comment li").on("click", function() {
+		}
+		$(".comment li").mouseenter(function() {
+			if (!flag) {
 				$(this).text(shixin).prevAll().text(shixin);
 				$(this).nextAll().text(kongxin);
-				flag = true;
-				var score = $(this).attr("id");
+				$(this).text(shixin).prevAll().text(shixin).end().nextAll().text(kongxin);
 				switch ($(this).attr("id")) {
-				case "star1":
-					score = 2;
-					break;
-				case "star2":
-					score = 4;
-					break;
-				case "star3":
-					score = 6;
-					break;
-				case "star4":
-					score = 8;
-					break;
-				case "star5":
-					score = 10;
-					break;
+					case "star1":
+						score = 2;
+						break;
+					case "star2":
+						score = 4;
+						break;
+					case "star3":
+						score = 6;
+						break;
+					case "star4":
+						score = 8;
+						break;
+					case "star5":
+						score = 10;
+						break;
 				}
 				$(this).parent().next().text(score);
-			});
-			$(".btn_comment").click(function() {
-	
-				$.post("${pageContext.request.contextPath}/order_submitscore.action",
-					{
-						evaluate : ($(this).prev().text()),
-						itemid : ($(this).next().text())
-					},
-					function() {
-						window.location.reload();
-					});
-			});
+			}
 		});
+		$(".comment").mouseleave(function() {
+			if (!flag) {
+				$("comment li").text(kongxin);
+			}
+			$("comment li").text(kongxin);
+			$(".clicked").text(shixin).prevAll().text(shixin);
+		});
+		$(".comment li").on("click", function() {
+			$(this).text(shixin).prevAll().text(shixin);
+			$(this).nextAll().text(kongxin);
+			flag = true;
+			var score = $(this).attr("id");
+			switch ($(this).attr("id")) {
+			case "star1":
+				score = 2;
+				break;
+			case "star2":
+				score = 4;
+				break;
+			case "star3":
+				score = 6;
+				break;
+			case "star4":
+				score = 8;
+				break;
+			case "star5":
+				score = 10;
+				break;
+			}
+			$(this).parent().next().text(score);
+		});
+		$(".btn_comment").click(function() {
+			
+			$.post("${pageContext.request.contextPath}/order_submitscore.action",
+				{
+					evaluate : ($(this).prev().prev().text()),
+					comment : ($(this).prev().val()),
+					itemid : ($(this).next().text())
+				},
+				function() {
+					window.location.reload();
+				});
+		});
+		$(".fold").click(function() {
+			if($(this).html()=="展开评论"){		
+				$(this).html("收起评论");
+			}else if($(this).html()=="收起评论"){
+				$(this).html("展开评论");
+			}	
+			$(this).next().slideToggle(300)		
+		});
+	});
+	function openDialog() {
+			Avgrund.show( "#default-popup" );
+	}
+	function closeDialog() {
+			Avgrund.hide();
+	}
 	</script>
 </body>
 </html>

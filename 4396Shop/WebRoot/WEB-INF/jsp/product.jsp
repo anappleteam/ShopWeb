@@ -56,7 +56,9 @@
 				<a style="outline-style: none; text-decoration: none;" id="zoom"
 					href="<%=basePath%><s:property value="model.image"/>" rel="gallery">
 					<img style="opacity: 1;" class="medium"
-					src="<%=path%>/<s:property value="model.image"/>" /> </a> </div>
+					src="<%=path%>/<s:property value="model.image"/>" />
+				</a>
+			</div>
 			<div class="name">
 				<s:property value="model.pname" />
 			</div>
@@ -103,7 +105,8 @@
 							<span id="decrease" class="decrease">
 								<button class="myButton" style="padding: 2px 8px" type="button"
 									onclick="decrease()">-</button>
-							</span> <input id="count" name="count" value="1" maxlength="4"
+							</span> <input id="count" name="count" value="1" maxlength="2"
+								onkeyup="value=value.replace(/[^\d]/g,'')" onblur="checkNull()"
 								type="text" /> <span id="increase" class="increase">
 								<button class="myButton" style="padding: 2px 6px" type="button"
 									onclick="increase()">+</button>
@@ -147,28 +150,40 @@
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 	<script>
-	function decrease() {
-		var c = document.getElementById("count").value;
-		if (c > 1) {
-			document.getElementById("count").value--;
+		function decrease() {
+			var c = document.getElementById("count").value;
+			if (c > 1) {
+				document.getElementById("count").value--;
+			}
 		}
-	}
-	function increase() {
-		var c = document.getElementById("count").value;
-		if (c > 0) {
-			document.getElementById("count").value++;
+		function increase() {
+			var c = document.getElementById("count").value;
+			if (c > 0) {
+				document.getElementById("count").value++;
+			}
 		}
-	}
-
-	function saveCart() {
-		var user = document.getElementById("addCart_currentUser").value;
-		if (user == "") {
-			alert("请先登录！");
-		} else {
-			document.getElementById("cartForm").submit();
+		function checkNull() {
+			var c = document.getElementById("count").value;
+			if (c == '') {
+				document.getElementById("count").value = 1;
+			}
 		}
-	}
-</script>
-	
+		function saveCart() {
+			var user = document.getElementById("addCart_currentUser").value;
+			var inventory = document.getElementById("p_inventory").innerText;
+			if (user
+				== "") {
+				alert("请先登录！");
+			} else {
+				if
+				(document.getElementById("count").value > inventory) {
+					alert("库存不足，请重新输入数量！");
+					document.getElementById("count").value = 1;
+				} else {
+					document.getElementById("cartForm").submit();
+				}
+			}
+		}
+	</script>
 </body>
 </html>
