@@ -105,7 +105,7 @@
 													<li id="star5">★</li>
 												</ul>
 												<span class="scorenum">10</span>
-												<textarea rows="5" cols="40" class="commenttext"></textarea>
+												<textarea rows="5" cols="40" class="commenttext" placeholder="填写评论..."></textarea>
 												<button class="btn_comment">提交评价</button>
 												<span style="display:none"><s:property
 														value="#orderItem.itemid" /></span>
@@ -190,6 +190,24 @@
 				$(this).text(shixin).prevAll().text(shixin);
 				$(this).nextAll().text(kongxin);
 				$(this).text(shixin).prevAll().text(shixin).end().nextAll().text(kongxin);
+				switch ($(this).attr("id")) {
+					case "star1":
+						score = 2;
+						break;
+					case "star2":
+						score = 4;
+						break;
+					case "star3":
+						score = 6;
+						break;
+					case "star4":
+						score = 8;
+						break;
+					case "star5":
+						score = 10;
+						break;
+				}
+				$(this).parent().next().text(score);
 			}
 		});
 		$(".comment").mouseleave(function() {
@@ -224,11 +242,11 @@
 			$(this).parent().next().text(score);
 		});
 		$(".btn_comment").click(function() {
-
+			
 			$.post("${pageContext.request.contextPath}/order_submitscore.action",
 				{
 					evaluate : ($(this).prev().prev().text()),
-					comment : ($(this).prev().text()),
+					comment : ($(this).prev().val()),
 					itemid : ($(this).next().text())
 				},
 				function() {
