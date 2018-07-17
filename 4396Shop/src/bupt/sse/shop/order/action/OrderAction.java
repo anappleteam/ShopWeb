@@ -17,14 +17,19 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.BeanUtils;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
-
+import com.mchange.v2.beans.BeansUtils;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -87,7 +92,8 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	public void setCidsstring(String cidsstring) {
 		this.cidsstring = cidsstring;
 	}
-	public String save() throws ParseException{
+	@Transactional(isolation=Isolation.REPEATABLE_READ)
+	public String save() throws ParseException, IOException{
 		// 加前置通知
 		User existUser = (User) ServletActionContext.getRequest().getSession()
 				.getAttribute("existUser");
@@ -141,9 +147,6 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
         String date2=temp.format(date);  
         Date date3=temp.parse(date2);  
 		order.setOrdertime(date3);
-
-
-		//加事务	
 		orderService.save(order);
 		
 		return "saveSuccess";
@@ -151,6 +154,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	
 	
 	//查询我的订单
+	@Transactional(readOnly=true)
 	public String findByUid(){
 		User user = (User) ServletActionContext.getRequest().getSession()
 				.getAttribute("existUser");
@@ -159,11 +163,13 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 		return "findByUidSuccess";
 	}
 	
+	@Transactional(readOnly=true)
 	public String findByOid(){
 		order = orderService.findByOid(order.getOid());
 		return "findByOidSuccess";
 	}
 	
+	@Transactional(isolation=Isolation.REPEATABLE_READ)
 	public void payOrder() throws IOException, AlipayApiException{
 		Order curOrder = orderService.findByOid(order.getOid());
 		curOrder.setAddr(order.getAddr());
@@ -199,6 +205,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	
 	}
 	
+	@Transactional(isolation=Isolation.REPEATABLE_READ)
 	public String notifyorder() throws AlipayApiException, UnsupportedEncodingException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		Map<String,String> params = new HashMap<String,String>();

@@ -123,6 +123,7 @@ public class ProductDao extends HibernateDaoSupport {
 	
 	//修改商品
 	public void update(Product product) {
+		this.getHibernateTemplate().clear();
 		this.getHibernateTemplate().update(product);
 		
 	}
