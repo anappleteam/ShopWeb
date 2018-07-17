@@ -11,8 +11,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <title>我的订单页面</title>
-<link href="${pageContext.request.contextPath}/css/cart.css"
-	rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath}/css/cart.css" rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath}/css/evaluate.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 	<%@ include file="menu.jsp"%>

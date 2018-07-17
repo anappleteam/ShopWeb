@@ -291,7 +291,6 @@ div.historyProduct .clearHistoryProduct {
 	line-height: 30px;
 	color: #999999;
 	outline: none;
-	blr: expression(this.hideFocus = true);
 }
 
 /* ---------- ProductList ---------- */
@@ -390,7 +389,6 @@ div.productList .filter .moreFilter a {
 	margin: 0px auto;
 	text-align: center;
 	outline: none;
-	blr: expression(this.hideFocus = true);
 	background: url(../images/product.gif) 0px -480px no-repeat;
 }
 
@@ -425,7 +423,6 @@ div.productList .bar .layout a {
 	padding: 1px;
 	margin-right: 10px;
 	outline: none;
-	blr: expression(this.hideFocus = true);
 	cursor: pointer;
 	border: solid 1px #cccccc;
 	background-color: #ffffff;
@@ -549,7 +546,6 @@ div.productList .bar .sort .popupMenu a {
 	float: none;
 	overflow: hidden;
 	outline: none;
-	blr: expression(this.hideFocus = true);
 	-webkit-border-radius: 1px;
 	-moz-border-radius: 1px;
 	border-radius: 1px;
@@ -562,7 +558,6 @@ div.productList .bar .sort .asc, div.productList .bar .sort .currentAsc, div.pro
 	float: left;
 	padding: 0px 15px 0px 6px;
 	outline: none;
-	blr: expression(this.hideFocus = true);
 	border-top: solid 1px #cccccc;
 	border-right: solid 1px #cccccc;
 	border-bottom: solid 1px #cccccc;
@@ -748,7 +743,6 @@ div.productContent .productImage .prev {
 	float: left;
 	margin-right: 5px;
 	outline: none;
-	blr: expression(this.hideFocus = true);
 	border: 1px solid #e4e4e4;
 	background: url(../images/product.gif) -120px -510px no-repeat;
 }
@@ -764,7 +758,6 @@ div.productContent .productImage .next {
 	float: right;
 	margin-left: 4px;
 	outline: none;
-	blr: expression(this.hideFocus = true);
 	border: 1px solid #e4e4e4;
 	background: url(../images/product.gif) -180px -510px no-repeat;
 }
@@ -805,7 +798,6 @@ div.productContent .productImage .scrollable a {
 	padding: 1px;
 	margin-right: 4px;
 	outline: none;
-	blr: expression(this.hideFocus = true);
 	border: 1px solid #e4e4e4;
 }
 
@@ -1047,7 +1039,6 @@ div.productContent .specification a {
 	float: left;
 	position: relative;
 	outline: none;
-	blr: expression(this.hideFocus = true);
 }
 
 div.productContent .specification a span {

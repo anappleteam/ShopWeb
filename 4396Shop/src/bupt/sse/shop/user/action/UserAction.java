@@ -76,6 +76,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			return "registcheckcodeFail";
 		}
 		userService.save(user);
+		this.clearErrorsAndMessages();
 		this.addActionMessage("注册成功！请去邮箱激活！");
 		return "msg";
 	}

@@ -59,7 +59,7 @@
 					<td style="text-align:center;vertical-align:middle;">所属的二级分类：
 					</td>
 					<td style="text-align:center;vertical-align:middle;"><select
-						name="csid" class="dropdown">
+						name="csid">
 							<s:iterator var="cs" value="csList">
 								<option value="<s:property value="#cs.csid"/>"><s:property value="#cs.csname"/></option>
 							</s:iterator>
