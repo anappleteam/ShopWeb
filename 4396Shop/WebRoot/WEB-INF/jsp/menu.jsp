@@ -2,49 +2,8 @@
 <link href="${pageContext.request.contextPath}/css/common.css"
 	rel="stylesheet" type="text/css" />
 <%@ taglib uri="/struts-tags" prefix="s"%>
-<script>
-	window.onload = function() {
-		if(window.location.href.indexOf("user_registPage")==-1)
-		{
-			window.sessionStorage.setItem('t', null)
-		}
-		// 1.创建异步交互对象
-		var xhr = createXmlHttp();
-		// 2.设置监听
-
-		// 3.打开连接
-		xhr.open("GET", "${pageContext.request.contextPath}/user_fresh.action?time=" + new Date().getTime(), true);
-		// 4.发送
-
-		xhr.send(null);
-		
-		
-
-	}
-	function createXmlHttp() {
-		var xmlHttp;
-		try { // Firefox, Opera 8.0+, Safari
-			xmlHttp = new XMLHttpRequest();
-		} catch (e) {
-			alert(e.message);
-			try { // Internet Explorer
-				xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
-			} catch (e) {
-				alert(e.message);
-				try {
-					xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-				} catch (e) {
-					alert(e.message);
-				}
-			}
-		}
-
-		return xmlHttp;
-	}
-</script>
 <div class="header"
 	style="background-color: #000000;position:fixed;z-index:9999;width:100%;height:160px;margin-top:-160px">
-
 	<div class="span24 last">
 		<div class="logo">
 			<a href="${pageContext.request.contextPath }/index">
@@ -118,7 +77,46 @@
 						<s:property value="#c.cname" />
 					</a> |</li>
 			</s:iterator>
-
 		</ul>
 	</div>
 </div>
+<script>
+	window.onload = function() {
+		if(window.location.href.indexOf("user_registPage")==-1)
+		{
+			window.sessionStorage.setItem('t', null)
+		}
+		// 1.创建异步交互对象
+		var xhr = createXmlHttp();
+		// 2.设置监听
+
+		// 3.打开连接
+		xhr.open("GET", "${pageContext.request.contextPath}/user_fresh.action?time=" + new Date().getTime(), true);
+		// 4.发送
+
+		xhr.send(null);
+		
+		
+
+	}
+	function createXmlHttp() {
+		var xmlHttp;
+		try { // Firefox, Opera 8.0+, Safari
+			xmlHttp = new XMLHttpRequest();
+		} catch (e) {
+			alert(e.message);
+			try { // Internet Explorer
+				xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+				alert(e.message);
+				try {
+					xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (e) {
+					alert(e.message);
+				}
+			}
+		}
+
+		return xmlHttp;
+	}
+</script>

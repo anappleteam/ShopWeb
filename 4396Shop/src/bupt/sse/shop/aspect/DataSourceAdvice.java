@@ -5,10 +5,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.springframework.aop.AfterReturningAdvice;
 import org.springframework.aop.MethodBeforeAdvice;
 import org.springframework.aop.ThrowsAdvice;
 
-public class DataSourceAdvice implements MethodBeforeAdvice,ThrowsAdvice{
+public class DataSourceAdvice implements MethodBeforeAdvice,ThrowsAdvice,AfterReturningAdvice{
 
 	private Logger logger = Logger.getLogger(this.getClass());
 
@@ -30,10 +31,10 @@ public class DataSourceAdvice implements MethodBeforeAdvice,ThrowsAdvice{
 		logger.info("切入点："+target.getClass().getName()+"的"+ methodname + "方法");
 		if(masterMethod.contains(methodname)){
 			logger.info("切换到主数据库");
-			DataSourceSwitcher.setMaster();
-		}else if(slaveMethod.contains(methodname)){
-			logger.info("切换到从数据库");
-			//DataSourceSwitcher.setSlave();
+			//DataSourceSwitcher.setMaster();
+//		}else if(slaveMethod.contains(methodname)){
+//			logger.info("切换到从数据库");
+//			DataSourceSwitcher.setSlave();
 		}else{
 			logger.info("切换到从数据库");
 			//DataSourceSwitcher.setSlave();
@@ -45,6 +46,10 @@ public class DataSourceAdvice implements MethodBeforeAdvice,ThrowsAdvice{
 		
 		DataSourceSwitcher.setSlave();
 		logger.info("出现异常,切换到: slave");
+	}
+
+	@Override
+	public void afterReturning(Object arg0, Method arg1, Object[] arg2, Object arg3) throws Throwable {
 	}
 
 }

@@ -5,14 +5,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <title>找回密码</title>
-<link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css"/>
 <link href="<%=path%>/css/register.css" rel="stylesheet" type="text/css"/>
 <jsp:include page="menu.jsp"/>
-
+</head>
+<body>
+<div class="container register">
+		<div class="span24">
+			<div class="wrap">
+				<div class="main clearfix">
+					<div class="title">
+						<strong>找回密码</strong>
+						
+					</div>
+					<form id="changePasswordForm" action="<%=path %>/user_changePwd.action"  method="post" onsubmit="return checkForm();">
+						<table>
+							<tbody>
+							<tr>
+								<th>
+									<span class="requiredField">*</span>用户名:
+								</th>
+								<td>
+									<input type="text" id="username" name="username" class="text" maxlength="20" onblur="findEmail(this)" ></input>
+									<span id="username_span"></span><s:actionerror/>
+								</td>
+							</tr>
+							<tr>
+								<th id="emailTh">
+									<span id="required_Span" class="requiredField"></span>
+								</th>
+								<td>
+									<span id="registEmail"></span><br/>
+									<input type="hidden" id="email" name="email" class="text" maxlength="50"  onblur="checkEmail(this)"></input>
+									<span id="email_span"><s:fielderror name="email"/></span>
+								</td>
+							</tr>
+							<tr>
+								<th>&nbsp;
+								</th>
+								<td>
+									<input type="submit" class="submit" value="确认"></input>
+								</td>
+							</tr>
+						</tbody></table>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 <script>
 	
 	var usernameRegex = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
@@ -155,50 +199,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	checkEmail(document.getElementById("email"));
 	}
 </script>
-</head>
-<body>
-<div class="container register">
-		<div class="span24">
-			<div class="wrap">
-				<div class="main clearfix">
-					<div class="title">
-						<strong>找回密码</strong>
-						
-					</div>
-					<form id="changePasswordForm" action="<%=path %>/user_changePwd.action"  method="post" onsubmit="return checkForm();">
-						<table>
-							<tbody>
-							<tr>
-								<th>
-									<span class="requiredField">*</span>用户名:
-								</th>
-								<td>
-									<input type="text" id="username" name="username" class="text" maxlength="20" onblur="findEmail(this)" ></input>
-									<span id="username_span"></span><s:actionerror/>
-								</td>
-							</tr>
-							<tr>
-								<th id="emailTh">
-									<span id="required_Span" class="requiredField"></span>
-								</th>
-								<td>
-									<span id="registEmail"></span><br/>
-									<input type="hidden" id="email" name="email" class="text" maxlength="50"  onblur="checkEmail(this)"></input>
-									<span id="email_span"><s:fielderror name="email"/></span>
-								</td>
-							</tr>
-							<tr>
-								<th>&nbsp;
-								</th>
-								<td>
-									<input type="submit" class="submit" value="确认"></input>
-								</td>
-							</tr>
-						</tbody></table>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
+</html>

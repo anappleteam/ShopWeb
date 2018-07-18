@@ -12,32 +12,9 @@
 <head>
 <meta http-equiv="Cache-Control" content="max-age=7200" />
 <title>网上商城</title>
-<link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css" />
 <link href="<%=path%>/css/product.css" rel="stylesheet" type="text/css" />
-<script>
-	function decrease() {
-		var c = document.getElementById("count").value;
-		if (c > 1) {
-			document.getElementById("count").value--;
-		}
-	}
-	function increase() {
-		var c = document.getElementById("count").value;
-		if (c > 0) {
-			document.getElementById("count").value++;
-		}
-	}
-
-	function saveCart() {
-		var user = document.getElementById("addCart_currentUser").value;
-		if (user == "") {
-			alert("请先登录！");
-		} else {
-			document.getElementById("cartForm").submit();
-		}
-	}
-</script>
-
+<link href="${pageContext.request.contextPath}/css/evaluate.css"
+	rel="stylesheet" type="text/css" />
 </head>
 <body>
 
@@ -81,7 +58,9 @@
 				<a style="outline-style: none; text-decoration: none;" id="zoom"
 					href="<%=basePath%><s:property value="model.image"/>" rel="gallery">
 					<img style="opacity: 1;" class="medium"
-					src="<%=path%>/<s:property value="model.image"/>" /> </a> </div>
+					src="<%=path%>/<s:property value="model.image"/>" />
+				</a>
+			</div>
 			<div class="name">
 				<s:property value="model.pname" />
 			</div>
@@ -128,7 +107,8 @@
 							<span id="decrease" class="decrease">
 								<button class="myButton" style="padding: 2px 8px" type="button"
 									onclick="decrease()">-</button>
-							</span> <input id="count" name="count" value="1" maxlength="4"
+							</span> <input id="count" name="count" value="1" maxlength="2"
+								onkeyup="value=value.replace(/[^\d]/g,'')" onblur="checkNull()"
 								type="text" /> <span id="increase" class="increase">
 								<button class="myButton" style="padding: 2px 6px" type="button"
 									onclick="increase()">+</button>
@@ -151,25 +131,118 @@
 				</div>
 			</form>
 			<div id="bar" class="bar">
-				<ul>
-					<li id="introductionTab"><a href="#introduction">商品介绍</a></li>
-
+				<ul class="qtabs">
+					<li id="introductionTab" class="active"><a href="#introduction">商品介绍</a></li>
+					<li id="commentTab"><a href="#comment">评论</a></li>
 				</ul>
 			</div>
-
-			<div id="introduction" class="introduction">
-				<div class="title">
-					<strong><s:property value="model.pdesc" /></strong>
+				<div class="tab_containers">			
+				<div id="introduction" class="introduction" style="display:block;">
+					<div class="title">
+						<strong><s:property value="model.pdesc" /></strong>
+					</div>
+					<div>
+						<img src="<%=path%>/<s:property value="model.image"/>" />
+					</div>
 				</div>
-				<div>
-					<img src="<%=path%>/<s:property value="model.image"/>" />
+				<div id="comment" class="introduction" style="display:none;">
+				<s:if test="conments==null">
+					<div class="title">
+					<strong>此商品暂无评论</strong>
+					</div>
+				</s:if>
+				<s:else>
+					<s:iterator var="con" value="conments">
+					<div class="title">
+						<strong><s:property value="#con.username"/>评分：</strong>					
+						<div class="commentedlist">
+							<div id="star1" class="commentedlist"></div>
+							<div id="star1" class="commentedlist"></div>
+							<div id="star1" class="commentedlist"></div>
+							<div id="star1" class="commentedlist"></div>
+							<div id="star1" class="commentedlist"></div>
+						</div>
+						<span class="scorednumlist"><s:property
+							value="#con.evaluate" /></span>
+					</div>
+					<div style="padding:10px;">
+						<strong>内容：</strong><br/><br/>
+						<s:property value="#con.content"/>
+					</div>
+					</s:iterator>
+				</s:else>				
 				</div>
-			</div>
-
-
-
+			    </div>			
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
+	<script>
+		function decrease() {
+			var c = document.getElementById("count").value;
+			if (c > 1) {
+				document.getElementById("count").value--;
+			}
+		}
+		function increase() {
+			var c = document.getElementById("count").value;
+			if (c > 0) {
+				document.getElementById("count").value++;
+			}
+		}
+		function checkNull() {
+			var c = document.getElementById("count").value;
+			if (c == '') {
+				document.getElementById("count").value = 1;
+			}
+		}
+		function saveCart() {
+			var user = document.getElementById("addCart_currentUser").value;
+			var inventory = document.getElementById("p_inventory").innerText;
+			if (user
+				== "") {
+				alert("请先登录！");
+			} else {
+				if
+				(document.getElementById("count").value > inventory) {
+					alert("库存不足，请重新输入数量！");
+					document.getElementById("count").value = 1;
+				} else {
+					document.getElementById("cartForm").submit();
+				}
+			}
+		}
+	</script>
 </body>
+<script src="${pageContext.request.contextPath}/js/jquery-1.8.3.js"></script>
+	<script>
+		$(document).ready(function() {
+			$(".introduction").hide();
+			$("ul.tabs li:first").addClass("active").show();
+			$(".introduction:first").show();
+			
+			$("ul.qtabs li").click(function() {
+				$("ul.qtabs li").removeClass("active");
+				$(this).addClass("active");
+				$(".introduction").hide();
+				var activeTab =$(this).find("a").attr("href");
+				$(activeTab).fadeIn();
+				return false;
+			});
+		});
+	</script>
+<script>
+	$(document).ready(function() {
+		var shixin = "★";
+		var kongxin = "☆";
+		var flag = false; //没有点击*/
+		for (var j = 0; j < $(".scorednumlist").length; j++) {
+			$(".scorednumlist").eq(j).prev().children().text(kongxin);
+			var scored = $(".scorednumlist").eq(j).text();
+			for (var i = 0; i < scored / 2; i++) {
+				$(".scorednumlist").eq(j).prev().children().eq(i).text(shixin);
+			}
+		}
+		});
+</script>
 </html>
+

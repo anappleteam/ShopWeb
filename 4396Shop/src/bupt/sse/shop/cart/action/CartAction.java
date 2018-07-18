@@ -7,12 +7,14 @@ import java.util.stream.Collectors;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import org.apache.struts2.ServletActionContext;
+import org.springframework.transaction.annotation.Propagation;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -71,7 +73,7 @@ public class CartAction extends ActionSupport {
 	}
 
 	// 获取当前登录的user
-	public User currentUser() {
+	public User getCurrentUser() {
 		User user = (User) ServletActionContext.getRequest().getSession().getAttribute("existUser");
 		return user;
 	}
@@ -87,12 +89,11 @@ public class CartAction extends ActionSupport {
 		// 设置商品:
 		cartItem.setProduct(product);
 		// 根据uid查询用户
-		User user = currentUser();
+		User user = getCurrentUser();
 		// 设置用户
 		cartItem.setUser(user);
 		// 生成该购物项
 		cartItemService.generateCartItem(cartItem);
-		Cart cart = cartItemService.getCart();
 		//刷新购物车
 		cartItemService.loadCartItems(user.getUid());
 		PageBean<CartItem> pageBean = cartItemService.findByUid(user.getUid());
@@ -114,7 +115,6 @@ public class CartAction extends ActionSupport {
 			Integer left=cartItem.getProduct().getPavailable();
 			response.getWriter().print("false,"+left);
 		}
-		
 		return NONE;
 	}
 
@@ -122,7 +122,7 @@ public class CartAction extends ActionSupport {
 		// 调用移除方法
 		cartItemService.removeCartItem(citemid);
 		//刷新购物车
-		User user = currentUser();
+		User user = getCurrentUser();
 		cartItemService.loadCartItems(user.getUid());
 		PageBean<CartItem> pageBean = cartItemService.findByUid(user.getUid());
 		ActionContext.getContext().getValueStack().set("pageBean", pageBean);
@@ -130,7 +130,7 @@ public class CartAction extends ActionSupport {
 	}
 
 	public String clearCart() {
-		User user = currentUser();
+		User user = getCurrentUser();
 		// 调用购物车清空方法
 		cartItemService.clearCart(user.getUid());
 		//刷新购物车
@@ -143,7 +143,7 @@ public class CartAction extends ActionSupport {
 	public String myCart() {
 		// find all cartitems and put them into the SET
 		//刷新购物车
-		User user = currentUser();
+		User user = getCurrentUser();
 		//刷新购物车
 		cartItemService.loadCartItems(user.getUid());
 		PageBean<CartItem> pageBean = cartItemService.findByUid(user.getUid());
