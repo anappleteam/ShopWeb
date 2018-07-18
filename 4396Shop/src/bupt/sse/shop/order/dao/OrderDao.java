@@ -2,6 +2,7 @@ package bupt.sse.shop.order.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import bupt.sse.shop.order.vo.Order;
@@ -32,10 +33,6 @@ public class OrderDao extends HibernateDaoSupport{
 	public Order findByOid(Integer oid) {
 		return this.getHibernateTemplate().get(Order.class, oid);
 	}
-	
-	public OrderItem findByTid(Integer itemid) {
-		return this.getHibernateTemplate().get(OrderItem.class, itemid);
-	}
 
 
 
@@ -43,9 +40,6 @@ public class OrderDao extends HibernateDaoSupport{
 		this.getHibernateTemplate().update(curOrder);
 	}
 	
-	public void updateItem(OrderItem curItem) {
-		this.getHibernateTemplate().update(curItem);
-	}
 	
 	//Dao层统计订单个数
 	public int findByCount() {

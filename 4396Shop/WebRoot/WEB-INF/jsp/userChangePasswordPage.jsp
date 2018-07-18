@@ -10,11 +10,59 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>修改密码</title>
-<link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css" />
 <link href="<%=path%>/css/register.css" rel="stylesheet" type="text/css" />
 <jsp:include page="menu.jsp" />
-
-<script>
+</head>
+<body>
+	<div class="container register">
+		<div class="span24">
+			<div class="wrap">
+				<div class="main clearfix">
+					<div class="title">
+						<strong>修改密码</strong>USER REGISTER
+					</div>
+					<form id="registerForm"
+						action="<%=path %>/user_userChangePwd.action?username=${username}"
+						method="post"
+						onsubmit="return checkForm();">
+						<table>
+							<tbody>
+								<tr>
+									<th><span class="requiredField">*</span>密&nbsp;&nbsp;码:</th>
+									<td><input type="password" id="password" name="password"
+										class="text" maxlength="20"
+										onblur="checkPassword(this);checkRepassword(document.getElementById('repassword'))"></input>
+										<span id="password_span">密码由字母、小数和符号组成，密码长度6-20位</span></td>
+								</tr>
+								<tr>
+									<th><span class="requiredField">*</span>确认密码:</th>
+									<td><input type="password" id="repassword"
+										name="repassword" class="text" maxlength="20"
+										 onblur="checkRepassword(this)"></input> <span
+										id="repassword_span"></span></td>
+								</tr>
+								<tr>
+								<th><span class="requiredField">*</span>验证码:</th>
+								<td><span class="fieldSet"> <input type="text"
+										id="checkcode" name="code" class="text captcha" maxlength="5"
+										onblur="checkcodeFunction(this)"></input>
+								</span> <span id="checkcode_span"><font color="red"><s:actionerror
+												id="checkcodeActionerror" /></font></span></td>
+								</tr>
+								<tr>
+									<th>&nbsp;</th>
+									<td><input type="submit" class="submit" value="确认修改"></input>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
+	<script>
 
 	var passwordRegex = /^\w{6,20}$/;
 
@@ -98,56 +146,5 @@
 		}
 	}
 </script>
-</head>
-<body>
-	<div class="container register">
-		<div class="span24">
-			<div class="wrap">
-				<div class="main clearfix">
-					<div class="title">
-						<strong>修改密码</strong>USER REGISTER
-
-					</div>
-					<form id="registerForm"
-						action="<%=path %>/user_userChangePwd.action?username=${username}"
-						method="post"
-						onsubmit="return checkForm();">
-						<table>
-							<tbody>
-								<tr>
-									<th><span class="requiredField">*</span>密&nbsp;&nbsp;码:</th>
-									<td><input type="password" id="password" name="password"
-										class="text" maxlength="20"
-										onblur="checkPassword(this);checkRepassword(document.getElementById('repassword'))"></input>
-										<span id="password_span">密码由字母、小数和符号组成，密码长度6-20位</span></td>
-								</tr>
-								<tr>
-									<th><span class="requiredField">*</span>确认密码:</th>
-									<td><input type="password" id="repassword"
-										name="repassword" class="text" maxlength="20"
-										 onblur="checkRepassword(this)"></input> <span
-										id="repassword_span"></span></td>
-								</tr>
-								<tr>
-								<th><span class="requiredField">*</span>验证码:</th>
-								<td><span class="fieldSet"> <input type="text"
-										id="checkcode" name="code" class="text captcha" maxlength="5"
-										onblur="checkcodeFunction(this)"></input>
-								</span> <span id="checkcode_span"><font color="red"><s:actionerror
-												id="checkcodeActionerror" /></font></span></td>
-								</tr>
-								<tr>
-									<th>&nbsp;</th>
-									<td><input type="submit" class="submit" value="确认修改"></input>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
 </html>

@@ -17,14 +17,19 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.BeanUtils;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
-
+import com.mchange.v2.beans.BeansUtils;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -32,6 +37,7 @@ import com.opensymphony.xwork2.ModelDriven;
 import bupt.sse.shop.cart.service.CartItemService;
 import bupt.sse.shop.cart.vo.Cart;
 import bupt.sse.shop.cart.vo.CartItem;
+import bupt.sse.shop.order.service.OrderItemService;
 import bupt.sse.shop.order.service.OrderService;
 import bupt.sse.shop.order.vo.Order;
 import bupt.sse.shop.order.vo.OrderItem;
@@ -44,6 +50,9 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	
 	private Order order = new Order();
 	private OrderService orderService;
+	private OrderItemService orderItemService;
+	
+
 	//revieve uid 
 	private Integer uid;
 
@@ -65,7 +74,11 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	public void setOrderService(OrderService orderService) {
 		this.orderService = orderService;
 	}
-
+	
+	public void setOrderItemService(OrderItemService orderItemService) {
+		this.orderItemService = orderItemService;
+	}
+	
 	public void setUid(Integer uid) {
 		this.uid = uid;
 	}
@@ -87,7 +100,8 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	public void setCidsstring(String cidsstring) {
 		this.cidsstring = cidsstring;
 	}
-	public String save() throws ParseException{
+	@Transactional(isolation=Isolation.REPEATABLE_READ)
+	public String save() throws ParseException, IOException{
 		// 加前置通知
 		User existUser = (User) ServletActionContext.getRequest().getSession()
 				.getAttribute("existUser");
@@ -141,9 +155,6 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
         String date2=temp.format(date);  
         Date date3=temp.parse(date2);  
 		order.setOrdertime(date3);
-
-
-		//加事务	
 		orderService.save(order);
 		
 		return "saveSuccess";
@@ -151,6 +162,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	
 	
 	//查询我的订单
+	@Transactional(readOnly=true)
 	public String findByUid(){
 		User user = (User) ServletActionContext.getRequest().getSession()
 				.getAttribute("existUser");
@@ -159,11 +171,13 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 		return "findByUidSuccess";
 	}
 	
+	@Transactional(readOnly=true)
 	public String findByOid(){
 		order = orderService.findByOid(order.getOid());
 		return "findByOidSuccess";
 	}
 	
+	@Transactional(isolation=Isolation.REPEATABLE_READ)
 	public void payOrder() throws IOException, AlipayApiException{
 		Order curOrder = orderService.findByOid(order.getOid());
 		curOrder.setAddr(order.getAddr());
@@ -199,6 +213,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	
 	}
 	
+	@Transactional(isolation=Isolation.REPEATABLE_READ)
 	public String notifyorder() throws AlipayApiException, UnsupportedEncodingException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		Map<String,String> params = new HashMap<String,String>();
@@ -256,7 +271,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 			orderService.update(currOrder);
 			for (OrderItem orderitem : currOrder.getOrderItems()) {
 				orderitem.setState(0);
-				orderService.updateItem(orderitem);
+				orderItemService.update(orderitem);
 			}
 			
 			System.out.println("success");
@@ -308,7 +323,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 
 			for (OrderItem orderitem : currOrder.getOrderItems()) {
 				orderitem.setState(0);
-				orderService.updateItem(orderitem);
+				orderItemService.update(orderitem);
 			}
 			
 			System.out.println("trade_no:"+trade_no+"<br/>out_trade_no:"+out_trade_no+"<br/>total_amount:"+total_amount);
@@ -323,9 +338,9 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 		//根据订单id查询订单
 		
 		int receiveall=0;
-		OrderItem curItem = orderService.findByTid(itemid);
+		OrderItem curItem = orderItemService.findByTid(itemid);
 		curItem.setState(1);
-		orderService.updateItem(curItem);
+		orderItemService.update(curItem);
 		Order curOrder=orderService.findByOid(curItem.getOrder().getOid());
 		for(OrderItem orderItem : curOrder.getOrderItems()){
 			if(orderItem.getState()!=1)
@@ -342,8 +357,10 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 		HttpServletRequest request = ServletActionContext.getRequest();  
 		int item = Integer.parseInt(request.getParameter("itemid"));
 		int eva = Integer.parseInt(request.getParameter("evaluate"));
-		OrderItem curItem = orderService.findByTid(item);
+		String com = request.getParameter("comment");
+		OrderItem curItem = orderItemService.findByTid(item);
+		curItem.setComment(com);
 		curItem.setEvaluate(eva);
-		orderService.updateItem(curItem);
+		orderItemService.update(curItem);
 	}
 }

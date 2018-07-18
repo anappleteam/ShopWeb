@@ -67,7 +67,6 @@ div.login .submit {
 	color: #ffffff;
 	cursor: pointer;
 	outline: none;
-	blr: expression(this.hideFocus = true);
 	border: none;
 	background: url(../images/login.gif) 0px 0px no-repeat;
 }

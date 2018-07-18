@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import bupt.sse.shop.order.dao.OrderDao;
+import bupt.sse.shop.order.dao.OrderItemDao;
 import bupt.sse.shop.order.vo.Order;
 import bupt.sse.shop.order.vo.OrderItem;
 import bupt.sse.shop.utils.PageBean;
@@ -17,11 +18,10 @@ public class OrderService {
 	public void setOrderDao(OrderDao orderDao) {
 		this.orderDao = orderDao;
 	}
-	
+
 	public void save(Order order){
 		orderDao.save(order);
 	}
-
 	public PageBean<Order> findByPageUid(int uid, Integer page) {
 		PageBean<Order> pageBean = new PageBean<Order>();
 		pageBean.setPage(page);
@@ -44,17 +44,10 @@ public class OrderService {
 		return orderDao.findByOid(oid);
 	}
 	
-	public OrderItem findByTid(Integer itemid) {
-		return orderDao.findByTid(itemid);
-	}
-
 	public void update(Order curOrder) {
 		orderDao.update(curOrder);
 	}
 	
-	public void updateItem(OrderItem curItem) {
-		orderDao.updateItem(curItem);
-	}
 	
 	
 	//后台分页查询订单
