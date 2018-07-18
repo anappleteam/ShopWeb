@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -107,18 +110,58 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 		// 页面跳转
 		return "addPage";
 	}
+	
+	//添加和修改商品信息的后端检查
+	private boolean infoCheck(boolean checkimgnull){
+		if(product.getPname()==null||product.getPname().equals("")){
+			return false;
+		}
+		if(product.getMarket_price()==null||product.getMarket_price().doubleValue()<0.0){
+			return false;
+		}
+		if(product.getShop_price()==null||product.getShop_price().doubleValue()<0.0){
+			return false;
+		}
+		if(product.getPdesc()==null||product.getPdesc().equals("")){
+			return false;
+		}
+		if(product.getPavailable()==null||product.getPavailable().intValue()<0){
+			return false;
+		}
+		String imgExe="jpeg,jpg,png,bmp,gif";
+		if( upload==null?checkimgnull:imgExe.indexOf(FilenameUtils.getExtension(uploadFileName))==-1){
+			return false;
+		}
+		return true;
+	}
 
 	// 保存商品的方法
 	public String save() throws IOException {
 		Store store = (Store) ServletActionContext.getRequest().getSession().getAttribute("managedStore");
-		CategorySecond thiSecond=new CategorySecond();
-		thiSecond.setCsid(csid);
-		product.setCategorySecond(thiSecond);
+		
 		
 		if (store != null) {
+			
+			if(!infoCheck(true)){
+				
+				this.addActionError("product info error");
+				
+				/*HttpServletResponse response = ServletActionContext.getResponse();
+				response.setContentType("text/html;charset=UTF-8");
+				response.getWriter().flush();
+				response.getWriter().write("<script>history.go(-1)</script>");*/
+				return "saveError";
+			}
+			
 			product.setPdate(new Date(System.currentTimeMillis()));
-
+			CategorySecond thisSecond=new CategorySecond();
+			thisSecond.setCsid(csid);
+			product.setCategorySecond(thisSecond);
+			
+			product.setStore(store);
+			productService.save(product);
 			if (upload != null) {
+				uploadFileName="product_img_"+product.getPid()+"."+FilenameUtils.getExtension(uploadFileName);
 				// 获得绝对路径
 				String realPath = ServletActionContext.getServletContext().getRealPath("/products");
 				// 创建文件
@@ -126,10 +169,8 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 				// 文件上传
 				FileUtils.copyFile(upload, diskFile);
 				product.setImage("products/" + uploadFileName);
+				productService.update(product);
 			}
-			product.setStore(store);
-
-			productService.save(product);
 			// 页面跳转
 			return "saveSuccess";
 		}
@@ -167,6 +208,7 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 		Store managedStore = (Store) ServletActionContext.getRequest().getSession().getAttribute("managedStore");
 		if (managedStore == null)
 			return "productMngError";
+	
 		List<Product> products = productService.findBySid(managedStore.getSid());
 		for (Product p : products) {
 			if (p.getPid().intValue() == product.getPid().intValue()) {
@@ -190,7 +232,17 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 		Product managedProduct = (Product) ServletActionContext.getRequest().getSession().getAttribute("managedProduct");
 		if (managedProduct.getPid().intValue() != product.getPid().intValue())
 			return "productMngError";
-
+		
+		if(!infoCheck(false)){
+			this.addActionError("product info error");
+			
+			/*HttpServletResponse response = ServletActionContext.getResponse();
+			response.setContentType("text/html;charset=UTF-8");
+			response.getWriter().flush();
+			response.getWriter().write("<script>history.go(-1)</script>");*/
+			return "saveError";
+		}
+		
 		product.setPdate(new Date(System.currentTimeMillis()));
 		product.setStore(managedProduct.getStore());
 

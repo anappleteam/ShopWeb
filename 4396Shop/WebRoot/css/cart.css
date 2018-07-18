@@ -75,6 +75,12 @@ div.cart table img {
 	height: 60px;
 }
 
+div.cart table img#img_preview{
+	width:auto;
+	height:auto;
+	max-width:50;
+}
+
 div.cart dl {
 	height: 20px;
 	line-height: 20px;
