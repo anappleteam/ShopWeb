@@ -14,7 +14,7 @@
 		style="margin-top: auto;padding-top: 120px;">
 		<form id="userAction_save_do" name="Form1"
 			action="${pageContext.request.contextPath}/productMng_save.action"
-			method="post" onsubmit="return checkProductAttr();"
+			method="post" onsubmit="return checkProductAttr();" onreset="resetBorderStyle(this)"
 			enctype="multipart/form-data">
 			<br />
 			<s:if test="hasActionErrors()">
@@ -31,7 +31,7 @@
 					<td style="text-align:center;vertical-align:middle;">商品名称：</td>
 					<td style="text-align:center;vertical-align:middle;">
 						<input type="text" name="pname"
-							onchange="this.style.borderColor='#66ee66'" class="text" />
+							onchange="checkInputLabel(this)" class="text" />
 					</td>
 					<td style="text-align:center;vertical-align:middle;">是否热门：</td>
 					<td style="text-align:center;vertical-align:middle;">
@@ -45,13 +45,13 @@
 					<td style="text-align:center;vertical-align:middle;">市场价格：</td>
 					<td style="text-align:center;vertical-align:middle;">
 						<input type="text" name="market_price"
-							onchange="this.style.borderColor='#66ee66'"
+							onchange="checkInputLabel(this)"
 							id="userAction_save_do_logonName" class="text" />
 					</td>
 					<td style="text-align:center;vertical-align:middle;">商城价格：</td>
 					<td style="text-align:center;vertical-align:middle;">
 						<input type="text" name="shop_price"
-							onchange="this.style.borderColor='#66ee66'"
+							onchange="checkInputLabel(this)"
 							id="userAction_save_do_logonName" class="text" />
 					</td>
 				</tr>
@@ -63,13 +63,13 @@
 						<a href="javascript:;" class="myButton" id="file_button"
 							onclick="document.Form1.upload.click()">选择图片</a>
 						<input class="text" id="file_container"
-							onchange="this.style.borderColor='#66ee66'" readonly="readonly" />
+							onchange="checkInputLabel(this)" readonly="readonly" />
 						<img id="img_preview" src="" />
 					</td>
 					<td style="text-align:center;vertical-align:middle;">库存：</td>
 					<td style="text-align:center;vertical-align:middle;">
 						<input type="text" name="pavailable"
-							onchange="this.style.borderColor='#66ee66'"
+							onchange="checkInputLabel(this)"
 							id="userAction_save_do_logonName" class="text" />
 					</td>
 				</tr>
@@ -87,7 +87,7 @@
 				<tr>
 					<td style="text-align:center;vertical-align:middle;">商品描述：</td>
 					<td colspan="3">
-						<textarea name="pdesc" onchange="this.style.borderColor='#66ee66'"
+						<textarea name="pdesc" onchange="checkInputLabel(this)"
 							rows="5" cols="30" class="text"></textarea>
 					</td>
 				</tr>
@@ -107,6 +107,21 @@
 	</div>
 </body>
 <script type="text/javascript">
+		function checkInputLabel(inputLabel){
+			if(inputLabel.value==""){
+				inputLabel.style.borderColor="red";
+			}else{
+				inputLabel.style.borderColor="#66ee66";
+			}
+		}
+		function resetBorderStyle(form){
+			form.pname.style.borderColor="";
+			form.market_price.style.borderColor="";
+			form.shop_price.style.borderColor="";
+			form.pavailable.style.borderColor="";
+			document.getElementById("file_container").style.borderColor="";
+			form.pdesc.style.borderColor="";
+		}
 		function checkProductAttr(){
 			var ele_pname=document.Form1.pname;
 			var ele_market_price=document.Form1.market_price;
