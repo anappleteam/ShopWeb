@@ -115,6 +115,7 @@
 				<value>bupt/sse/shop/adminuser/vo/AdminUser.hbm.xml</value>
 				<value>bupt/sse/shop/cart/vo/CartItem.hbm.xml</value>
 				<value>bupt/sse/shop/store/vo/Store.hbm.xml</value>
+				<value>bupt/sse/shop/conment/vo/Conment.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -177,6 +178,7 @@
 	<bean id="productAction" class="bupt.sse.shop.product.action.ProductAction"
 		scope="prototype">
 		<property name="productService" ref="productService" />
+		<property name="conmentService" ref="conmentService"/>
 	</bean>
 
 	<!-- 购物车的Action -->
@@ -282,6 +284,10 @@
 	<bean id="storeService" class="bupt.sse.shop.store.service.StoreService">
 		<property name="storeDao" ref="storeDao" />
 	</bean>
+	<!-- 评论的service -->
+	<bean id="conmentService" class="bupt.sse.shop.conment.service.ConmentService">
+		<property name="conmentDao" ref="conmentDao"/>	
+	</bean>
 
 	<!-- Dao的配置 =========================== -->
 	<bean id="userDao" class="bupt.sse.shop.user.dao.UserDao">
@@ -314,5 +320,10 @@
 	<!-- 店铺的Dao -->
 	<bean id="storeDao" class="bupt.sse.shop.store.dao.StoreDao">
 		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<!-- 评论的Dao -->
+	<bean id="conmentDao" class="bupt.sse.shop.conment.dao.ConmentDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 </beans>
