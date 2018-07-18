@@ -12,6 +12,7 @@
     	
     	<default-action-ref name="index"></default-action-ref>
     	<global-results>
+    		<result name="globalError">/WEB-INF/jsp/globalError.jsp</result>
     		<result name="error" type="redirectAction">index</result>
     		<result name="msg">/WEB-INF/jsp/msg.jsp</result>
 			<result name="login">/WEB-INF/jsp/login.jsp</result>
@@ -75,9 +76,16 @@
     		<result name="findByCurStore">/WEB-INF/jsp/storeMng/productMng/list.jsp</result>
     		<result name="addPage">/WEB-INF/jsp/storeMng/productMng/add.jsp</result>
     		<result name="saveSuccess" type="redirectAction">productMng_findByCurStore?page=1</result>
+    		<result name="saveError">/WEB-INF/jsp/storeMng/productMng/infoError.jsp</result>
     		<result name="editPage">/WEB-INF/jsp/storeMng/productMng/edit.jsp</result>
     		<result name="updateSuccess" type="redirectAction">productMng_findByCurStore?page=1</result>
     		<result name="deleteSuccess" type="redirectAction">productMng_findByCurStore?page=1</result>
+    		
+    		<!-- <interceptor-ref name="fileUpload">
+    			<param name="allowTypes">
+    				image/*
+    			</param>
+    		</interceptor-ref> -->
     	</action>
     	
     	<!-- 购物车的action -->
