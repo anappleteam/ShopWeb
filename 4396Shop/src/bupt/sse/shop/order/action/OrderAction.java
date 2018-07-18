@@ -37,6 +37,8 @@ import com.opensymphony.xwork2.ModelDriven;
 import bupt.sse.shop.cart.service.CartItemService;
 import bupt.sse.shop.cart.vo.Cart;
 import bupt.sse.shop.cart.vo.CartItem;
+import bupt.sse.shop.conment.service.ConmentService;
+import bupt.sse.shop.conment.vo.Conment;
 import bupt.sse.shop.order.service.OrderItemService;
 import bupt.sse.shop.order.service.OrderService;
 import bupt.sse.shop.order.vo.Order;
@@ -51,6 +53,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	private Order order = new Order();
 	private OrderService orderService;
 	private OrderItemService orderItemService;
+	private ConmentService conmentService;
 	
 
 	//revieve uid 
@@ -79,6 +82,10 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 		this.orderItemService = orderItemService;
 	}
 	
+	public void setConmentService(ConmentService conmentService) {
+		this.conmentService = conmentService;
+	}
+
 	public void setUid(Integer uid) {
 		this.uid = uid;
 	}
@@ -354,6 +361,8 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	}
 	
 	public void submitscore(){
+		User user = (User) ServletActionContext.getRequest().getSession()
+				.getAttribute("existUser");
 		HttpServletRequest request = ServletActionContext.getRequest();  
 		int item = Integer.parseInt(request.getParameter("itemid"));
 		int eva = Integer.parseInt(request.getParameter("evaluate"));
@@ -362,5 +371,11 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 		curItem.setComment(com);
 		curItem.setEvaluate(eva);
 		orderItemService.update(curItem);
+		Conment conment = new Conment();
+		conment.setUsername(user.getUsername());
+		conment.setEvaluate(eva);
+		conment.setContent(com);
+		conment.setProduct(curItem.getProduct());
+		conmentService.save(conment);
 	}
 }
