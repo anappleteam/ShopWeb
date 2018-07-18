@@ -53,6 +53,9 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 	public void setPage(Integer page) {
 		this.page = page;
 	}
+	public Integer getPage() {
+		return page;
+	}
 
 	// 文件上传参数
 	private File upload;
@@ -73,21 +76,24 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 
 	// 分页查询商品方法
 	public String findAll() {
+		if(page==null)page=1;
 		PageBean<Product> pageBean = productService.findByPage(page);
 		ActionContext.getContext().getValueStack().set("pageBean", pageBean);
 		return "findAll";
 	}
-
-	// 跟据商店ID查询商店的所有商品并分页展示
-	public String findBySid() {
+	
+	private String findPageBySid(Integer sid) {
+		if(sid==null)return "error";
+		if(page==null)page=1;
 		PageBean<Product> pageBean = productService.findBySid(sid, page);
 		ActionContext.getContext().getValueStack().set("pageBean", pageBean);
-		return "error";
+		return "findByCurStore";
 	}
-
+	// 跟据商店ID查询商店的所有商品并分页展示
 	public String findByCurStore() {
 		Store curStore = (Store) ServletActionContext.getRequest().getSession().getAttribute("managedStore");
 		if (curStore != null) {
+			if(page==null)page=1;
 			PageBean<Product> pageBean = productService.findBySid(curStore.getSid(), page);
 			ActionContext.getContext().getValueStack().set("pageBean", pageBean);
 			return "findByCurStore";
@@ -144,13 +150,9 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 			
 			if(!infoCheck(true)){
 				
-				this.addActionError("product info error");
+				this.addActionError("illegal product info");
 				
-				/*HttpServletResponse response = ServletActionContext.getResponse();
-				response.setContentType("text/html;charset=UTF-8");
-				response.getWriter().flush();
-				response.getWriter().write("<script>history.go(-1)</script>");*/
-				return "saveError";
+				return findPageBySid(store.getSid());
 			}
 			
 			product.setPdate(new Date(System.currentTimeMillis()));
@@ -172,7 +174,8 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 				productService.update(product);
 			}
 			// 页面跳转
-			return "saveSuccess";
+			page=new Integer(Integer.MAX_VALUE);
+			return findPageBySid(store.getSid());
 		}
 		return "productMngError";
 	}
@@ -195,10 +198,10 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 				productService.delete(product);
 
 				// 页面跳转
-				return "deleteSuccess";
+				return findPageBySid(managedStore.getSid());
 			}
 		}
-		return "productMngError";
+		return findPageBySid(managedStore.getSid());
 	}
 
 	// 编辑商品
@@ -229,18 +232,19 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 
 	// 修改商品
 	public String update() throws IOException {
+		Store managedStore=(Store)ServletActionContext.getRequest().getSession().getAttribute("managedStore");
 		Product managedProduct = (Product) ServletActionContext.getRequest().getSession().getAttribute("managedProduct");
-		if (managedProduct.getPid().intValue() != product.getPid().intValue())
+		if (managedProduct.getPid().intValue() != product.getPid().intValue()||managedStore==null)
 			return "productMngError";
 		
 		if(!infoCheck(false)){
-			this.addActionError("product info error");
+			this.addActionError("illegal product info");
 			
 			/*HttpServletResponse response = ServletActionContext.getResponse();
 			response.setContentType("text/html;charset=UTF-8");
 			response.getWriter().flush();
 			response.getWriter().write("<script>history.go(-1)</script>");*/
-			return "saveError";
+			return findPageBySid(managedStore.getSid());
 		}
 		
 		product.setPdate(new Date(System.currentTimeMillis()));
@@ -272,7 +276,7 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 		productService.update(product);
 
 		// 页面跳转
-		return "updateSuccess";
+		return findPageBySid(managedStore.getSid());
 	}
 
 }

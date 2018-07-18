@@ -103,7 +103,10 @@
     	</action>
     	<!-- 配置后台用户管理action -->
     	<action name="userAdmin_*" class="userAdminAction" method="{1}">
+    		<result name="userAdminError" type="redirectAction">userAdmin_findAll.action?page=1</result>
     		<result name="findAll">/admin/user/list.jsp</result>
+    		<result name="disableSuccess" type="redirectAction">userAdmin_findAll.action?page=1</result>
+    		<result name="enableSuccess" type="redirectAction">userAdmin_findAll.action?page=1</result>
     		<result name="deleteSuccess" type="redirectAction">userAdmin_findAll.action?page=1</result>
     		
     		<interceptor-ref name="PrivilegeInterceptor"/>

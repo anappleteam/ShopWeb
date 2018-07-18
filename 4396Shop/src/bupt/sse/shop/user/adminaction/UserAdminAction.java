@@ -43,7 +43,7 @@ public class UserAdminAction extends ActionSupport implements ModelDriven<User> 
 	}
 
 	// 移除用户
-	public String delete() {
+	/*public String delete() {
 		// 先查询再删除
 		user = userService.findByUid(user.getUid());
 
@@ -52,6 +52,32 @@ public class UserAdminAction extends ActionSupport implements ModelDriven<User> 
 
 		// 页面跳转
 		return "deleteSuccess";
+	}*/
+	
+	//禁用用户
+	public String disable() {
+		if(user.getUid()<1){
+			this.addActionError("illegal id");
+			return findAll();
+		}
+		else {
+			user=userService.findByUid(user.getUid());
+			user.setState(user.getState()+100);
+			userService.update(user);
+			return findAll();
+		}
 	}
-
+	
+	//启用用户
+	public String enable() {
+		if(user.getUid()<1){
+			this.addActionError("illegal id");
+			return findAll();
+		}else{
+			user=userService.findByUid(user.getUid());
+			user.setState(user.getState()%100);
+			userService.update(user);
+			return findAll();
+		}
+	}
 }

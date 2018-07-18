@@ -13,7 +13,7 @@
 	<div class="container cart"
 		style="margin-top: auto;padding-top: 120px;">
 		<form id="userAction_save_do" name="Form1"
-			action="${pageContext.request.contextPath}/productMng_update.action"
+			action="${pageContext.request.contextPath}/productMng_update.action?page=<s:property value="page"/>"
 			onsubmit="return checkProductAttrExceptImg();" method="post"
 			enctype="multipart/form-data">
 			<input type="hidden" name="pid"

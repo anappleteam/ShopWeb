@@ -59,9 +59,9 @@
 									<td width="4%" align="center">
 										编辑
 									</td>
-									<td width="4%" align="center">
+									<!-- <td width="4%" align="center">
 										删除
-									</td>
+									</td> -->
 								</tr>
 									<s:iterator var="u" value="pageBean.list" status="status">
 										<tr onmouseover="this.style.backgroundColor = 'white'"
@@ -102,17 +102,19 @@
 												<s:property value="#u.state"/>
 											</td>
 											<td align="center" style="HEIGHT: 22px">
-												<%-- <a href="${ pageContext.request.contextPath }/userAdmin_edit.action?uid=<s:property value="#u.uid"/>">
-													<img src="${pageContext.request.contextPath}/images/i_edit.gif" border="0" style="CURSOR: hand">
-												</a> --%>
-												不可用
+												<s:if test="#u.state<100">
+													<a href="${pageContext.request.contextPath }/userAdmin_disable?uid=<s:property value="#u.uid"/>&page=<s:property value="pageBean.page"/>">禁用</a>
+												</s:if>
+												<s:else>
+													<a href="${pageContext.request.contextPath }/userAdmin_enable?uid=<s:property value="#u.uid"/>&page=<s:property value="pageBean.page"/>">启用</a>
+												</s:else>
 											</td>
 									
-											<td align="center" style="HEIGHT: 22px">
+											<%-- <td align="center" style="HEIGHT: 22px">
 												<a href="${ pageContext.request.contextPath }/userAdmin_delete.action?uid=<s:property value="#u.uid"/>">
 													<img src="${pageContext.request.contextPath}/images/i_del.gif" width="16" height="16" border="0" style="CURSOR: hand">
 												</a>
-											</td>
+											</td> --%>
 										</tr>
 									</s:iterator>	
 							</table>
