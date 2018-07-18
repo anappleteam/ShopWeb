@@ -78,13 +78,13 @@
 												</s:else>
 											</td>
 											<td style="text-align:center;vertical-align:middle;">
-												<a href="${ pageContext.request.contextPath }/productMng_edit.action?pid=<s:property value="#p.pid"/>">
+												<a href="${ pageContext.request.contextPath }/productMng_edit.action?pid=<s:property value="#p.pid"/>&page=<s:property value="pageBean.page"/>">
 													<img src="${pageContext.request.contextPath}/images/edit.png" style="width:25px;height:25px;"/>
 												</a>
 											</td>
 									
 											<td style="text-align:center;vertical-align:middle;">
-												<a href="${ pageContext.request.contextPath }/productMng_delete.action?pid=<s:property value="#p.pid"/>">
+												<a href="${ pageContext.request.contextPath }/productMng_delete.action?pid=<s:property value="#p.pid"/>&page=<s:property value="pageBean.page"/>">
 													<img src="${pageContext.request.contextPath}/images/delete.png" style="width:30px;height:30px;"/>
 												</a>
 											</td>

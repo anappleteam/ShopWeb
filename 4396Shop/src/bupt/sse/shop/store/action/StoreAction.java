@@ -15,6 +15,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
+import bupt.sse.shop.order.service.OrderItemService;
 import bupt.sse.shop.order.service.OrderService;
 import bupt.sse.shop.order.vo.Order;
 import bupt.sse.shop.order.vo.OrderItem;
@@ -27,6 +28,10 @@ import bupt.sse.shop.utils.PageBean;
 public class StoreAction extends ActionSupport implements ModelDriven<OrderItem>{
 	private StoreService storeService;
 	private OrderService orderService;
+	private OrderItemService orderItemService;
+	public void setOrderItemService(OrderItemService orderItemService) {
+		this.orderItemService = orderItemService;
+	}
 	public void setOrderService(OrderService orderService) {
 		this.orderService = orderService;
 	}
@@ -74,7 +79,7 @@ public class StoreAction extends ActionSupport implements ModelDriven<OrderItem>
 		//根据订单id查询订单项
 		public String findOrderItem() throws IOException {
 			//根据订单id查询订单项
-			OrderItem orderitem=orderService.findByTid(orderItem.getItemid());
+			OrderItem orderitem=orderItemService.findByTid(orderItem.getItemid());
 			//通过值栈显示到页面上
 			ActionContext.getContext().getValueStack().set("orderItem", orderitem);
 			return "findOrderItem";
@@ -83,10 +88,10 @@ public class StoreAction extends ActionSupport implements ModelDriven<OrderItem>
 		//后台修改订单状态
 		public String updateState() {
 			//根据订单查询订单
-			OrderItem curOrderItem=orderService.findByTid(orderItem.getItemid());
+			OrderItem curOrderItem=orderItemService.findByTid(orderItem.getItemid());
 			//修改订单状态
 			curOrderItem.setState(2);
-			orderService.updateItem(curOrderItem);
+			orderItemService.update(curOrderItem);
 			//页面跳转
 			return "updateStateSuccess";
 			

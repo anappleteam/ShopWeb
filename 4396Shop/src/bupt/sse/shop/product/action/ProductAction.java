@@ -8,6 +8,8 @@ import com.opensymphony.xwork2.ModelDriven;
 
 import bupt.sse.shop.category.service.CategoryService;
 import bupt.sse.shop.category.vo.Category;
+import bupt.sse.shop.conment.service.ConmentService;
+import bupt.sse.shop.conment.vo.Conment;
 import bupt.sse.shop.product.service.ProductService;
 import bupt.sse.shop.product.vo.Product;
 import bupt.sse.shop.utils.PageBean;
@@ -18,6 +20,9 @@ public class ProductAction extends ActionSupport implements ModelDriven<Product>
 	private Product product = new Product();
 	//注入商品的Service
 	private ProductService productService;
+	//注入评论的Service
+	private ConmentService conmentService;
+	
 	//接受分类cid
 	private Integer cid;
 	//接受二级分类的id
@@ -57,6 +62,10 @@ public class ProductAction extends ActionSupport implements ModelDriven<Product>
 	public Integer getCid() {
 		return cid;
 	}
+	
+	public void setConmentService(ConmentService conmentService) {
+		this.conmentService = conmentService;
+	}
 
 	public void setProductService(ProductService productService) {
 		this.productService = productService;
@@ -69,6 +78,8 @@ public class ProductAction extends ActionSupport implements ModelDriven<Product>
 	//根据商品的ID查询商品：执行方法；
 	public String findByPid() {
 		product = productService.findByPid(product.getPid());
+		List<Conment> conments = conmentService.findByPid(product.getPid());
+		ActionContext.getContext().getValueStack().set("conments", conments);
 		return "findByPid";
 	}
 	

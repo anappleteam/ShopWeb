@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -50,6 +53,9 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 	public void setPage(Integer page) {
 		this.page = page;
 	}
+	public Integer getPage() {
+		return page;
+	}
 
 	// 文件上传参数
 	private File upload;
@@ -70,21 +76,24 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 
 	// 分页查询商品方法
 	public String findAll() {
+		if(page==null)page=1;
 		PageBean<Product> pageBean = productService.findByPage(page);
 		ActionContext.getContext().getValueStack().set("pageBean", pageBean);
 		return "findAll";
 	}
-
-	// 跟据商店ID查询商店的所有商品并分页展示
-	public String findBySid() {
+	
+	private String findPageBySid(Integer sid) {
+		if(sid==null)return "error";
+		if(page==null)page=1;
 		PageBean<Product> pageBean = productService.findBySid(sid, page);
 		ActionContext.getContext().getValueStack().set("pageBean", pageBean);
-		return "error";
+		return "findByCurStore";
 	}
-
+	// 跟据商店ID查询商店的所有商品并分页展示
 	public String findByCurStore() {
 		Store curStore = (Store) ServletActionContext.getRequest().getSession().getAttribute("managedStore");
 		if (curStore != null) {
+			if(page==null)page=1;
 			PageBean<Product> pageBean = productService.findBySid(curStore.getSid(), page);
 			ActionContext.getContext().getValueStack().set("pageBean", pageBean);
 			return "findByCurStore";
@@ -107,18 +116,54 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 		// 页面跳转
 		return "addPage";
 	}
+	
+	//添加和修改商品信息的后端检查
+	private boolean infoCheck(boolean checkimgnull){
+		if(product.getPname()==null||product.getPname().equals("")){
+			return false;
+		}
+		if(product.getMarket_price()==null||product.getMarket_price().doubleValue()<0.0){
+			return false;
+		}
+		if(product.getShop_price()==null||product.getShop_price().doubleValue()<0.0){
+			return false;
+		}
+		if(product.getPdesc()==null||product.getPdesc().equals("")){
+			return false;
+		}
+		if(product.getPavailable()==null||product.getPavailable().intValue()<0){
+			return false;
+		}
+		String imgExe="jpeg,jpg,png,bmp,gif";
+		if( upload==null?checkimgnull:imgExe.indexOf(FilenameUtils.getExtension(uploadFileName))==-1){
+			return false;
+		}
+		return true;
+	}
 
 	// 保存商品的方法
 	public String save() throws IOException {
 		Store store = (Store) ServletActionContext.getRequest().getSession().getAttribute("managedStore");
-		CategorySecond thiSecond=new CategorySecond();
-		thiSecond.setCsid(csid);
-		product.setCategorySecond(thiSecond);
+		
 		
 		if (store != null) {
+			
+			if(!infoCheck(true)){
+				
+				this.addActionError("illegal product info");
+				
+				return findPageBySid(store.getSid());
+			}
+			
 			product.setPdate(new Date(System.currentTimeMillis()));
-
+			CategorySecond thisSecond=new CategorySecond();
+			thisSecond.setCsid(csid);
+			product.setCategorySecond(thisSecond);
+			
+			product.setStore(store);
+			productService.save(product);
 			if (upload != null) {
+				uploadFileName="product_img_"+product.getPid()+"."+FilenameUtils.getExtension(uploadFileName);
 				// 获得绝对路径
 				String realPath = ServletActionContext.getServletContext().getRealPath("/products");
 				// 创建文件
@@ -126,12 +171,11 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 				// 文件上传
 				FileUtils.copyFile(upload, diskFile);
 				product.setImage("products/" + uploadFileName);
+				productService.update(product);
 			}
-			product.setStore(store);
-
-			productService.save(product);
 			// 页面跳转
-			return "saveSuccess";
+			page=new Integer(Integer.MAX_VALUE);
+			return findPageBySid(store.getSid());
 		}
 		return "productMngError";
 	}
@@ -154,10 +198,10 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 				productService.delete(product);
 
 				// 页面跳转
-				return "deleteSuccess";
+				return findPageBySid(managedStore.getSid());
 			}
 		}
-		return "productMngError";
+		return findPageBySid(managedStore.getSid());
 	}
 
 	// 编辑商品
@@ -167,6 +211,7 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 		Store managedStore = (Store) ServletActionContext.getRequest().getSession().getAttribute("managedStore");
 		if (managedStore == null)
 			return "productMngError";
+	
 		List<Product> products = productService.findBySid(managedStore.getSid());
 		for (Product p : products) {
 			if (p.getPid().intValue() == product.getPid().intValue()) {
@@ -187,10 +232,21 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 
 	// 修改商品
 	public String update() throws IOException {
+		Store managedStore=(Store)ServletActionContext.getRequest().getSession().getAttribute("managedStore");
 		Product managedProduct = (Product) ServletActionContext.getRequest().getSession().getAttribute("managedProduct");
-		if (managedProduct.getPid().intValue() != product.getPid().intValue())
+		if (managedProduct.getPid().intValue() != product.getPid().intValue()||managedStore==null)
 			return "productMngError";
-
+		
+		if(!infoCheck(false)){
+			this.addActionError("illegal product info");
+			
+			/*HttpServletResponse response = ServletActionContext.getResponse();
+			response.setContentType("text/html;charset=UTF-8");
+			response.getWriter().flush();
+			response.getWriter().write("<script>history.go(-1)</script>");*/
+			return findPageBySid(managedStore.getSid());
+		}
+		
 		product.setPdate(new Date(System.currentTimeMillis()));
 		product.setStore(managedProduct.getStore());
 
@@ -220,7 +276,7 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 		productService.update(product);
 
 		// 页面跳转
-		return "updateSuccess";
+		return findPageBySid(managedStore.getSid());
 	}
 
 }

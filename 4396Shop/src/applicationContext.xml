@@ -41,7 +41,8 @@
 	<bean id="dataSource" class="bupt.sse.shop.aspect.DynamicdataSource">
 		<property name="targetDataSources">
 		<map key-type="java.lang.String">
-		<entry key="slave" value-ref="slaveDataSource" />
+			<entry key="slave" value-ref="slaveDataSource" />		
+			<entry key="master" value-ref="masterDataSource" />
 		</map>
 		</property>
 		<property name="defaultTargetDataSource" ref="masterDataSource" />
@@ -114,6 +115,7 @@
 				<value>bupt/sse/shop/adminuser/vo/AdminUser.hbm.xml</value>
 				<value>bupt/sse/shop/cart/vo/CartItem.hbm.xml</value>
 				<value>bupt/sse/shop/store/vo/Store.hbm.xml</value>
+				<value>bupt/sse/shop/conment/vo/Conment.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -176,6 +178,7 @@
 	<bean id="productAction" class="bupt.sse.shop.product.action.ProductAction"
 		scope="prototype">
 		<property name="productService" ref="productService" />
+		<property name="conmentService" ref="conmentService"/>
 	</bean>
 
 	<!-- 购物车的Action -->
@@ -190,7 +193,8 @@
 	<bean id="storeAction" class="bupt.sse.shop.store.action.StoreAction"
 		scope="prototype">
 		<property name="storeService" ref="storeService" />
-		<property name="orderService" ref="orderService" />
+		<property name="orderService" ref="orderService" />		
+		<property name="orderItemService" ref="orderItemService" />
 	</bean>
 	<!-- 店铺商品管理action -->
 	<bean id="productMngAction" class="bupt.sse.shop.product.mngaction.ProductMngAction"
@@ -203,6 +207,10 @@
 	<bean id="orderAction" class="bupt.sse.shop.order.action.OrderAction"
 		scope="prototype">
 		<property name="orderService" ref="orderService" />
+		<property name="orderItemService" ref="orderItemService" />
+		<property name="cartItemService" ref="cartItemService" />
+		<property name="productService" ref="productService" />
+		<property name="conmentService" ref="conmentService"/>
 	</bean>
 	<!-- 后台用户的action -->
 	<bean id="adminUserAction" class="bupt.sse.shop.adminuser.action.AdminUserAction"
@@ -261,6 +269,9 @@
 	<bean id="orderService" class="bupt.sse.shop.order.service.OrderService">
 		<property name="orderDao" ref="orderDao" />
 	</bean>
+	<bean id="orderItemService" class="bupt.sse.shop.order.service.OrderItemService">
+		<property name="orderItemDao" ref="orderItemDao" />
+	</bean>
 	<bean id="adminUserService" class="bupt.sse.shop.adminuser.service.AdminUserService">
 		<property name="adminUserDao" ref="adminUserDao" />
 	</bean>
@@ -276,6 +287,10 @@
 	<bean id="storeService" class="bupt.sse.shop.store.service.StoreService">
 		<property name="storeDao" ref="storeDao" />
 	</bean>
+	<!-- 评论的service -->
+	<bean id="conmentService" class="bupt.sse.shop.conment.service.ConmentService">
+		<property name="conmentDao" ref="conmentDao"/>	
+	</bean>
 
 	<!-- Dao的配置 =========================== -->
 	<bean id="userDao" class="bupt.sse.shop.user.dao.UserDao">
@@ -289,6 +304,9 @@
 	</bean>
 	<bean id="orderDao" class="bupt.sse.shop.order.dao.OrderDao">
 		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="orderItemDao" class="bupt.sse.shop.order.dao.OrderItemDao">
+		<property name="sessionFactory" ref="sessionFactory" />		
 	</bean>
 	<bean id="cartItemDao" class="bupt.sse.shop.cart.dao.CartItemDao">
 		<property name="sessionFactory" ref="sessionFactory" />
@@ -305,5 +323,10 @@
 	<!-- 店铺的Dao -->
 	<bean id="storeDao" class="bupt.sse.shop.store.dao.StoreDao">
 		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<!-- 评论的Dao -->
+	<bean id="conmentDao" class="bupt.sse.shop.conment.dao.ConmentDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 </beans>
