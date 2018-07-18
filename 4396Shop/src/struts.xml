@@ -37,6 +37,8 @@
 			<result name="registcheckcodeFail">/WEB-INF/jsp/regist.jsp</result>
 			<result name="logincheckcodeFail">/WEB-INF/jsp/login.jsp</result>		
 			<result name="settle">/WEB-INF/jsp/settle.jsp</result>
+			<result name="requestSuccess" type="redirectAction">user_merchantsettle.action</result>
+			<result name="mystore" type="redirectAction">index</result>
 			<result name="changePwdPage">/WEB-INF/jsp/changePassword.jsp</result>
 			<result name="userChangePasswordPage">/WEB-INF/jsp/userChangePasswordPage.jsp</result>
 			<result name="changeFail">/WEB-INF/jsp/userChangePasswordPage.jsp</result>
