@@ -190,7 +190,8 @@
 	<bean id="storeAction" class="bupt.sse.shop.store.action.StoreAction"
 		scope="prototype">
 		<property name="storeService" ref="storeService" />
-		<property name="orderService" ref="orderService" />
+		<property name="orderService" ref="orderService" />		
+		<property name="orderItemService" ref="orderItemService" />
 	</bean>
 	<!-- 店铺商品管理action -->
 	<bean id="productMngAction" class="bupt.sse.shop.product.mngaction.ProductMngAction"
