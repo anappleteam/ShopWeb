@@ -11,6 +11,17 @@
    display:inline-block;
    cursor: pointer;
 }
+.commentedlist {
+	display:inline-block;
+}
+
+.scorenumlist{
+	width:10px;
+	font-size: 20px;
+    color: #ffff80;
+	margin-left:10px;
+	display:inline-block;
+}
 
 .commented {
    display:inline-block;

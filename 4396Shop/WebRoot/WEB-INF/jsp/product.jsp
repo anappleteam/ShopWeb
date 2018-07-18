@@ -14,6 +14,8 @@
 <title>网上商城</title>
 <link href="<%=path%>/css/common.css" rel="stylesheet" type="text/css" />
 <link href="<%=path%>/css/product.css" rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath}/css/evaluate.css"
+	rel="stylesheet" type="text/css" />
 <script>
 	function decrease() {
 		var c = document.getElementById("count").value;
@@ -151,25 +153,81 @@
 				</div>
 			</form>
 			<div id="bar" class="bar">
-				<ul>
-					<li id="introductionTab"><a href="#introduction">商品介绍</a></li>
-
+				<ul class="qtabs">
+					<li id="introductionTab" class="active"><a href="#introduction">商品介绍</a></li>
+					<li id="commentTab"><a href="#comment">评论</a></li>
 				</ul>
 			</div>
-
-			<div id="introduction" class="introduction">
-				<div class="title">
-					<strong><s:property value="model.pdesc" /></strong>
+				<div class="tab_containers">			
+				<div id="introduction" class="introduction" style="display:block;">
+					<div class="title">
+						<strong><s:property value="model.pdesc" /></strong>
+					</div>
+					<div>
+						<img src="<%=path%>/<s:property value="model.image"/>" />
+					</div>
 				</div>
-				<div>
-					<img src="<%=path%>/<s:property value="model.image"/>" />
+				<div id="comment" class="introduction" style="display:none;">
+				<s:if test="conments==null">
+					<div class="title">
+					<strong>此商品暂无评论</strong>
+					</div>
+				</s:if>
+				<s:else>
+					<s:iterator var="con" value="conments">
+					<div class="title">
+						<strong><s:property value="#con.username"/>评分：</strong>					
+						<div class="commentedlist">
+							<div id="star1" class="commentedlist"></div>
+							<div id="star1" class="commentedlist"></div>
+							<div id="star1" class="commentedlist"></div>
+							<div id="star1" class="commentedlist"></div>
+							<div id="star1" class="commentedlist"></div>
+						</div>
+						<span class="scorednumlist"><s:property
+							value="#con.evaluate" /></span>
+					</div>
+					<div style="padding:10px;">
+						<strong>内容：</strong><br/><br/>
+						<s:property value="#con.content"/>
+					</div>
+					</s:iterator>
+				</s:else>				
 				</div>
-			</div>
-
-
-
+			    </div>			
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
+<script src="${pageContext.request.contextPath}/js/jquery-1.8.3.js"></script>
+	<script>
+		$(document).ready(function() {
+			$(".introduction").hide();
+			$("ul.tabs li:first").addClass("active").show();
+			$(".introduction:first").show();
+			
+			$("ul.qtabs li").click(function() {
+				$("ul.qtabs li").removeClass("active");
+				$(this).addClass("active");
+				$(".introduction").hide();
+				var activeTab =$(this).find("a").attr("href");
+				$(activeTab).fadeIn();
+				return false;
+			});
+		});
+	</script>
+<script>
+	$(document).ready(function() {
+		var shixin = "★";
+		var kongxin = "☆";
+		var flag = false; //没有点击*/
+		for (var j = 0; j < $(".scorednumlist").length; j++) {
+			$(".scorednumlist").eq(j).prev().children().text(kongxin);
+			var scored = $(".scorednumlist").eq(j).text();
+			for (var i = 0; i < scored / 2; i++) {
+				$(".scorednumlist").eq(j).prev().children().eq(i).text(shixin);
+			}
+		}
+		});
+</script>
 </html>
