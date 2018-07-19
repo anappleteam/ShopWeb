@@ -107,11 +107,11 @@
 												<span class="scorenum">10</span>
 												<textarea rows="5" cols="40" class="commenttext" placeholder="填写评论..."></textarea>
 												<button class="btn_comment">提交评价</button>
-												<span style="display:none"><s:property
-														value="#orderItem.itemid" /></span>
+												<span style="display:none"></span>
 												<button class = "btn_evaluate" onclick="closeDialog()">返回页面</button>
 											</aside>
-											<button class="btn_evaluate" onclick="openDialog()">去评价商品</button>
+											<button class="btn_evaluate" value="<s:property
+														value="#orderItem.itemid" />" onclick="openDialog(this.value)">去评价商品</button>
 										</s:if>
 										<s:else>
 											<ul class="commented">
@@ -262,8 +262,9 @@
 			$(this).next().slideToggle(300)		
 		});
 	});
-	function openDialog() {
+	function openDialog(e) {
 			Avgrund.show( "#default-popup" );
+			$("#default-popup span").eq(1).text(e);
 	}
 	function closeDialog() {
 			Avgrund.hide();

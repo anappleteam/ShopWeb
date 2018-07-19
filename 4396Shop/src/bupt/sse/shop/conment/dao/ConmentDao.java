@@ -16,5 +16,9 @@ public class ConmentDao extends HibernateDaoSupport{
 		}
 		return null;
 	}
-
+	
+	public void save(Conment conment){
+		this.getHibernateTemplate().save(conment);
+	}
+ 
 }

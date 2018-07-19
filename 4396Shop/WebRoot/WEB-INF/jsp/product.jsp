@@ -197,13 +197,12 @@
 		}
 		function saveCart() {
 			var user = document.getElementById("addCart_currentUser").value;
-			var inventory = document.getElementById("p_inventory").innerText;
-			if (user
-				== "") {
+			var count = parseInt(document.getElementById("count").value);
+			var inventory = parseInt(document.getElementById("p_inventory").innerText);
+			if (user== "") {
 				alert("请先登录！");
 			} else {
-				if
-				(document.getElementById("count").value > inventory) {
+				if(count > inventory) {
 					alert("库存不足，请重新输入数量！");
 					document.getElementById("count").value = 1;
 				} else {

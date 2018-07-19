@@ -12,6 +12,7 @@
     	
     	<default-action-ref name="index"></default-action-ref>
     	<global-results>
+    		<result name="globalError">/WEB-INF/jsp/globalError.jsp</result>
     		<result name="error" type="redirectAction">index</result>
     		<result name="msg">/WEB-INF/jsp/msg.jsp</result>
 			<result name="login">/WEB-INF/jsp/login.jsp</result>
@@ -55,7 +56,6 @@
     	</action>
     	<!-- 订单模块action -->
     	<action name="order_*" class="orderAction" method="{1}">
-    		<result name="saveSuccess">/WEB-INF/jsp/order.jsp</result>
     		<result name="findByUidSuccess">/WEB-INF/jsp/orderList.jsp</result>
     		<result name="findByOidSuccess">/WEB-INF/jsp/order.jsp</result>
     		<result name="paySuccess" type="redirectAction">order_findByUid.action?page=1</result>
@@ -77,9 +77,16 @@
     		<result name="findByCurStore">/WEB-INF/jsp/storeMng/productMng/list.jsp</result>
     		<result name="addPage">/WEB-INF/jsp/storeMng/productMng/add.jsp</result>
     		<result name="saveSuccess" type="redirectAction">productMng_findByCurStore?page=1</result>
+    		<result name="saveError">/WEB-INF/jsp/storeMng/productMng/infoError.jsp</result>
     		<result name="editPage">/WEB-INF/jsp/storeMng/productMng/edit.jsp</result>
     		<result name="updateSuccess" type="redirectAction">productMng_findByCurStore?page=1</result>
     		<result name="deleteSuccess" type="redirectAction">productMng_findByCurStore?page=1</result>
+    		
+    		<!-- <interceptor-ref name="fileUpload">
+    			<param name="allowTypes">
+    				image/*
+    			</param>
+    		</interceptor-ref> -->
     	</action>
     	
     	<!-- 购物车的action -->
@@ -89,6 +96,8 @@
 	    	<result name="removeCart">/WEB-INF/jsp/cart.jsp</result>
 	    	<result name="myCart">/WEB-INF/jsp/cart.jsp</result>
 	    	<result name="updateCart">/WEB-INF/jsp/cart.jsp</result>
+	    	<result name="saveSuccess">/WEB-INF/jsp/order.jsp</result>
+    		<result name="saveFail">/WEB-INF/jsp/cart.jsp</result>
     	</action>
     	<!-- 后台用户登录的action -->
     	<action name="adminUser_*" class="adminUserAction" method="{1}">
@@ -97,7 +106,10 @@
     	</action>
     	<!-- 配置后台用户管理action -->
     	<action name="userAdmin_*" class="userAdminAction" method="{1}">
+    		<result name="userAdminError" type="redirectAction">userAdmin_findAll.action?page=1</result>
     		<result name="findAll">/admin/user/list.jsp</result>
+    		<result name="disableSuccess" type="redirectAction">userAdmin_findAll.action?page=1</result>
+    		<result name="enableSuccess" type="redirectAction">userAdmin_findAll.action?page=1</result>
     		<result name="deleteSuccess" type="redirectAction">userAdmin_findAll.action?page=1</result>
     		
     		<interceptor-ref name="PrivilegeInterceptor"/>

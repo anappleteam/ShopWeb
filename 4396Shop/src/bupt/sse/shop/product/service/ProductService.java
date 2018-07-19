@@ -33,8 +33,6 @@ public class ProductService {
 	//根据一级分类的cid带有分页的查询上品
 	public PageBean<Product> findByPageCid(Integer cid, Integer page) {
 		PageBean<Product> pageBean = new PageBean<Product>();
-		//设置当前页数
-		pageBean.setPage(page);
 		//设置每页显示记录
 		int limit= 8;
 		pageBean.setLimit(limit);
@@ -51,6 +49,13 @@ public class ProductService {
 			totalPage= totalCount/limit +1;
 		}
 		pageBean.setTotalPage(totalPage);
+		//设置当前页数
+		if(page==null||page<1)page=1;
+		else if (page>totalPage) {
+			page=totalPage;
+		}
+		pageBean.setPage(page);
+		
 		//每页显示的数据集合
 		//从那开始
 		int begin = (page-1)*limit;
@@ -62,8 +67,6 @@ public class ProductService {
 	//根据二级分类查询商品信息
 	public PageBean<Product> findByPageCsid(Integer csid, Integer page) {
 		PageBean<Product> pageBean = new PageBean<Product>();
-		//设置当前页数
-		pageBean.setPage(page);
 		//设置每页显示记录
 		int limit= 8;
 		pageBean.setLimit(limit);
@@ -80,6 +83,13 @@ public class ProductService {
 			totalPage= totalCount/limit +1;
 		}
 		pageBean.setTotalPage(totalPage);
+		//设置当前页数
+		if(page==null||page<1)page=1;
+		else if (page>totalPage) {
+			page=totalPage;
+		}
+		pageBean.setPage(page);
+		
 		//每页显示的数据集合
 		//从那开始
 		int begin = (page-1)*limit;
@@ -114,8 +124,7 @@ public class ProductService {
 	}
 	public PageBean<Product> findBySid(Integer sid, Integer page) {
 		PageBean<Product> pageBean = new PageBean<Product>();
-		//设置当前页数
-		pageBean.setPage(page);
+		
 		//设置每页显示记录
 		int limit= 8;
 		pageBean.setLimit(limit);
@@ -132,6 +141,13 @@ public class ProductService {
 			totalPage= totalCount/limit +1;
 		}
 		pageBean.setTotalPage(totalPage);
+		//设置当前页数
+		if(page==null||page<1)page=1;
+		else if (page>totalPage) {
+			page=totalPage;
+		}
+		pageBean.setPage(page);
+		
 		//每页显示的数据集合
 		//从那开始
 		int begin = (page-1)*limit;
@@ -159,5 +175,6 @@ public class ProductService {
 		productDao.update(product);
 		
 	}
+
 
 }

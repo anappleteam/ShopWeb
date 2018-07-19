@@ -41,7 +41,7 @@ public class UserAspect {
 				throw new UserNotLoginException();
 			}
 		} catch (Exception e) {
-			ServletActionContext.getRequest().getSession().setAttribute("loginMessage", "您尚未登陆！");
+			ServletActionContext.getRequest().getSession().setAttribute("loginMessage", "您尚未登录！");
 			throw new UserNotLoginException();
 		}
 

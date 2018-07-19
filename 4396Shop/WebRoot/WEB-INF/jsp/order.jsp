@@ -18,7 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="step step1">
 				<ul>
 					<li  class="current"></li>
-					<li  >生成订单成功</li>
+					<li>生成订单成功</li>
 				</ul>
 			</div>
 				<table>

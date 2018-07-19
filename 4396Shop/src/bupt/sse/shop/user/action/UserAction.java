@@ -118,10 +118,18 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		}
 		User existUser=userService.login(user);
 		if(existUser==null){
-			this.addActionError("登录失败：用户名或密码有误或用户未激活！");
+			this.addActionError("登录失败：用户名或密码有误");
 			return LOGIN;
 		}
 		else {
+			if(existUser.getState()==0){
+				this.addActionError("登录失败:用户未激活");
+				return LOGIN;
+			}else if (existUser.getState()>=100) {
+				this.addActionError("登录失败:用户已被禁用,请联系管理员4396admin@4396shop.com");
+				return LOGIN;
+			}
+			
 			HttpServletRequest request =ServletActionContext.getRequest();
 			HttpServletResponse response =ServletActionContext.getResponse();
 			LoginUtils.createCookie(request, response);

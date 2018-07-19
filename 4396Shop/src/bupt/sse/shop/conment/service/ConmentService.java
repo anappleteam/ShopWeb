@@ -14,4 +14,8 @@ public class ConmentService {
 	public List<Conment> findByPid(Integer pid) {
 		return conmentDao.findByPid(pid);
 	}
+	
+	public void save(Conment conment){
+		conmentDao.save(conment);
+	}
 }

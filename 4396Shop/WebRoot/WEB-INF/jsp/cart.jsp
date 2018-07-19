@@ -16,11 +16,10 @@
 <body>
 	<%@ include file="menu.jsp"%>
 	<div class="container cart">
-		<s:if test="pageBean.list !=null">
+		<s:if test="#session.cart.cartItems.size() != 0">
 			<!-- 不判断map是否为空，map一旦new出来后就有地址 -->
 			<div class="span24">
-			<br/>
-			<br/>
+				<br /> <br />
 				<table>
 					<tbody>
 						<tr>
@@ -39,12 +38,16 @@
 							<th>小计</th>
 							<th>操作</th>
 						</tr>
-						<s:iterator var="cartItem" value="pageBean.list">
+						<s:iterator var="cartItem" value="#session.cart.cartItems">
 							<tr>
 								<td width="60"><input type="checkbox" id="citemid"
-									name="selectCartItem"
+									name="selectProduct"
 									value="<s:property value="#cartItem.citemid"/>"
-									onclick="selectOne(this)" /></td>
+									onclick="selectOne(this)" /> <input
+									id="<s:property value="#cartItem.citemid"/>_pid" type="hidden"
+									value="<s:property
+											value="#cartItem.product.pid"/>" />
+								</td>
 								<td width="60"><a
 									href="<%=path%>/product_findByPid.action?pid=<s:property value="#cartItem.product.pid"/>"
 									target="_blank"> <img
@@ -84,6 +87,7 @@
 				<dl id="giftItems" class="hidden" style="display: none;">
 				</dl>
 				<div class="total">
+				<span style="float:left;"><font color="red"><s:actionmessage /></font></span>
 					已选金额: ￥<strong id="effectivePrice">0.0</strong>
 				</div>
 				<div class="bottom">
@@ -106,127 +110,155 @@
 	</div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 	<script>
-	var flagAll = false;
-	var total = 0.0;
-	function selectOne(node) {
-		var cartId = node.value;
-		var subtotal = document.getElementById("span_" + cartId).innerText;
-		var inventory = parseInt(document.getElementById(cartId + "_inventory").innerText);
-		var count = parseInt(document.getElementById(cartId + "_oldCount").value);
-		if (node.checked) {
-			if (count > inventory) {
-				node.checked = false;
-				alert("库存不足，请修改数量！");
-				return;
-			} else {
-				total += Number(subtotal);
-			}
-		} else {
-			total -= Number(subtotal);
-		}
-		document.getElementById("effectivePrice").innerText = parseFloat(total).toFixed(1);
-	}
-
-	function selectAll() {
-		var names = document.getElementsByName("selectCartItem");
-		if (!flagAll) {
-			for (var i = 0; i < names.length; i++) {
-				if (names[i].checked) {
-					continue;
+		var flagAll = false;
+		var total = 0.0;
+		function selectOne(node) {
+			var citemid = node.value;
+			var subtotal = document.getElementById("span_" + citemid).innerText;
+			var inventory = parseInt(document.getElementById(citemid + "_inventory").innerText);
+			var count = parseInt(document.getElementById(citemid + "_oldCount").value);
+			if (node.checked) {
+				if (count > inventory) {
+					node.checked = false;
+					alert("库存不足，请修改数量！");
+					return;
 				} else {
-					names[i].checked = true;
+					total += Number(subtotal);
+				}
+			} else {
+				total -= Number(subtotal);
+			}
+			document.getElementById("effectivePrice").innerText = parseFloat(total).toFixed(1);
+		}
+	
+		function selectAll() {
+			var names = document.getElementsByName("selectProduct");
+			var inventory = 0;
+			var count = 0;
+			if (!flagAll) {
+				for (var i = 0; i < names.length; i++) {
+					inventory = parseInt(document.getElementById(names[i].value + "_inventory").innerText);
+					count = parseInt(document.getElementById(names[i].value + "_oldCount").value);
+					if (count > inventory) {
+						document.getElementById("checkAll").checked = false;
+						alert("请检查商品数量是否超出库存！");
+						return;
+					}
+				}
+				for (var i = 0; i < names.length; i++) {
+					if (names[i].checked) {
+						continue;
+					} else {
+						names[i].checked = true;
+						selectOne(names[i]);
+					}
+				}
+				flagAll = true;
+			} else {
+				for (var i = 0; i < names.length; i++) {
+					names[i].checked = false;
 					selectOne(names[i]);
 				}
+				flagAll = false;
 			}
-			flagAll = true;
-		} else {
+		}
+	
+		function unSelectAll() {
+			var names = document.getElementsByName("selectProduct");
 			for (var i = 0; i < names.length; i++) {
-				names[i].checked = false;
-				selectOne(names[i]);
+				if (names[i].checked) {
+					names[i].checked = false;
+				} else {
+					continue;
+				}
 			}
-			flagAll = false;
+			document.getElementById("effectivePrice").innerText = parseFloat(0).toFixed(1);
+			total=0;
 		}
-	}
-
-	function submitSelected() {
-		var names = document.getElementsByName("selectCartItem");
-		var cids = new Array();
-		var j = 0;
-		for (var i = 0; i < names.length; i++) {
-			if (names[i].checked) {
-				cids.push(names[i].value);
-				j++;
+	
+		function submitSelected() {
+			var names = document.getElementsByName("selectProduct");
+			var pids = new Array();
+			var j = 0;
+			for (var i = 0; i < names.length; i++) {
+				if (names[i].checked) {
+					var pid = document.getElementById(names[i].value + "_pid").value;
+					pids.push(pid);
+					j++;
+				}
+			}
+			if (pids.length > 0) {
+				var pidsstring = pids.join(",");
+				window.location.href = "${pageContext.request.contextPath}/cart_save.action?pidsstring=" + pidsstring;
+				return false;
+			} else {
+				return false;
 			}
 		}
-		if (cids.length > 0) {
-			var cidsstring = cids.join(",");
-			window.location.href = "${pageContext.request.contextPath}/order_save.action?cidsstring=" + cidsstring + "&total?=" + (parseFloat(total));
-			return false;
-		} else {
-			return false;
-		}
-	}
-
-	function changeCount(node) {
-		var cartId = node.value;
-		var inventory = document.getElementById(cartId + "_inventory").innerText;
-		var oldCount = document.getElementById(cartId + "_oldCount").value;
-		var newCount = document.getElementById(cartId + "_itemCount").value;
-		if (newCount <= 0) {
-			alert("请输入大于0的有效值！");
-			document.getElementById(cartId + "_itemCount").value = oldCount;
-			return;
-		} else if (newCount > inventory) {
-			alert("库存不足，请重新输入数量！");
-			document.getElementById(cartId + "_itemCount").value = oldCount;
-			return;
-		} else if (newCount == oldCount) {
-			return;
-		}
-		// 1.创建异步交互对象
-		var xhr = createXmlHttp();
-		// 2.设置监听
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState == 4) {
-				if (xhr.status == 200) {
-					if (xhr.responseText != '') {
-						var returns = xhr.responseText.split(",")
-						if (returns[0] == "true") {
-							document.getElementById("span_" + cartId).innerText = returns[1];
-							document.getElementById(cartId + "_oldCount").value = newCount;
-						} else if (returns[0] == "false") {
-							alert("当前库存剩余" + returns[1]);
-							document.getElementById(cartId + "_itemCount").value = oldCount;
+	
+		function changeCount(node) {
+			unSelectAll();
+			var citemid = node.value;
+			var subtotal = document.getElementById("span_" + citemid).innerText;
+			var inventory = parseInt(document.getElementById(citemid + "_inventory").innerText);
+			var oldCount = parseInt(document.getElementById(citemid + "_oldCount").value);
+			var newCount = parseInt(document.getElementById(citemid + "_itemCount").value);
+			if (newCount <= 0) {
+				alert("请输入大于0的有效值！");
+				document.getElementById(citemid + "_itemCount").value = oldCount;
+				return;
+			} else if (newCount > inventory) {
+				alert("库存不足，请重新输入数量！");
+				document.getElementById(citemid + "_itemCount").value = oldCount;
+				return;
+			} else if (newCount == oldCount) {
+				total-= Number(subtotal);
+				return;
+			}
+			// 1.创建异步交互对象
+			var xhr = createXmlHttp();
+			// 2.设置监听
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4) {
+					if (xhr.status == 200) {
+						if (xhr.responseText != '') {
+							var returns = xhr.responseText.split(",")
+							if (returns[0] == "true") {
+								document.getElementById("span_" + citemid).innerText = returns[1];
+								document.getElementById(citemid + "_oldCount").value = newCount;
+							} else if (returns[0] == "false") {
+								alert("当前库存剩余" + returns[1]);
+								document.getElementById(citemid + "_itemCount").value = oldCount;
+							}
 						}
 					}
 				}
 			}
+			// 3.打开连接
+			xhr.open("GET", "${pageContext.request.contextPath}/cart_updateCart.action?time=" + new Date().getTime() + "&citemid=" + citemid + "&newCount=" + newCount, true);
+			// 4.发送
+			xhr.send(null);
 		}
-		// 3.打开连接
-		xhr.open("GET", "${pageContext.request.contextPath}/cart_updateCart.action?time=" + new Date().getTime() + "&citemid=" + cartId + "&newCount=" + newCount, true);
-		// 4.发送
-		xhr.send(null);
-	}
-	function createXmlHttp() {
-		var xmlHttp;
-		try { // Firefox, Opera 8.0+, Safari
-			xmlHttp = new XMLHttpRequest();
-		} catch (e) {
-			alert(e.message);
-			try { // Internet Explorer
-				xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+		function createXmlHttp() {
+			var xmlHttp;
+			try { // Firefox, Opera 8.0+, Safari
+				xmlHttp = new XMLHttpRequest();
 			} catch (e) {
 				alert(e.message);
-				try {
-					xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+				try { // Internet Explorer
+					xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
 				} catch (e) {
 					alert(e.message);
+					try {
+						xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+					} catch (e) {
+						alert(e.message);
+					}
 				}
 			}
+	
+			return xmlHttp;
 		}
-
-		return xmlHttp;
-	}
-</script>
+	</script>
 </body>
 </html>

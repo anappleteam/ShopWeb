@@ -13,8 +13,6 @@ public class CartItem {
 	private User user;
 	private Date addtime;
 	
-	private Boolean selected;   //标记该购物项是否已被选择
-	
 	public Integer getCitemid() {
 		return citemid;
 	}
@@ -62,14 +60,6 @@ public class CartItem {
 	
 	public void setAddtime(Date addtime) {
 		this.addtime = addtime;
-	}
-	
-	public Boolean getSelected() {
-		return selected;
-	}
-	
-	public void setSelected(Boolean selected) {
-		this.selected = selected;
 	}
 
 }
