@@ -25,7 +25,7 @@
 				</s:if>
 				<s:else>
 					<li id="headerUsername" class="headerUsername"
-						style="display: list-item;"><s:property
+						style="display: list-item;color:#DDDDDD;"><s:property
 							value="#session.existUser.username" />
 					</li>
 					<li id="headerLogout" class="headerLogout"
