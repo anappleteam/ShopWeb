@@ -132,7 +132,7 @@
 						</s:iterator>
 					</s:iterator>
 					<tr>
-						<td colspan="5">
+						<td colspan="7">
 							<div class="pagination">
 								<span>第<s:property value="pageBean.page" />/<s:property
 										value="pageBean.totalPage" />页
