@@ -42,8 +42,7 @@ public class DataSourceAdvice implements MethodBeforeAdvice,ThrowsAdvice,AfterRe
 		
 	}
 	
-	public void afterThrowing(Method method, Object[] args, Object target, Exception ex) throws Throwable {
-		
+	public void afterThrowing(Method method, Object[] args, Object target, Exception ex) throws Throwable {	
 		DataSourceSwitcher.setSlave();
 		logger.info("出现异常,切换到: slave");
 	}
