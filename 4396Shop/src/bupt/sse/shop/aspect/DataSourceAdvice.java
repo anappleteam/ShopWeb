@@ -32,19 +32,19 @@ public class DataSourceAdvice implements MethodBeforeAdvice,ThrowsAdvice,AfterRe
 		if(masterMethod.contains(methodname)){
 			logger.info("切换到主数据库");
 			DataSourceSwitcher.setMaster();
-//		}else if(slaveMethod.contains(methodname)){
-//			logger.info("切换到从数据库");
-//			DataSourceSwitcher.setSlave();
-		}else{
+		}else if(slaveMethod.contains(methodname)){
 			logger.info("切换到从数据库");
 			DataSourceSwitcher.setSlave();
+		}else{
+			logger.info("切换到从数据库");
+			DataSourceSwitcher.setMaster();
 		}
 		
 	}
 	
 	public void afterThrowing(Method method, Object[] args, Object target, Exception ex) throws Throwable {
 		
-		//DataSourceSwitcher.setSlave();
+		DataSourceSwitcher.setSlave();
 		logger.info("出现异常,切换到: slave");
 	}
 
