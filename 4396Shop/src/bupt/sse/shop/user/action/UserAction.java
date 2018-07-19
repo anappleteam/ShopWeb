@@ -218,6 +218,8 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			}else if(newExistUser.getState()==3){
 				response.getWriter().print("<div class='dropdown'><span>我的店铺</span><div class='dropdown-content'><a href='productMng_findByCurStore.action?page=1'>商品管理</a><br><a href='store_orderMng?page=1'>订单管理</a></div></div> |");
 			}
+			response.getWriter().flush();
+			response.getWriter().close();
 		}
 		return NONE;
 	}
@@ -240,6 +242,8 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			HttpServletResponse response=ServletActionContext.getResponse();
 			response.setContentType("text/html;charset=UTF-8");
 			response.getWriter().print(registEmail);
+			response.getWriter().flush();
+			response.getWriter().close();
 		}
 		else{
 			this.addActionError("用户名不存在或尚未激活!");
