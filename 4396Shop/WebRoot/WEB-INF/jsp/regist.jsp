@@ -10,8 +10,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>会员注册</title>
-<link href="<%=path%>/css/register.css" rel="stylesheet" type="text/css" />
 <jsp:include page="menu.jsp" />
+<link href="<%=path%>/css/register.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<div class="container register">
@@ -92,9 +92,9 @@
 								<tr>
 									<th><span class="requiredField">*</span>验证码:</th>
 									<td><span class="fieldSet"> <input type="text"
-											id="checkcode" name="checkcode" class="text captcha"
+											id="checkcode" name="checkcode" class="text"
 											maxlength="5"
-											onblur="checkcodeFunction(this)"></input><img id="checkImage"
+											onblur="checkcodeFunction(this)"/><img id="checkImage"
 											class="captchaImage" src="<%=path%>/checkImg.action"
 											onclick="change()"/>
 									</span> <span id="checkcode_span"><font color="red"><s:actionerror

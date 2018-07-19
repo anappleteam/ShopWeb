@@ -82,12 +82,19 @@
 				<prop key="hibernate.connection.autocommit">false</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<!-- <prop key="hibernate.autoReconnect">true</prop> -->
-				<prop key="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider
-				</prop>
-				<!-- <prop key="c3p0.min_size">5</prop> <prop key="c3p0.max_size">30</prop> 
-					<prop key="c3p0.time_out">1800</prop> <prop key="c3p0.max_statement">50</prop> 
-					<prop key="c3p0.acquire_increment">1</prop> <prop key="c3p0.idle_test_period">120</prop> 
-					<prop key="c3p0.validate">true</prop> -->
+				<prop key="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</prop>
+				<!-- 开启二级缓存，使用EhCache缓存 -->
+		      	<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+   				<prop key="hibernate.cache.use_query_cache">true</prop>
+   				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+   				<prop key="hibernate.cache.configurationResourceName">ehcache.xml</prop>  
+<!-- 				<prop key="c3p0.min_size">5</prop>
+				<prop key="c3p0.max_size">30</prop>
+				<prop key="c3p0.time_out">1800</prop>
+				<prop key="c3p0.max_statement">50</prop>
+				<prop key="c3p0.acquire_increment">1</prop>
+				<prop key="c3p0.idle_test_period">120</prop>
+				<prop key="c3p0.validate">true</prop> -->
 			</props>
 		</property>
 

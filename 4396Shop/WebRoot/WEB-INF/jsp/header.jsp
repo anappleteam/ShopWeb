@@ -4,7 +4,6 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <div class="header"
 	style="background-color: #000000;position:fixed;z-index:9999;width:100%">
-
 	<div class="span24 last">
 		<div class="logo">
 			<a href="${pageContext.request.contextPath }/index">

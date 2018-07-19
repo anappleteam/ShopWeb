@@ -2,6 +2,7 @@ package bupt.sse.shop.product.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -13,19 +14,32 @@ import bupt.sse.shop.utils.PageHibernateCallback;
 public class ProductDao extends HibernateDaoSupport {
 	//查询热门商品
 	public List<Product> findHot() {
-		//使用离线条件查询。
-		DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
+//		//使用离线条件查询。
+//		DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
+//		criteria.add(Restrictions.eq("is_hot",1));
+//		criteria.addOrder(Order.desc("pdate"));
+//		List<Product> list=this.getHibernateTemplate().findByCriteria(criteria,0,10);
+		Criteria criteria=this.getSession().createCriteria(Product.class);
 		criteria.add(Restrictions.eq("is_hot",1));
 		criteria.addOrder(Order.desc("pdate"));
-		List<Product> list=this.getHibernateTemplate().findByCriteria(criteria,0,10);
+		criteria.setFirstResult(0);
+		criteria.setMaxResults(10);
+		criteria.setCacheable(true);
+		List<Product> list=criteria.list();
 		return list;
 	}
 	//查询最新商品
 	public List<Product> findNew() {
-		//使用离线条件查询
-		DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
+//		//使用离线条件查询
+//		DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
+//		criteria.addOrder(Order.desc("pdate"));
+//		List<Product> list = this.getHibernateTemplate().findByCriteria(criteria,0,10);
+		Criteria criteria=this.getSession().createCriteria(Product.class);
 		criteria.addOrder(Order.desc("pdate"));
-		List<Product> list = this.getHibernateTemplate().findByCriteria(criteria,0,10);
+		criteria.setFirstResult(0);
+		criteria.setMaxResults(10);
+		criteria.setCacheable(true);
+		List<Product> list=criteria.list();
 		return list;
  	}
 	//根据商品ID查询商品

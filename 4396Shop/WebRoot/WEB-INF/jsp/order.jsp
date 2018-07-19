@@ -9,10 +9,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <title>订单页面</title>
+<jsp:include page="menu.jsp"/>
 <link href="${pageContext.request.contextPath}/css/cart.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>		
-<%@ include file="menu.jsp" %>
 <div class="container cart">
 		<div class="span24">
 			<div class="step step1">
@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<table>
 					<tbody>
 					<tr>
-						<th colspan="5">订单编号:<s:property value="model.oid"/>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+						<th colspan="5">订单编号:<s:property value="order.oid"/>&nbsp;&nbsp;&nbsp;&nbsp;</th>
 					</tr>
 					<tr>
 						<th>图片</th>
@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<th>数量</th>
 						<th>小计</th>
 					</tr>	
-					<s:iterator var="orderItem" value="model.orderItems">
+					<s:iterator var="orderItem" value="order.orderItems">
 					
 						<tr>
 							<td width="60">
@@ -60,17 +60,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</dl>
 				<div class="total">
 					<em id="promotion"></em>
-					商品金额: <strong id="effectivePrice">￥<s:property value="model.total"/>元</strong>
+					商品金额: <strong id="effectivePrice">￥<s:property value="order.total"/>元</strong>
 				</div>
 			<form id="orderForm" action="${ pageContext.request.contextPath }/order_payOrder.action" method="post">
-				<input type="hidden" name="oid" value="<s:property value="model.oid"/>"/>
+				<input type="hidden" name="oid" value="<s:property value="order.oid"/>"/>
 				<div class="span24">
 					<p>
-							收货地址：<input name="addr" type="text" value="<s:property value="model.user.addr"/>" style="width:350px" />
+							收货地址：<input name="addr" type="text" value="<s:property value="order.user.addr"/>" style="width:350px" />
 								<br />
-							收货人&nbsp;&nbsp;&nbsp;：<input name="name" type="text" value="<s:property value="model.user.name"/>" style="width:150px" />
+							收货人&nbsp;&nbsp;&nbsp;：<input name="name" type="text" value="<s:property value="order.user.name"/>" style="width:150px" />
 								<br /> 
-							联系方式：<input name="phone" type="text"value="<s:property value="model.user.phone"/>" style="width:150px" />
+							联系方式：<input name="phone" type="text"value="<s:property value="order.user.phone"/>" style="width:150px" />
 
 						</p>
 						<hr /> 	

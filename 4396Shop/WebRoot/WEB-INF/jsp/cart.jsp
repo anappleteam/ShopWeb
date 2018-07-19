@@ -10,11 +10,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>购物车</title>
+<jsp:include page="menu.jsp"/>
 <link href="${pageContext.request.contextPath}/css/cart.css"
 	rel="stylesheet" type="text/css" />
 </head>
 <body>
-	<%@ include file="menu.jsp"%>
 	<div class="container cart">
 		<s:if test="#session.cart.cartItems.size() != 0">
 			<!-- 不判断map是否为空，map一旦new出来后就有地址 -->

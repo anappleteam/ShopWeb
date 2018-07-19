@@ -26,8 +26,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>会员登录</title>
-<link href="<%=path%>/css/login.css" rel="stylesheet" type="text/css" />
 <jsp:include page="menu.jsp" />
+<link href="<%=path%>/css/login.css" rel="stylesheet" type="text/css" />
 </head>
 <body style="margin-top: 80px">
 	<div class="container login">

@@ -4,6 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
     <hibernate-mapping>
     	<class name="bupt.sse.shop.categorysecond.vo.CategorySecond" table="categorysecond">
+    		<cache usage="read-only"/>
     		<id name="csid">
     			<generator class="native"/>
     		</id>
@@ -13,6 +14,7 @@
     		
     		<!-- 二级分类与商品的关联 -->
     		<set name="products">
+    			<cache usage="read-write"/>
     			<key column="csid"/>
     			<one-to-many class="bupt.sse.shop.product.vo.Product"/>
     		</set>

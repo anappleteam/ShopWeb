@@ -13,9 +13,9 @@ import bupt.sse.shop.category.vo.Category;
 public class CategoryDao extends HibernateDaoSupport {
 
 	public List<Category> findAll() {
+		this.getHibernateTemplate().setCacheQueries(true);
 		String hql = "from Category";
 		List<Category> list= this.getHibernateTemplate().find(hql);
-		System.out.println(list.toString());
 		return list;
 	}
 	//Dao层保存一级分类的方法

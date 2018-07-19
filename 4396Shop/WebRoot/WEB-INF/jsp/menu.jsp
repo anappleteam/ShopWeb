@@ -103,8 +103,6 @@
 		// 4.发送
 
 		xhr.send(null);
-		
-		
 
 	}
 	function createXmlHttp() {

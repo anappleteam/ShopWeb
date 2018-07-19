@@ -9,6 +9,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import org.apache.struts2.ServletActionContext;
+
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import bupt.sse.shop.cart.service.CartItemService;
@@ -214,6 +216,7 @@ public class CartAction extends ActionSupport {
         Date date3=temp.parse(date2);  
 		order.setOrdertime(date3);
 		orderService.save(order);
+		ActionContext.getContext().getValueStack().set("order", order);
 		return "saveSuccess";
 	}
 	

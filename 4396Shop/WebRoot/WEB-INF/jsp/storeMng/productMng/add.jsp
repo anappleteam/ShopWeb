@@ -2,14 +2,11 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="${pageContext.request.contextPath}/css/common.css"
-	type="text/css" rel="stylesheet">
+<jsp:include page="/WEB-INF/jsp/header.jsp" />
 <link href="${pageContext.request.contextPath}/css/cart.css"
 	rel="stylesheet" type="text/css" />
 </head>
 <body>
-	<jsp:include page="/WEB-INF/jsp/header.jsp" />
 	<div class="container cart"
 		style="margin-top: auto;padding-top: 120px;">
 		<form id="userAction_save_do" name="Form1"

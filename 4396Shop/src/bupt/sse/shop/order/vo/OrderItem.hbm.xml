@@ -4,6 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="bupt.sse.shop.order.vo.OrderItem" table="orderitem">
+		<cache usage="read-write"/>
 		<id name="itemid">
 			<generator class="native"/>
 		</id>

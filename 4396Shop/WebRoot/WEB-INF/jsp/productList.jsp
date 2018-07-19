@@ -10,11 +10,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>4396购物</title>
+<jsp:include page="menu.jsp" />
 <link href="<%=path%>/css/product.css" rel="stylesheet" type="text/css" />
-
 </head>
 <body>
-	<jsp:include page="menu.jsp" />
 	<div class="container productList">
 		<div class="span6">
 			<div class="hotProductCategory">

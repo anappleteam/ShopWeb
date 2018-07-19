@@ -11,11 +11,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>4396购物</title>
+<jsp:include page="menu.jsp" />
 <link href="<%=path%>/css/product.css" rel="stylesheet" type="text/css" />
-
 </head>
 <body>
-	<jsp:include page="menu.jsp" />
 	<div class="container productList">
 		<div class="span6">
 			<div class="storeTitle">

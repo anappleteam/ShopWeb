@@ -2,28 +2,33 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
- <class name="bupt.sse.shop.user.vo.User" table="user">
-  <id name="uid">
-   <generator class="native"/>
-  </id>
-  <property generated="never" lazy="false" name="username"/>
-  <property generated="never" lazy="false" name="password"/>
-  <property generated="never" lazy="false" name="name"/>
-  <property generated="never" lazy="false" name="identification"/>
-  <property generated="never" lazy="false" name="sex"/>
-  <property generated="never" lazy="false" name="date"/>
-  <property generated="never" lazy="false" name="email"/>
-  <property generated="never" lazy="false" name="phone"/>
-  <property generated="never" lazy="false" name="addr"/>
-  <property generated="never" lazy="false" name="state"/>
-  <property generated="never" lazy="false" name="code"/>
-  <set name="cart" sort="unsorted" lazy="false" cascade="delete" inverse="true">
-   <key column="uid"/>
-   <one-to-many class="bupt.sse.shop.cart.vo.CartItem"/>
-  </set>
-  <set name="stores" sort="unsorted" lazy="false" cascade="delete" inverse="true">
-  	<key column="uid"/>
-  	<one-to-many class="bupt.sse.shop.store.vo.Store"/>
-  </set>
- </class>
+	<class name="bupt.sse.shop.user.vo.User" table="user">
+		<cache usage="read-write"/>
+		<id name="uid">
+			<generator class="native" />
+		</id>
+		<property generated="never" lazy="false" name="username" />
+		<property generated="never" lazy="false" name="password" />
+		<property generated="never" lazy="false" name="name" />
+		<property generated="never" lazy="false" name="identification" />
+		<property generated="never" lazy="false" name="sex" />
+		<property generated="never" lazy="false" name="date" />
+		<property generated="never" lazy="false" name="email" />
+		<property generated="never" lazy="false" name="phone" />
+		<property generated="never" lazy="false" name="addr" />
+		<property generated="never" lazy="false" name="state" />
+		<property generated="never" lazy="false" name="code" />
+		<set name="cart" sort="unsorted" lazy="false" cascade="delete"
+			inverse="true">
+			<cache usage="read-write"/>
+			<key column="uid" />
+			<one-to-many class="bupt.sse.shop.cart.vo.CartItem" />
+		</set>
+		<set name="stores" sort="unsorted" lazy="false" cascade="delete"
+			inverse="true">
+			<cache usage="read-write"/>
+			<key column="uid" />
+			<one-to-many class="bupt.sse.shop.store.vo.Store" />
+		</set>
+	</class>
 </hibernate-mapping>
