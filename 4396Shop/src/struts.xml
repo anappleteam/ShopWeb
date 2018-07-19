@@ -23,7 +23,7 @@
     	<!-- 全局异常映射 -->
     	<global-exception-mappings> 		
     		<exception-mapping result="userNotLogin" exception="bupt.sse.shop.aspect.UserNotLoginException"></exception-mapping>
-    		<exception-mapping result="unhandledException" exception=""></exception-mapping>
+    		<!-- <exception-mapping result="unhandledException" exception=""></exception-mapping> -->
     	</global-exception-mappings>
     	<!-- 首页访问的Action -->
     	<action name="index" class="indexAction">
