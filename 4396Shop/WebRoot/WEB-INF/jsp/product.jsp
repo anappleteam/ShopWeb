@@ -55,7 +55,7 @@
 
 			<div class="productImage">
 				<a style="outline-style: none; text-decoration: none;" id="zoom"
-					href="<%=basePath%><s:property value="model.image"/>" rel="gallery">
+					href="<%=path%>/<s:property value="model.image"/>" rel="gallery">
 					<img style="opacity: 1;" class="medium"
 					src="<%=path%>/<s:property value="model.image"/>" />
 				</a>

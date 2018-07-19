@@ -4,7 +4,6 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="bupt.sse.shop.order.vo.Order" table="orders">
-		<cache usage="read-write"/>
 		<id name="oid">
 			<generator class="native"/>
 		</id>
@@ -19,7 +18,6 @@
 		<many-to-one name="user" lazy="false" class="bupt.sse.shop.user.vo.User" column="uid"/>
 		
 		<set name="orderItems" order-by="itemid" lazy="false" cascade="save-update">
-			<cache usage="read-write"/>
 			<key column="oid"/>
 			<one-to-many class="bupt.sse.shop.order.vo.OrderItem"/>
 		</set>

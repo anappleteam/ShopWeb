@@ -115,7 +115,7 @@
 		}
 		function checkInputInt(inputLabel){
 			var n=parseInt(inputLabel.value);
-			if(n.toString()=="NaN"||n.toString().length!=inputLabel.value.length||n<0){
+			if(n.toString()=="NaN"||n<0){
 				inputLabel.value="";
 				inputLabel.style.borderColor="red";
 				return false;
@@ -127,7 +127,7 @@
 		}
 		function checkInputFloat(inputLabel){
 			var n=parseFloat(inputLabel.value);
-			if(n.toString()=="NaN"||n.toString().length!=inputLabel.value.length||n<0){
+			if(n.toString()=="NaN"||n<0){
 				inputLabel.value="";
 				inputLabel.style.borderColor="red";
 				return false;

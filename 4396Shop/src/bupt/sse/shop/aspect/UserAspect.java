@@ -34,7 +34,7 @@ public class UserAspect {
 	/**
 	 * 前置通知，拦截orderAction所有方法，检查用户是否登陆
 	 */
-	@Before("orderActionPointCut()||cartActionPointCut()")
+	@Before("orderActionPointCut()||cartActionPointCut()||userActionPointCut()")
 	public void checkLoginBefore(JoinPoint joinPoint) throws UserNotLoginException {
 		try {
 			User existUser = (User) ServletActionContext.getRequest().getSession().getAttribute("existUser");
@@ -89,6 +89,10 @@ public class UserAspect {
 
 	@Pointcut("execution(* bupt.sse.shop.cart.action.CartAction.*(..))")
 	private void cartActionPointCut() {
+	}
+	
+	@Pointcut("execution(* bupt.sse.shop.user.action.UserAction.merchant*(..))")
+	private void userActionPointCut() {
 	}
 
 	@Pointcut("execution(* bupt.sse.shop.*.action.*Action.*(..))")

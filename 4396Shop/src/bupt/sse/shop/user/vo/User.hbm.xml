@@ -3,7 +3,6 @@
                                    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="bupt.sse.shop.user.vo.User" table="user">
-		<cache usage="read-write"/>
 		<id name="uid">
 			<generator class="native" />
 		</id>
@@ -20,13 +19,11 @@
 		<property generated="never" lazy="false" name="code" />
 		<set name="cart" sort="unsorted" lazy="false" cascade="delete"
 			inverse="true">
-			<cache usage="read-write"/>
 			<key column="uid" />
 			<one-to-many class="bupt.sse.shop.cart.vo.CartItem" />
 		</set>
 		<set name="stores" sort="unsorted" lazy="false" cascade="delete"
 			inverse="true">
-			<cache usage="read-write"/>
 			<key column="uid" />
 			<one-to-many class="bupt.sse.shop.store.vo.Store" />
 		</set>
