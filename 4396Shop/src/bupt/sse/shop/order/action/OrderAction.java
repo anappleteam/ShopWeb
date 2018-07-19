@@ -105,6 +105,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	@Transactional(readOnly=true)
 	public String findByOid(){
 		order = orderService.findByOid(order.getOid());
+		ActionContext.getContext().getValueStack().set("order",order);
 		return "findByOidSuccess";
 	}
 	
