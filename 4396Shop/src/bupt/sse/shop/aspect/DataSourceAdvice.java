@@ -32,9 +32,9 @@ public class DataSourceAdvice implements MethodBeforeAdvice,ThrowsAdvice,AfterRe
 		if(masterMethod.contains(methodname)){
 			logger.info("切换到主数据库");
 			DataSourceSwitcher.setMaster();
-		//}else if(slaveMethod.contains(methodname)){
-		//	logger.info("切换到从数据库");
-		//	DataSourceSwitcher.setSlave();
+//		}else if(slaveMethod.contains(methodname)){
+//			logger.info("切换到从数据库");
+//			DataSourceSwitcher.setSlave();
 		}else{
 			logger.info("切换到从数据库");
 			DataSourceSwitcher.setSlave();
