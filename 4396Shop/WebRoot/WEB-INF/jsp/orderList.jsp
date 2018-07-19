@@ -61,7 +61,7 @@
 									<img
 									src="${pageContext.request.contextPath}/<s:property value="#orderItem.product.image"/>" />
 								</td>
-								<td width="360"><a target="_blank"> <s:property
+								<td width="360"><a href="${pageContext.request.contextPath}/product_findByPid.action?pid=<s:property value="#orderItem.product.pid"/>"> <s:property
 											value="#orderItem.product.pname" />
 								</a></td>
 								<td width="180"><s:property
