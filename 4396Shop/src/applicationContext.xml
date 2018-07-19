@@ -173,6 +173,7 @@
 		scope="prototype">
 		<property name="productService" ref="productService" />
 		<property name="cartItemService" ref="cartItemService" />
+		<property name="orderService" ref="orderService" />
 	</bean>
 
 	<!-- 店铺action -->
@@ -194,9 +195,7 @@
 		scope="prototype">
 		<property name="orderService" ref="orderService" />
 		<property name="orderItemService" ref="orderItemService" />
-		<property name="cartItemService" ref="cartItemService" />
-		<property name="productService" ref="productService" />
-		<property name="conmentService" ref="conmentService" />
+		<property name="conmentService" ref="conmentService"/>
 	</bean>
 	<!-- 后台用户的action -->
 	<bean id="adminUserAction" class="bupt.sse.shop.adminuser.action.AdminUserAction"

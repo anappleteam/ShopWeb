@@ -9,15 +9,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.struts2.ServletActionContext;
 
-import com.opensymphony.xwork2.ActionContext;
+import org.apache.struts2.ServletActionContext;
+import org.springframework.transaction.annotation.Transactional;
 
 import bupt.sse.shop.cart.dao.CartItemDao;
 import bupt.sse.shop.cart.vo.Cart;
 import bupt.sse.shop.cart.vo.CartItem;
-import bupt.sse.shop.utils.PageBean;
-
+@Transactional
 public class CartItemService {
 	private CartItemDao cartItemDao;
 
@@ -28,12 +27,12 @@ public class CartItemService {
 	public void saveCartItem(CartItem cartItem) {
 		cartItemDao.save(cartItem);
 	}
-	
-	public void updateCartItem(CartItem cartItem){
+
+	public void updateCartItem(CartItem cartItem) {
 		cartItemDao.update(cartItem);
 	}
-	
-	public Cart getCart(){
+
+	public Cart getCart() {
 		Cart cart = (Cart) ServletActionContext.getRequest().getSession().getAttribute("cart");
 		if (cart == null) {
 			cart = new Cart();
@@ -41,27 +40,27 @@ public class CartItemService {
 		}
 		return cart;
 	}
-	
-	public CartItem findByCitemid(Integer citemid){
+
+	public CartItem findByCitemid(Integer citemid) {
 		return cartItemDao.findByCitemid(citemid);
 	}
-	
-	public List<CartItem> findByUid(Integer uid){
-		List<CartItem> list=cartItemDao.findByUid(uid);
-		if (list!=null&&list.size()>0) {
-			return list;		
+
+	public List<CartItem> findByUid(Integer uid) {
+		List<CartItem> list = cartItemDao.findByUid(uid);
+		if (list != null && list.size() > 0) {
+			return list;
 		}
-		return null;		
+		return null;
 	}
-	
-	public void loadCartItems(Integer uid){
-		Cart cart=new Cart();
-		List<CartItem> list= cartItemDao.findByUid(uid);
-		//if list is not null, add cartitem to set
-		if (list!=null&&list.size()>0) {
+
+	public void loadCartItems(Integer uid) {
+		Cart cart = new Cart();
+		List<CartItem> list = cartItemDao.findByUid(uid);
+		// if list is not null, add cartitem to set
+		if (list != null && list.size() > 0) {
 			for (int i = 0; i < list.size(); i++) {
-				CartItem cartItem=list.get(i);
-				cart.getCartItems().add(cartItem);
+				CartItem cartItem = list.get(i);
+				cart.getCartItemsMap().put(cartItem.getProduct().getPid(), cartItem);
 			}
 			ServletActionContext.getRequest().getSession().setAttribute("cart", cart);
 		}
@@ -69,10 +68,12 @@ public class CartItemService {
 
 	// functions:
 	// 1.add items to the cart
+	@Transactional
 	public void generateCartItem(CartItem cartItem) throws ParseException {
-		//get cart
-		Cart cart =getCart();
-		List<CartItem> list =cart.getCartItems();
+		// get cart
+		Cart cart = getCart();
+		Map<Integer, CartItem> cartItemMap = cart.getCartItemsMap();
+		// List<CartItem> list =cart.getCartItems();
 		// update加入时的时间
 		Date date = new Date();
 		SimpleDateFormat temp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -80,44 +81,57 @@ public class CartItemService {
 		Date date3 = temp.parse(date2);
 		cartItem.setAddtime(date3);
 		// if it exists?
-		Integer uid = cartItem.getUser().getUid();
 		Integer pid = cartItem.getProduct().getPid();
-		// find by uid&pid
-		CartItem oldCartItem = cartItemDao.findByUid_Pid(uid, pid);
-		if (oldCartItem != null) {
+		// find by pid
+		if (cartItemMap.containsKey(pid)) {
 			// Y-->increase the count, total
+			CartItem oldCartItem = cartItemMap.get(pid);
 			oldCartItem.setCount(oldCartItem.getCount() + cartItem.getCount());
 			oldCartItem.setAddtime(cartItem.getAddtime());
 			cartItemDao.update(oldCartItem);
+			cartItemMap.put(pid, oldCartItem);
 		} else {
 			// N-->add the item to the cart, then change the total
 			cartItemDao.save(cartItem);
-			cart.getCartItems().add(cartItem);
+			cartItemMap.put(pid, cartItem);
 			// 保存购物项
 		}
+		ServletActionContext.getRequest().getSession().setAttribute("cart", cart);
 	}
-	//2.remove cartItem
-	public void removeCartItem(Integer citemid){
-		CartItem cartItem=cartItemDao.findByCitemid(citemid);
+
+	// 2.remove cartItem
+	public void removeCartItem(Integer citemid) {
+		// get cart
+		Cart cart = getCart();
+		//get cartItem
+		CartItem cartItem = cartItemDao.findByCitemid(citemid);
+		Map<Integer, CartItem> cartItemMap = cart.getCartItemsMap();
+		cartItemMap.remove(cartItem.getProduct().getPid());
+		ServletActionContext.getRequest().getSession().setAttribute("cart", cart);
+		
 		cartItemDao.delete(cartItem);
-		Cart cart=getCart();
 	}
-	//3.clear cart:delete all cartitems
-	public void clearCart(Integer uid){
-		for(CartItem cartItem:cartItemDao.findByUid(uid)){
+
+	// 3.clear cart:delete all cartitems
+	public void clearCart(Integer uid) {
+		// get cart
+		Cart cart = getCart();
+		Map<Integer, CartItem> cartItemMap = cart.getCartItemsMap();
+		cartItemMap.clear();
+		ServletActionContext.getRequest().getSession().setAttribute("cart", cart);
+		for (CartItem cartItem : cartItemDao.findByUid(uid)) {
 			cartItemDao.delete(cartItem);
-		}	
-		Cart cart=getCart();
+		}
 	}
-	
-	public PageBean<CartItem> findByUid(int uid) {
-		PageBean<CartItem> pageBean = new PageBean<CartItem>();
-		Integer totalCount = null;
-		totalCount = cartItemDao.findByCountUid(uid);
-		pageBean.setTotalCount(totalCount);
-		pageBean.setLimit(totalCount);
-		List<CartItem> list = cartItemDao.findByUid(uid);
-		pageBean.setList(list);
-		return pageBean;
-	}
+//
+//	public PageBean<CartItem> findByUid(int uid) {
+//		PageBean<CartItem> pageBean = new PageBean<CartItem>();
+//		Integer totalCount = null;
+//		totalCount = cartItemDao.findByCountUid(uid);
+//		pageBean.setTotalCount(totalCount);
+//		pageBean.setLimit(totalCount);
+//		List<CartItem> list = cartItemDao.findByUid(uid);
+//		pageBean.setList(list);
+//		return pageBean;
+//	}
 }

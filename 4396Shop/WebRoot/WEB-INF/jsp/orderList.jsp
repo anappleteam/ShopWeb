@@ -61,7 +61,7 @@
 									<img
 									src="${pageContext.request.contextPath}/<s:property value="#orderItem.product.image"/>" />
 								</td>
-								<td width="360"><a target="_blank"> <s:property
+								<td width="360"><a href="${pageContext.request.contextPath}/product_findByPid.action?pid=<s:property value="#orderItem.product.pid"/>"> <s:property
 											value="#orderItem.product.pname" />
 								</a></td>
 								<td width="180"><s:property
@@ -132,7 +132,7 @@
 						</s:iterator>
 					</s:iterator>
 					<tr>
-						<td colspan="5">
+						<td colspan="7">
 							<div class="pagination">
 								<span>第<s:property value="pageBean.page" />/<s:property
 										value="pageBean.totalPage" />页

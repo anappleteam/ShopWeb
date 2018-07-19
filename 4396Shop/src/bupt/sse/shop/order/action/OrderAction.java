@@ -58,13 +58,8 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 
 	//revieve uid 
 	private Integer uid;
-
-	private CartItemService cartItemService;
 	private Integer page;
-	private Double total=0.0;
 	private Integer itemid;
-	
-	private ProductService productService;
 	
 	public void setPage(Integer page) {
 		this.page = page;
@@ -90,82 +85,11 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 		this.uid = uid;
 	}
 	
-	public void setCartItemService(CartItemService cartItemService) {
-		this.cartItemService = cartItemService;
-	}
 	
 	public Order getModel(){
 		return order;
 	}
 	
-	public void setProductService(ProductService productService) {
-		this.productService = productService;
-	}
-	
-	//从购物车到订单
-	private String cidsstring;
-	public void setCidsstring(String cidsstring) {
-		this.cidsstring = cidsstring;
-	}
-	@Transactional(isolation=Isolation.REPEATABLE_READ)
-	public String save() throws ParseException, IOException{
-		// 加前置通知
-		User existUser = (User) ServletActionContext.getRequest().getSession()
-				.getAttribute("existUser");
-		if(existUser == null){
-			this.addActionError("亲！您还没有登录！请先登录！");
-			return "login";
-		}
-		order.setUser(existUser);
-		order.setName(existUser.getName());
-		order.setAddr(existUser.getAddr());
-		order.setPhone(existUser.getPhone());
-		String[] cids=cidsstring.split(",");
-		Cart cart = (Cart) ServletActionContext.getRequest().getSession().getAttribute("cart");
-		if (cart == null) {
-			this.addActionMessage("亲!您还没有购物!");
-			return "msg";
-		}
-		List<CartItem> cartItems=cart.getCartItems();
-		Map<Integer,CartItem> cartItemMap=cartItems.stream().collect(Collectors.toMap(CartItem::getCitemid, a -> a,(k1,k2)->k1));
-		for (int i = 0; i < cids.length; i++) {
-			String string = cids[i];
-			Integer cid=Integer.valueOf(string);
-			if(cartItemMap.containsKey(cid))
-			{
-				//购物项中的信息填入订单项
-				CartItem cartItem=cartItemMap.get(cid);
-				OrderItem orderItem = new OrderItem();
-				orderItem.setCount(cartItem.getCount());
-				orderItem.setSubtotal(cartItem.getSubtotal());
-				orderItem.setProduct(cartItem.getProduct());
-				orderItem.setOrder(order);
-				orderItem.setStore(cartItem.getProduct().getStore());
-				//修改订单项的总金额
-				total+=cartItem.getSubtotal();
-				order.getOrderItems().add(orderItem);
-				//将对应购物项从购物车移除
-				cartItemService.removeCartItem(cartItem.getCitemid());
-				//更新商品库存
-				Product product=cartItem.getProduct();
-				Integer new_pAvailable=product.getPavailable()-orderItem.getCount();
-				if (new_pAvailable>=0) {
-					product.setPavailable(new_pAvailable);				
-				}
-				productService.update(product);
-			}	
-		}
-		order.setTotal(total);
-		order.setState(1);
-		Date date=new Date();                             
-        SimpleDateFormat temp=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
-        String date2=temp.format(date);  
-        Date date3=temp.parse(date2);  
-		order.setOrdertime(date3);
-		orderService.save(order);
-		
-		return "saveSuccess";
-	}
 	
 	
 	//查询我的订单

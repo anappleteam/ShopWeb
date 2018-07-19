@@ -12,7 +12,6 @@
 <title>会员注册</title>
 <link href="<%=path%>/css/register.css" rel="stylesheet" type="text/css" />
 <jsp:include page="menu.jsp" />
-
 </head>
 <body>
 	<div class="container register">
@@ -462,7 +461,6 @@
 			checkPhone(document.getElementById("phone"));
 		}
 	}
-
 </script>
 </body>
 </html>

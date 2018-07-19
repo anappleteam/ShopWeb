@@ -76,6 +76,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			return "registcheckcodeFail";
 		}
 		userService.save(user);
+		this.clearErrorsAndMessages();
 		this.addActionMessage("注册成功！请去邮箱激活！");
 		return "msg";
 	}
@@ -196,7 +197,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			userService.update(existUser);
 			this.addActionMessage("您已提交入驻申请，请等待审核！");
 		}
-		return "msg";
+		return "requestSuccess";
 		
 	}
 	/**
@@ -204,11 +205,18 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 	 * @return
 	 * @throws IOException 
 	 */
-	public String fresh(){
+	public String fresh() throws IOException{
 		User existUser=(User) ServletActionContext.getRequest().getSession().getAttribute("existUser");
 		if(existUser!=null){
 			User newExistUser=userService.findByUid(existUser.getUid());
 			ServletActionContext.getRequest().getSession().setAttribute("existUser", newExistUser);
+			HttpServletResponse response=ServletActionContext.getResponse();
+			response.setContentType("text/html;charset=UTF-8");
+			if(newExistUser.getState()==1||newExistUser.getState()==2){
+				response.getWriter().print("<a href='user_merchantsettle.action'>商家入驻</a>|");
+			}else if(newExistUser.getState()==3){
+				response.getWriter().print("<div class='dropdown'><span>我的店铺</span><div class='dropdown-content'><a href='productMng_findByCurStore.action?page=1'>商品管理</a><br><a href='store_orderMng?page=1'>订单管理</a></div></div> |");
+			}
 		}
 		return NONE;
 	}
@@ -249,7 +257,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
         }
 		user.setCode(str);
 		userService.saveIdentifyingCode(user);
-		this.addActionMessage("我们已向您的邮箱"+user.getEmail()+"发送了一封激活邮件请查收!");
+		this.addActionMessage("我们已向您的邮箱"+user.getEmail()+"发送了一封验证邮件请查收!");
 		return "msg";
 	}
 	/**
@@ -277,7 +285,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			existUser.setCode(null);
 			userService.update(existUser);
 			this.clearMessages();
-			this.addActionMessage("激活成功,请去登录！");
+			this.addActionMessage("修改成功,请去登录！");
 		}
 		return "msg";
 	}

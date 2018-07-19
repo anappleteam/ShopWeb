@@ -40,6 +40,8 @@
 			<result name="registcheckcodeFail">/WEB-INF/jsp/regist.jsp</result>
 			<result name="logincheckcodeFail">/WEB-INF/jsp/login.jsp</result>		
 			<result name="settle">/WEB-INF/jsp/settle.jsp</result>
+			<result name="requestSuccess" type="redirectAction">user_merchantsettle.action</result>
+			<result name="mystore" type="redirectAction">index</result>
 			<result name="changePwdPage">/WEB-INF/jsp/changePassword.jsp</result>
 			<result name="userChangePasswordPage">/WEB-INF/jsp/userChangePasswordPage.jsp</result>
 			<result name="changeFail">/WEB-INF/jsp/userChangePasswordPage.jsp</result>
@@ -56,7 +58,6 @@
     	</action>
     	<!-- 订单模块action -->
     	<action name="order_*" class="orderAction" method="{1}">
-    		<result name="saveSuccess">/WEB-INF/jsp/order.jsp</result>
     		<result name="findByUidSuccess">/WEB-INF/jsp/orderList.jsp</result>
     		<result name="findByOidSuccess">/WEB-INF/jsp/order.jsp</result>
     		<result name="paySuccess" type="redirectAction">order_findByUid.action?page=1</result>
@@ -97,6 +98,8 @@
 	    	<result name="removeCart">/WEB-INF/jsp/cart.jsp</result>
 	    	<result name="myCart">/WEB-INF/jsp/cart.jsp</result>
 	    	<result name="updateCart">/WEB-INF/jsp/cart.jsp</result>
+	    	<result name="saveSuccess">/WEB-INF/jsp/order.jsp</result>
+    		<result name="saveFail">/WEB-INF/jsp/cart.jsp</result>
     	</action>
     	<!-- 后台用户登录的action -->
     	<action name="adminUser_*" class="adminUserAction" method="{1}">

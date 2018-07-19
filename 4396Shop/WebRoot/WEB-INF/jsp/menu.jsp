@@ -6,7 +6,7 @@
 	style="background-color: #000000;position:fixed;z-index:9999;width:100%;height:160px;margin-top:-160px">
 	<div class="span24 last">
 		<div class="logo">
-			<a href="${pageContext.request.contextPath }/index">
+			<a href="${pageContext.request.contextPath}/index">
 				<img style="margin-top: 18px"
 					src="${pageContext.request.contextPath}/image/headlogo.png" />
 			</a>
@@ -25,35 +25,35 @@
 				</s:if>
 				<s:else>
 					<li id="headerUsername" class="headerUsername"
-						style="display: list-item;"><s:property
+						style="display: list-item;color:#DDDDDD;"><s:property
 							value="#session.existUser.username" />
 					</li>
 					<li id="headerLogout" class="headerLogout"
 						style="display: list-item;"><a
 							href="${pageContext.request.contextPath}/user_quit.action">退出</a>|
 					</li>
-					<li id="headerLogin" class="headerLogin"
+					<li id="headerOrder" class="headerOrder"
 						style="display: list-item;"><a
 							href="${pageContext.request.contextPath}/order_findByUid.action?page=1">我的订单</a>|
 					</li>					
 					<s:if
 						test="#session.existUser.state==1 ||#session.existUser.state==2 ">
-						<li id="headerLogin" class="headerLogin"
+						<li id="headerStore" class="headerLogin"
 							style="display: list-item;"><a
-								href="${pageContext.request.contextPath}/user_merchantsettle.action">商家入驻</a>|
+								href="javascript:;">商家入驻</a>|
 						</li>
 					</s:if>
 					<s:elseif test="#session.existUser.state==3">
-						<li id="headerLogin" class="headerLogin"
+						<li id="headerStore" class="headerLogin"
 							style="display: list-item;">
 							<div class="dropdown">
 								<span>我的店铺</span>
 								<div class="dropdown-content">
 									<a
-										href="${pageContext.request.contextPath}/productMng_findByCurStore.action?page=1">商品管理</a>
+										href="javascript:;">商品管理</a>
 									<br>
 									<a
-										href="${pageContext.request.contextPath}/store_orderMng?page=1">订单管理</a>
+										href="javascript:;">订单管理</a>
 								</div>
 							</div> |
 						</li>
@@ -89,7 +89,15 @@
 		// 1.创建异步交互对象
 		var xhr = createXmlHttp();
 		// 2.设置监听
-
+		xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4) {
+					if (xhr.status == 200) {
+						if (xhr.responseText != "") {
+							document.getElementById("headerStore").innerHTML=xhr.responseText;
+						}
+					}
+				}
+			}
 		// 3.打开连接
 		xhr.open("GET", "${pageContext.request.contextPath}/user_fresh.action?time=" + new Date().getTime(), true);
 		// 4.发送

@@ -82,9 +82,9 @@ public class OrderDao extends HibernateDaoSupport{
 	}
 
 	public List<OrderItem> findByPageSid(Integer sid, int begin, int limit) {
-		String hql = "select OI from OrderItem OI where OI.store.sid= ? and OI.state!=null";
+		String hql = "select OI from OrderItem OI where OI.store.sid= ? and OI.state!=null order by itemid DESC";
 		//分页的一种写法；
-		List<OrderItem> list= this.getHibernateTemplate().find(hql,sid);
+		List<OrderItem> list= this.getHibernateTemplate().execute(new PageHibernateCallback<OrderItem>(hql, new Object[]{sid}, begin, limit));
 		if (list !=null && list.size()>0) {
 			return list;
 		}
