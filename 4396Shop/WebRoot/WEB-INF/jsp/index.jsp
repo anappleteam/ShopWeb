@@ -13,7 +13,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <jsp:include page="menu.jsp" />
 </head>
 <body>
-
 	<div class="container index">
 		<div class="J_banner J_banner1">
 			<ul class="img">
@@ -24,22 +23,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<ul class="pointer"></ul>
 			<!-- 点 -->
 		</div>
-
 		<div class="span24">
 			<div id="hotProduct" class="hotProduct clearfix">
 				<div class="title">
 					<strong>热门商品</strong>
 				</div>
 				<ul class="tab">
-					<li class="current"><a href="./蔬菜分类.htm?tagIds=1"
-						target="_blank"></a></li>
-					<li><a target="_blank"></a></li>
-					<li><a target="_blank"></a></li>
 				</ul>
-
 				<ul class="tabContent" style="display: block;">
 					<s:iterator var="p" value="hList">
-
 						<li><a
 							href="<%=path %>/product_findByPid.action?pid=<s:property value="#p.pid"/>"
 							target="_blank"><img
@@ -53,13 +45,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="span24">
 			<div id="newProduct" class="newProduct clearfix">
 				<div class="title">
-					<strong>最新商品</strong> <a target="_blank"></a>
+					<strong>最新商品</strong>
 				</div>
 				<ul class="tab">
-					<li class="current"><a href="./蔬菜分类.htm?tagIds=2"
-						target="_blank"></a></li>
-					<li><a target="_blank"></a></li>
-					<li><a target="_blank"></a></li>
 				</ul>
 				<ul class="tabContent" style="display: block;">
 					<s:iterator var="n" value="nList">
@@ -75,7 +63,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 	</div>
-	
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.8.3.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/Myapi.js"></script>
 <script>

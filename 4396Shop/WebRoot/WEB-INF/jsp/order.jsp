@@ -9,10 +9,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <title>订单页面</title>
+<jsp:include page="menu.jsp"/>
 <link href="${pageContext.request.contextPath}/css/cart.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>		
-<%@ include file="menu.jsp" %>
 <div class="container cart">
 		<div class="span24">
 			<div class="step step1">

@@ -9,8 +9,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <title>找回密码</title>
-<link href="<%=path%>/css/register.css" rel="stylesheet" type="text/css"/>
 <jsp:include page="menu.jsp"/>
+<link href="<%=path%>/css/register.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div class="container register">

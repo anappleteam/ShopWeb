@@ -12,13 +12,12 @@
 <head>
 <meta http-equiv="Cache-Control" content="max-age=7200" />
 <title>网上商城</title>
+<jsp:include page="menu.jsp" />
 <link href="<%=path%>/css/product.css" rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath}/css/evaluate.css"
 	rel="stylesheet" type="text/css" />
 </head>
 <body>
-
-	<jsp:include page="menu.jsp" />
 	<div class="container productContent">
 		<div class="span6">
 			<div class="storeTitle">

@@ -4,6 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="bupt.sse.shop.category.vo.Category" table="category">
+		<cache usage="read-write"/>
 		<id name="cid">
 			<generator class="native"/>
 		</id>
@@ -12,9 +13,10 @@
 		
 		<!-- 配置二级分类的集合 -->
 		<set order-by="csid" name="categorySeconds" lazy="false" cascade="delete">
+			<cache usage="read-write"/>
 			<key column="cid"/>
 			<one-to-many class="bupt.sse.shop.categorysecond.vo.CategorySecond"/>
 		</set>
-		
+
 	</class>
 </hibernate-mapping>

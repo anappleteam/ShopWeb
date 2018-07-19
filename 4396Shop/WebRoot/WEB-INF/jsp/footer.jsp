@@ -13,8 +13,8 @@
 			<li><a>招贤纳士</a> |</li>
 			<li><a>法律声明</a> |</li>
 			<li><a>友情链接</a> |</li>
-			<li><a target="_blank">支付方式</a> |</li>
-			<li><a target="_blank">配送方式</a> |</li>
+			<li><a>支付方式</a> |</li>
+			<li><a>配送方式</a> |</li>
 			<li><a>服务声明</a> |</li>
 			<li><a>广告声明</a></li>
 		</ul>
