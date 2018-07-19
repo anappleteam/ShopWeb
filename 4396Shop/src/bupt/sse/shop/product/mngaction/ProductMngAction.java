@@ -5,11 +5,14 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.struts2.ServletActionContext;
+import org.springframework.http.HttpRequest;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -142,7 +145,7 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 	}
 
 	// 保存商品的方法
-	public String save() throws IOException {
+	public String save() throws IOException, ServletException {
 		Store store = (Store) ServletActionContext.getRequest().getSession().getAttribute("managedStore");
 		
 		
@@ -164,6 +167,9 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 			productService.save(product);
 			if (upload != null) {
 				uploadFileName="product_img_"+product.getPid()+"."+FilenameUtils.getExtension(uploadFileName);
+				
+				
+				
 				// 获得绝对路径
 				String realPath = ServletActionContext.getServletContext().getRealPath("/products");
 				// 创建文件

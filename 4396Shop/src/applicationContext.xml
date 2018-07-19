@@ -139,7 +139,7 @@
 		scope="prototype"></bean>
 
 	<!-- Action的配置 =========================== -->
-
+	<bean id="uploadAction" class="bupt.sse.shop.upload.Action.UploadAction"></bean>
 	<!-- 首页访问的Action -->
 	<bean id="indexAction" class="bupt.sse.shop.index.action.IndexAction"
 		scope="prototype">

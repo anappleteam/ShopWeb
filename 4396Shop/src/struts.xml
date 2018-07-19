@@ -90,6 +90,8 @@
     			</param>
     		</interceptor-ref> -->
     	</action>
+    	<action name="upload_*" class="uploadAction" method="{1}">
+    	</action>
     	
     	<!-- 购物车的action -->
     	<action name="cart_*" class="cartAction" method="{1}">

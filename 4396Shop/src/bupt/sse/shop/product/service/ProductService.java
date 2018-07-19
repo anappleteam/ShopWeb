@@ -175,6 +175,6 @@ public class ProductService {
 		productDao.update(product);
 		
 	}
-
+	
 
 }
