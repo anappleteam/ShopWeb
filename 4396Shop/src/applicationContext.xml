@@ -13,7 +13,7 @@
 	<!-- 配置连接池: -->
 	<!-- 引入外部属性文件 -->
 	<context:property-placeholder location="classpath:jdbc.properties" />
-	
+
 	<!-- 主从数据库配置 -->
 	<!-- c3p0配置 -->
 	<bean id="parentDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -25,14 +25,14 @@
 	</bean>
 	<!-- 配置主数据源 -->
 	<bean id="masterDataSource" parent="parentDataSource"
-	destroy-method="close">
+		destroy-method="close">
 		<property name="jdbcUrl" value="${jdbc.url.master}" /> <!-- 连接字符串 -->
 		<property name="user" value="${jdbc.user.master}" /> <!-- 用户名 -->
 		<property name="password" value="${jdbc.password.master}" /> <!-- 密码 -->
 	</bean>
 	<!-- 配置从数据源 -->
 	<bean id="slaveDataSource" parent="parentDataSource"
-	destroy-method="close">
+		destroy-method="close">
 		<property name="jdbcUrl" value="${jdbc.url.slave}" /> <!-- 连接字符串 -->
 		<property name="user" value="${jdbc.user.slave}" /> <!-- 用户名 -->
 		<property name="password" value="${jdbc.password.slave}" /> <!-- 密码 -->
@@ -40,41 +40,34 @@
 	<!-- 配置数据源 -->
 	<bean id="dataSource" class="bupt.sse.shop.aspect.DynamicdataSource">
 		<property name="targetDataSources">
-		<map key-type="java.lang.String">
-			<entry key="slave" value-ref="slaveDataSource" />		
-			<entry key="master" value-ref="masterDataSource" />
-		</map>
+			<map key-type="java.lang.String">
+				<entry key="slave" value-ref="slaveDataSource" />
+				<entry key="master" value-ref="masterDataSource" />
+			</map>
 		</property>
 		<property name="defaultTargetDataSource" ref="masterDataSource" />
 	</bean>
 	<!-- 切换数据源 -->
 	<bean id="dataSourceAdvice" class="bupt.sse.shop.aspect.DataSourceAdvice" />
-		<aop:config>
+	<aop:config>
 		<aop:advisor pointcut="execution(* bupt..*.dao..*(..))"
-		advice-ref="dataSourceAdvice" />
+			advice-ref="dataSourceAdvice" />
 	</aop:config>
-	
-	
-	
+
+
+
 	<!-- 配置C3P0连接池: -->
-	<!--
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" value="${jdbc.driver}" />
-		<property name="jdbcUrl" value="${jdbc.url}" />
-		<property name="user" value="${jdbc.user}" />
-		<property name="password" value="${jdbc.password}" />
-
-		<property name="checkoutTimeout" value="${jdbc.checkoutTimeout}" />
-		<property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}" />
-		<property name="initialPoolSize" value="${jdbc.initialPoolSize}" />
-		<property name="maxIdleTime" value="${jdbc.maxIdleTime}" />
-		<property name="acquireIncrement" value="${jdbc.acquireIncrement}"/>
-
-		<property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
-		<property name="minPoolSize" value="${jdbc.minPoolSize}" />
-		<property name="maxStatements" value="${jdbc.maxStatements}" />
-	</bean>
-  	-->
+	<!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"> 
+		<property name="driverClass" value="${jdbc.driver}" /> <property name="jdbcUrl" 
+		value="${jdbc.url}" /> <property name="user" value="${jdbc.user}" /> <property 
+		name="password" value="${jdbc.password}" /> <property name="checkoutTimeout" 
+		value="${jdbc.checkoutTimeout}" /> <property name="idleConnectionTestPeriod" 
+		value="${jdbc.idleConnectionTestPeriod}" /> <property name="initialPoolSize" 
+		value="${jdbc.initialPoolSize}" /> <property name="maxIdleTime" value="${jdbc.maxIdleTime}" 
+		/> <property name="acquireIncrement" value="${jdbc.acquireIncrement}"/> <property 
+		name="maxPoolSize" value="${jdbc.maxPoolSize}" /> <property name="minPoolSize" 
+		value="${jdbc.minPoolSize}" /> <property name="maxStatements" value="${jdbc.maxStatements}" 
+		/> </bean> -->
 	<!-- Hibernate相关信息 -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
@@ -89,8 +82,7 @@
 				<prop key="hibernate.connection.autocommit">false</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<!-- <prop key="hibernate.autoReconnect">true</prop> -->
-				<prop key="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider
-				</prop>
+				<prop key="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</prop>
 				<!-- 开启二级缓存，使用EhCache缓存 -->
 		      	<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
    				<prop key="hibernate.cache.use_query_cache">true</prop>
@@ -124,7 +116,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<!-- 事务管理 -->
 	<!-- 事务管理器 -->
 	<bean id="transactionManager"
@@ -133,29 +125,26 @@
 	</bean>
 	<!-- 开启注解事务 -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
-	
+
 	<!-- 切面类 -->
 	<bean id="orderAspect" class="bupt.sse.shop.aspect.OrderAspect" />
-	<bean id="userAspect" class="bupt.sse.shop.aspect.UserAspect" scope="prototype">
+	<bean id="userAspect" class="bupt.sse.shop.aspect.UserAspect"
+		scope="prototype">
 		<property name="categoryService" ref="categoryService"></property>
 	</bean>
 
-	<bean id="storeAspect" class="bupt.sse.shop.aspect.StoreAspect"/>
+	<bean id="storeAspect" class="bupt.sse.shop.aspect.StoreAspect" />
 
-	
 	<!-- 根据注解进行自动切面代理，不需要aop:config -->
-	<!-- proxy-target-class 属性值决定bean是基于jdk的接口方式的还是基于类的代理(CGLIB)被创建。
-
-		在ssh整合的项目中如果action继承了实现了别的接口的类,比如ActionSupport,ActionSupport实现了Action等接口，
-
-		在用aop拦截action的时候如果不指定proxy-target-class="true"的话，Spring会默认按照jdk默认接口的方式去代理对象，
-
+	<!-- proxy-target-class 属性值决定bean是基于jdk的接口方式的还是基于类的代理(CGLIB)被创建。 在ssh整合的项目中如果action继承了实现了别的接口的类,比如ActionSupport,ActionSupport实现了Action等接口， 
+		在用aop拦截action的时候如果不指定proxy-target-class="true"的话，Spring会默认按照jdk默认接口的方式去代理对象， 
 		由于Action没有父类实现的接口的方法，就会报java.lang.NoSuchMethodException:/> -->
-	<aop:aspectj-autoproxy proxy-target-class="true"/>
-	
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
 	<!-- strust2 拦截器bean -->
-	<bean id="privilegeInterceptor" class="bupt.sse.shop.interceptor.PrivilegeInterceptor" scope="prototype"></bean>
-	
+	<bean id="privilegeInterceptor" class="bupt.sse.shop.interceptor.PrivilegeInterceptor"
+		scope="prototype"></bean>
+
 	<!-- Action的配置 =========================== -->
 
 	<!-- 首页访问的Action -->
@@ -183,7 +172,7 @@
 	<bean id="productAction" class="bupt.sse.shop.product.action.ProductAction"
 		scope="prototype">
 		<property name="productService" ref="productService" />
-		<property name="conmentService" ref="conmentService"/>
+		<property name="conmentService" ref="conmentService" />
 	</bean>
 
 	<!-- 购物车的Action -->
@@ -198,7 +187,7 @@
 	<bean id="storeAction" class="bupt.sse.shop.store.action.StoreAction"
 		scope="prototype">
 		<property name="storeService" ref="storeService" />
-		<property name="orderService" ref="orderService" />		
+		<property name="orderService" ref="orderService" />
 		<property name="orderItemService" ref="orderItemService" />
 	</bean>
 	<!-- 店铺商品管理action -->
@@ -292,7 +281,7 @@
 	</bean>
 	<!-- 评论的service -->
 	<bean id="conmentService" class="bupt.sse.shop.conment.service.ConmentService">
-		<property name="conmentDao" ref="conmentDao"/>	
+		<property name="conmentDao" ref="conmentDao" />
 	</bean>
 
 	<!-- Dao的配置 =========================== -->
@@ -309,7 +298,7 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<bean id="orderItemDao" class="bupt.sse.shop.order.dao.OrderItemDao">
-		<property name="sessionFactory" ref="sessionFactory" />		
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<bean id="cartItemDao" class="bupt.sse.shop.cart.dao.CartItemDao">
 		<property name="sessionFactory" ref="sessionFactory" />
@@ -327,9 +316,9 @@
 	<bean id="storeDao" class="bupt.sse.shop.store.dao.StoreDao">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
+
 	<!-- 评论的Dao -->
 	<bean id="conmentDao" class="bupt.sse.shop.conment.dao.ConmentDao">
-		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 </beans>

@@ -180,8 +180,8 @@ div.hotProductCategory dd {
 .tab_containers {
     border: 1px solid #999;
     border-top: none;
+    width:880px;
     float: left;
-    width: 100%;
     background: #fff;
 }
 /* ---------- HotProduct ---------- */
@@ -1305,7 +1305,7 @@ div.productContent .introduction .title strong, div.productContent .parameter .t
 }
 
 div.productContent .introduction {
-	width: 1008px;
+	width: 880px;
 	margin-bottom: 10px;
 	overflow: hidden;
 }

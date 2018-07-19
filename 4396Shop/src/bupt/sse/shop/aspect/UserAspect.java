@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -77,6 +78,7 @@ public class UserAspect {
 				+ proceedingJoinPoint.getSignature().getName() + (double) (end - start) / 1000 + "秒");
 		return result;
 	}
+	
 	@Pointcut("execution(* bupt.sse.shop..*(..))")
 	private void allMethodPointCut() {
 	}

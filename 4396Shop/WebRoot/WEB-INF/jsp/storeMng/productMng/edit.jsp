@@ -52,14 +52,14 @@
 					<td style="text-align:center;vertical-align:middle;">
 						<input type="text" name="market_price"
 							value="<s:property value="model.market_price"/>"
-							onchange="checkInputLabel(this)"
+							onchange="checkInputFloat(this)"
 							id="userAction_save_do_logonName" class="text" />
 					</td>
 					<td style="text-align:center;vertical-align:middle;">商城价格：</td>
 					<td style="text-align:center;vertical-align:middle;">
 						<input type="text" name="shop_price"
 							value="<s:property value="model.shop_price"/>"
-							onchange="checkInputLabel(this)"
+							onchange="checkInputFloat(this)"
 							id="userAction_save_do_logonName" class="text" />
 					</td>
 				</tr>
@@ -78,7 +78,7 @@
 					<td style="text-align:center;vertical-align:middle;">
 						<input class="text" type="text" name="pavailable"
 							value="<s:property value="model.pavailable"/>"
-							onchange="checkInputLabel(this)"
+							onchange="checkInputInt(this)"
 							id="userAction_save_do_logonName" class="bg" />
 					</td>
 				</tr>
@@ -127,6 +127,26 @@
 				inputLabel.style.borderColor="#66ee66";
 			}
 		}
+		function checkInputInt(inputLabel){
+			var n=parseInt(inputLabel.value);
+			if(n.toString()=="NaN"||n.toString().length!=inputLabel.value.length||n<0){
+				inputLabel.value="";
+				inputLabel.style.borderColor="red";
+			}else{
+				inputLabel.value=n;
+				inputLabel.style.borderColor="#66ee66";
+			}
+		}
+		function checkInputFloat(inputLabel){
+			var n=parseFloat(inputLabel.value);
+			if(n.toString()=="NaN"||n.toString().length!=inputLabel.value.length||n<0){
+				inputLabel.value="";
+				inputLabel.style.borderColor="red";
+			}else{
+				inputLabel.value=n;
+				inputLabel.style.borderColor="#66ee66";
+			}
+		}
 		function resetBorderStyle(form){
 			form.pname.style.borderColor="";
 			form.market_price.style.borderColor="";
@@ -147,20 +167,20 @@
 				ele_pname.style.borderColor="red";
 				check=false;
 			}
-			if(ele_market_price.value==""){
-				ele_market_price.style.borderColor="red";
+			if(!checkInputFloat(ele_market_price)){
+				//ele_market_price.style.borderColor="red";
 				check=false;
 			}
-			if(ele_shop_price.value==""){
-				ele_shop_price.style.borderColor="red";
+			if(!checkInputFloat(ele_shop_price)){
+				//ele_shop_price.style.borderColor="red";
 				check=false;
 			}
 			/* if(ele_upload.value==""){
 				document.getElementById("file_container").style.borderColor="red";
 				check=false;
 			} */
-			if(ele_pavailable.value==""){
-				ele_pavailable.style.borderColor="red";
+			if(!checkInputInt(ele_pavailable)){
+				//ele_pavailable.style.borderColor="red";
 				check=false;
 			}
 			if(ele_pdesc.value==""){
