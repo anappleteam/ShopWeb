@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
     <hibernate-mapping>
     	<class name="bupt.sse.shop.categorysecond.vo.CategorySecond" table="categorysecond">
-    		<cache usage="read-only"/>
+    		<cache usage="read-write"/>
     		<id name="csid">
     			<generator class="native"/>
     		</id>

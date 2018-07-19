@@ -78,11 +78,11 @@
     		<result name="productMngError" type="redirectAction">productMng_findByCurStore?page=1</result>
     		<result name="findByCurStore">/WEB-INF/jsp/storeMng/productMng/list.jsp</result>
     		<result name="addPage">/WEB-INF/jsp/storeMng/productMng/add.jsp</result>
-    		<result name="saveSuccess" type="redirectAction">productMng_findByCurStore?page=1</result>
+    		<result name="saveSuccess" type="redirectAction">productMng_findByCurStore?page=${page}</result>
     		<result name="saveError">/WEB-INF/jsp/storeMng/productMng/infoError.jsp</result>
     		<result name="editPage">/WEB-INF/jsp/storeMng/productMng/edit.jsp</result>
-    		<result name="updateSuccess" type="redirectAction">productMng_findByCurStore?page=1</result>
-    		<result name="deleteSuccess" type="redirectAction">productMng_findByCurStore?page=1</result>
+    		<result name="updateSuccess" type="redirectAction">productMng_findByCurStore?page=${page}</result>
+    		<result name="deleteSuccess" type="redirectAction">productMng_findByCurStore?page=${page}</result>
     		
     		<!-- <interceptor-ref name="fileUpload">
     			<param name="allowTypes">
@@ -100,7 +100,7 @@
 	    	<result name="removeCart">/WEB-INF/jsp/cart.jsp</result>
 	    	<result name="myCart">/WEB-INF/jsp/cart.jsp</result>
 	    	<result name="updateCart">/WEB-INF/jsp/cart.jsp</result>
-	    	<result name="saveSuccess">/WEB-INF/jsp/order.jsp</result>
+	    	<result name="saveSuccess" type="redirectAction">order_findByOid.action?oid=${order.oid}</result>
     		<result name="saveFail">/WEB-INF/jsp/cart.jsp</result>
     	</action>
     	<!-- 后台用户登录的action -->

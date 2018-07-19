@@ -2,6 +2,8 @@ package bupt.sse.shop.product.dao;
 
 import java.util.List;
 
+import javax.management.Query;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
@@ -19,13 +21,9 @@ public class ProductDao extends HibernateDaoSupport {
 //		criteria.add(Restrictions.eq("is_hot",1));
 //		criteria.addOrder(Order.desc("pdate"));
 //		List<Product> list=this.getHibernateTemplate().findByCriteria(criteria,0,10);
-		Criteria criteria=this.getSession().createCriteria(Product.class);
-		criteria.add(Restrictions.eq("is_hot",1));
-		criteria.addOrder(Order.desc("pdate"));
-		criteria.setFirstResult(0);
-		criteria.setMaxResults(10);
-		criteria.setCacheable(true);
-		List<Product> list=criteria.list();
+		this.getHibernateTemplate().setCacheQueries(true);
+		String hql="from Product where is_hot=1 order by pdate desc";
+		List<Product> list=this.getHibernateTemplate().execute(new PageHibernateCallback<Product>(hql, new Object[]{}, 0, 10));;
 		return list;
 	}
 	//查询最新商品
@@ -34,12 +32,9 @@ public class ProductDao extends HibernateDaoSupport {
 //		DetachedCriteria criteria = DetachedCriteria.forClass(Product.class);
 //		criteria.addOrder(Order.desc("pdate"));
 //		List<Product> list = this.getHibernateTemplate().findByCriteria(criteria,0,10);
-		Criteria criteria=this.getSession().createCriteria(Product.class);
-		criteria.addOrder(Order.desc("pdate"));
-		criteria.setFirstResult(0);
-		criteria.setMaxResults(10);
-		criteria.setCacheable(true);
-		List<Product> list=criteria.list();
+		this.getHibernateTemplate().setCacheQueries(true);
+		String hql="from Product order by pdate desc";
+		List<Product> list=this.getHibernateTemplate().execute(new PageHibernateCallback<Product>(hql, new Object[]{}, 0, 10));;
 		return list;
  	}
 	//根据商品ID查询商品

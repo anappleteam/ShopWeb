@@ -129,22 +129,26 @@
 		}
 		function checkInputInt(inputLabel){
 			var n=parseInt(inputLabel.value);
-			if(n.toString()=="NaN"||n.toString().length!=inputLabel.value.length||n<0){
+			if(n.toString()=="NaN"||n<0){
 				inputLabel.value="";
 				inputLabel.style.borderColor="red";
+				return false;
 			}else{
 				inputLabel.value=n;
 				inputLabel.style.borderColor="#66ee66";
+				return true;
 			}
 		}
 		function checkInputFloat(inputLabel){
 			var n=parseFloat(inputLabel.value);
-			if(n.toString()=="NaN"||n.toString().length!=inputLabel.value.length||n<0){
+			if(n.toString()=="NaN"||n<0){
 				inputLabel.value="";
 				inputLabel.style.borderColor="red";
+				return false;
 			}else{
 				inputLabel.value=n;
 				inputLabel.style.borderColor="#66ee66";
+				return true;
 			}
 		}
 		function resetBorderStyle(form){

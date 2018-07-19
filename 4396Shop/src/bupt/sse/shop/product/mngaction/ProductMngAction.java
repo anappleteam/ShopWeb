@@ -155,7 +155,7 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 				
 				this.addActionError("illegal product info");
 				
-				return findPageBySid(store.getSid());
+				return "productMngError";
 			}
 			
 			product.setPdate(new Date(System.currentTimeMillis()));
@@ -181,7 +181,7 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 			}
 			// 页面跳转
 			page=new Integer(Integer.MAX_VALUE);
-			return findPageBySid(store.getSid());
+			return "saveSuccess";
 		}
 		return "productMngError";
 	}
@@ -204,10 +204,10 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 				productService.delete(product);
 
 				// 页面跳转
-				return findPageBySid(managedStore.getSid());
+				return "deleteSuccess";
 			}
 		}
-		return findPageBySid(managedStore.getSid());
+		return "productMngError";
 	}
 
 	// 编辑商品
@@ -250,7 +250,7 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 			response.setContentType("text/html;charset=UTF-8");
 			response.getWriter().flush();
 			response.getWriter().write("<script>history.go(-1)</script>");*/
-			return findPageBySid(managedStore.getSid());
+			return "productMngError";
 		}
 		
 		product.setPdate(new Date(System.currentTimeMillis()));
@@ -282,7 +282,7 @@ public class ProductMngAction extends ActionSupport implements ModelDriven<Produ
 		productService.update(product);
 
 		// 页面跳转
-		return findPageBySid(managedStore.getSid());
+		return "updateSuccess";
 	}
 
 }

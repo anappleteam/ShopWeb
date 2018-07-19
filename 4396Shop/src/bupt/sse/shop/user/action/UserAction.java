@@ -158,6 +158,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		else {
 			User user=userService.findByUid(existUser.getUid());
 			if(user.getState()==2){
+				this.clearErrorsAndMessages();
 				this.addActionMessage("您已提交入驻申请，请等待审核！");
 				return "msg";
 			}
