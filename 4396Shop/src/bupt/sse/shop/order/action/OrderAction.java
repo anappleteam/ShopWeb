@@ -93,7 +93,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	
 	
 	//查询我的订单
-	@Transactional(readOnly=true)
+	//@Transactional(readOnly=true)
 	public String findByUid(){
 		User user = (User) ServletActionContext.getRequest().getSession()
 				.getAttribute("existUser");
@@ -102,14 +102,14 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 		return "findByUidSuccess";
 	}
 	
-	@Transactional(readOnly=true)
+	//@Transactional(readOnly=true)
 	public String findByOid(){
 		order = orderService.findByOid(order.getOid());
 		ActionContext.getContext().getValueStack().set("order",order);
 		return "findByOidSuccess";
 	}
 	
-	@Transactional(isolation=Isolation.REPEATABLE_READ)
+	//@Transactional(isolation=Isolation.REPEATABLE_READ)
 	public void payOrder() throws IOException, AlipayApiException{
 		Order curOrder = orderService.findByOid(order.getOid());
 		curOrder.setAddr(order.getAddr());
@@ -145,7 +145,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	
 	}
 	
-	@Transactional(isolation=Isolation.REPEATABLE_READ)
+	//@Transactional(isolation=Isolation.REPEATABLE_READ)
 	public String notifyorder() throws AlipayApiException, UnsupportedEncodingException{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		Map<String,String> params = new HashMap<String,String>();
